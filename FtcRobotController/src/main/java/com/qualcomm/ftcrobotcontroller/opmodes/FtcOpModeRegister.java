@@ -68,6 +68,15 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register ("FourMotorControlOP", FourMotorControlOP.class);
     //manager.register ("AutoMoveForwardGyroOP", AutoMoveForwardGyroOP.class);
     //manager.register ("continousServoOp", continousServoOp.class);
+    manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
+    manager.register("K9TeleOp", K9TeleOp.class);
+    manager.register("PushBotAuto", PushBotAuto.class);
+    manager.register("PushBotManual", PushBotManual.class);
+    manager.register("ColrSensorDriver", ColorSensorDriver.class);
+    manager.register("Auto_Tile1_RedGroundPark", Auto_Tile1_RedGroundPark.class);
+    manager.register("AutoWhiteLine",AutoWhiteLine.class);
+    manager.register("ColorTestOp",ColorTestOp.class);
+    manager.register("ColorSenserTeleOP",ColorSenserTeleOP.class);
     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */
