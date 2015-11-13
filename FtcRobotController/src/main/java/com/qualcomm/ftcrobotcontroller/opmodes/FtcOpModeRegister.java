@@ -74,9 +74,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("PushBotManual", PushBotManual.class);
     manager.register("ColrSensorDriver", ColorSensorDriver.class);
     manager.register("Auto_Tile1_RedGroundPark", Auto_Tile1_RedGroundPark.class);
-    manager.register("AutoWhiteLine",AutoWhiteLine.class);
-    manager.register("ColorTestOp",ColorTestOp.class);
-    manager.register("ColorSenserTeleOP",ColorSenserTeleOP.class);
+    manager.register("WheelieBarTEST", WheelieBarTEST.class);
     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */
