@@ -57,6 +57,20 @@ public class FtcOpModeRegister implements OpModeRegister {
 
     manager.register("NullOp", NullOp.class);
 
+<<<<<<< Updated upstream
+=======
+    //manager.register("K9TeleOp", K9TeleOp.class);
+    //manager.register ("PushBotAuto", PushBotAuto.class);
+    //manager.register ("PushBotManual", PushBotManual.class);
+    manager.register ("RhtpTankDrive", RhtpTankDrive.class);
+    //manager.register ("RhtpTankDriveNegativeMotors", RhtpTankDriveNegativeMotors.class);
+    manager.register ("TestWheelsOP", TestWheelsOP.class);
+    manager.register ("TELEMainTeleopControl", TELEMainTeleopControl.class);
+    manager.register ("TwoServoIndependentControlOp", twoServoIndependentControlOP.class);
+    //manager.register ("FourMotorControlOP", FourMotorControlOP.class);
+    //manager.register ("AutoMoveForwardGyroOP", AutoMoveForwardGyroOP.class);
+    //manager.register ("continousServoOp", continousServoOp.class);
+>>>>>>> Stashed changes
     manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
     manager.register("K9TeleOp", K9TeleOp.class);
     manager.register ("PushBotAuto", PushBotAuto.class);
