@@ -40,15 +40,22 @@ import com.qualcomm.robotcore.util.Range;
 public class RhtpTankDrive2Controls4OP extends OpMode {
 
 	boolean slowmo = false;
-	Servo servofront;
+	//Servo servofront;
+	//Servo servoback;
+	//Servo servotop;
+	//Servo servomid;
 	DcMotor motorRight;
 	DcMotor motorLeft;
 	//DcMotor motorFront;
 	//DcMotor motorCapture;
-	DcMotor motorArm;
+	//DcMotor motorArm;
 	int timer = 0;
 	int timer2 = 0;
+	int timer3 = 0;
+	int timer4 = 0;
 	double servopos;
+	double servopos2;
+	double servopos3;
 
 	public RhtpTankDrive2Controls4OP() {
 
@@ -59,14 +66,17 @@ public class RhtpTankDrive2Controls4OP extends OpMode {
 	public void init() {
 
 		servopos=0.5;
-
-		servofront = hardwareMap.servo.get("servo_front");
+		servopos2=0.1;
+		servopos3=0.5;
+		//servofront = hardwareMap.servo.get("servo_front");
 		motorRight = hardwareMap.dcMotor.get("motor_right");
 		motorLeft = hardwareMap.dcMotor.get("motor_left");
 		motorLeft.setDirection(DcMotor.Direction.REVERSE);
+		//servomid = hardwareMap.servo.get("servo_mid");
 		//motorCapture = hardwareMap.dcMotor.get("motor_collect");
-		//motorFront = hardwareMap.dcMotor.get("motor_wheelie");
-		motorArm = hardwareMap.dcMotor.get("motor_arm");
+		//servoback = hardwareMap.servo.get("servo_back");
+		//motorArm = hardwareMap.dcMotor.get("motor_arm");
+		//servotop=hardwareMap.servo.get("servo_top");
 
 	}
 
@@ -94,7 +104,7 @@ public class RhtpTankDrive2Controls4OP extends OpMode {
 		timer++;
 
 		// *Cow-catcher
-		if (timer2>=30) {
+		/*if (timer2>=30) {
 			if (gamepad1.b) {
 				if (servopos == 1) {
 					servopos = 0;
@@ -105,7 +115,7 @@ public class RhtpTankDrive2Controls4OP extends OpMode {
 			}
 		}
 		timer2++;
-		servofront.setPosition(servopos);
+		servofront.setPosition(servopos);*/
 
 		// *Tank Drive part 2
 		right = Range.clip(right, -1, 1);
@@ -124,24 +134,19 @@ public class RhtpTankDrive2Controls4OP extends OpMode {
 		left2 = left2*0.2f;
 		right2= right2*0.2f;
 
-		if (slowmo=true){
+		if (slowmo==true){
 			motorLeft.setPower(left2);
 			motorRight.setPower(right2);
 		}
 
 		// *Wheelie Bar
-		/*if (gamepad2.y) {
-			motorFront.setPower(1);
-		}
-		else if (gamepad2.a) {
-			motorFront.setPower(-1);
-		}
-		else
-		{
-			motorFront.setPower(0);
+		/*if (gamepad1.left_bumper) {
+			servoback.setPosition(0);
+		} else if (gamepad1.right_bumper) {
+			servoback.setPosition(1);
 		}*/
 
-		// *Item Collector
+		// *Item Collector`
 		/*
 		if (gamepad2.y)
 		{
@@ -169,10 +174,39 @@ public class RhtpTankDrive2Controls4OP extends OpMode {
 			motorArm.setPower(-1);
 		}*/
 
+		// *Guy Dumper
+		/*servopos2= Range.clip(servopos, 0.01, .99);
+		if (timer3==0)
+		{
+			servopos2=0.1;
+		}
+		timer3++;
+		if (gamepad2.left_bumper) {
+			servopos2-=0.005;
+		}
+		if (gamepad2.right_bumper) {
+			servopos2+=0.005;
+		}
+		servotop.setPosition(servopos2);*/
+
+		// *Zipline Delivery
+		/*servopos2= Range.clip(servopos, 0.01, .99);
+		if (timer4==0)
+		{
+			servopos3=0.5;
+		}
+		timer4++;
+		if (gamepad1.left_trigger>=0.3) {
+			servopos3-=0.005;
+		}
+		if (gamepad1.right_trigger>=0.3) {
+			servopos3+=0.005;
+		}
+		servomid.setPosition(servopos3);*/
 
 		telemetry.addData("Slowmo?", slowmo);
 		telemetry.addData("Timer", timer);
-		telemetry.addData("Teleop Version", "1.1   ");
+		telemetry.addData("Teleop Version", "1.3");
 		telemetry.addData("Can control:","2 motor driving (slowmo), 1 servo");
 	}
 

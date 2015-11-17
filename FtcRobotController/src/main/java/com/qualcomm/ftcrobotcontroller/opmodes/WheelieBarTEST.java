@@ -12,15 +12,17 @@ public class WheelieBarTEST extends OpMode {
     @Override
     public void init() {
         servofront = hardwareMap.servo.get("servo_front");
-        servofront.setPosition(.35);
+        servofront.setPosition(0);
     }
 
     @Override
     public void loop() {
-        if (gamepad1.y) {
-            servofront.setPosition(.35);
-        } else if (gamepad1.a) {
-            servofront.setPosition(.04);
+        //sets WheelieBar down
+        if (gamepad1.left_bumper) {
+            servofront.setPosition(0);
+            //set WheelieBar Up
+        } else if (gamepad1.right_bumper) {
+            servofront.setPosition(.95);
         }
 
     }

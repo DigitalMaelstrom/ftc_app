@@ -52,7 +52,7 @@ public class twoServoIndependentControlOP extends OpMode {
 	//Servo servo1;
 	double servopos1;
 	double servopos;
-
+	int timer = 0;
 	/**
 	 * Constructor
 	 */
@@ -74,6 +74,7 @@ public class twoServoIndependentControlOP extends OpMode {
 		 */
 		double servopos=0.5;
 		double servopos2=0.5;
+		timer = 0;
 		/*
 		 * For the demo Tetrix K9 bot we assume the following,
 		 *   There are two motors "motor_1" and "motor_2"
@@ -96,7 +97,15 @@ public class twoServoIndependentControlOP extends OpMode {
 	 */
 	@Override
 	public void loop() {
+		servopos= Range.clip(servopos, 0.01, .99);
+		servopos1=Range.clip(servopos1, 0.01, .99);
 
+
+		if (timer==0)
+		{
+			servopos=0.1;
+		}
+		timer++;
 		/*
 		 * Gamepad 1
 		 * 
@@ -111,16 +120,15 @@ public class twoServoIndependentControlOP extends OpMode {
 
 
 
-		servopos= Range.clip(servopos, 0.01, .99);
-		servopos1=Range.clip(servopos1, 0.01, .99);
+
 
 
 
 		if (gamepad1.y) {
-			servopos+=0.01;
+			servopos+=0.005;
 		}
 		if (gamepad1.a) {
-			servopos-=0.01;
+			servopos-=0.005;
 		}
 
 

@@ -64,7 +64,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register ("RhtpTankDriveNegativeMotors", RhtpTankDriveNegativeMotors.class);
     manager.register ("TestWheelsOP", TestWheelsOP.class);
     manager.register ("RhtpTankDrive2Controls4Op", RhtpTankDrive2Controls4OP.class);
-    //manager.register ("TwoServoIndependentControlOp", twoServoIndependentControlOP.class);
+    manager.register ("TwoServoIndependentControlOp", twoServoIndependentControlOP.class);
     //manager.register ("FourMotorControlOP", FourMotorControlOP.class);
     //manager.register ("AutoMoveForwardGyroOP", AutoMoveForwardGyroOP.class);
     //manager.register ("continousServoOp", continousServoOp.class);
@@ -75,6 +75,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("ColrSensorDriver", ColorSensorDriver.class);
     manager.register("Auto_Tile1_RedGroundPark", Auto_Tile1_RedGroundPark.class);
     manager.register("WheelieBarTEST", WheelieBarTEST.class);
+    manager.register("triggersTEST", triggersTEST.class);
     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */
