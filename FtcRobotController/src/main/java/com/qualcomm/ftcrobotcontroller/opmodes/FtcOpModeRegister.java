@@ -76,6 +76,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("Auto_Tile1_RedGroundPark", Auto_Tile1_RedGroundPark.class);
     manager.register("WheelieBarTEST", WheelieBarTEST.class);
     manager.register("triggersTEST", triggersTEST.class);
+    manager.register("AUTOBeaconRed",AUTOBeaconRed.class);
     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */
