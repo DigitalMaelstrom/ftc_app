@@ -55,28 +55,30 @@ public class FtcOpModeRegister implements OpModeRegister {
      * If two or more op modes are registered with the same name, the app will display an error.
      */
 
-    manager.register("NullOp", NullOp.class);
+    //manager.register("NullOp", NullOp.class);
 
     //manager.register("K9TeleOp", K9TeleOp.class);
     //manager.register ("PushBotAuto", PushBotAuto.class);
     //manager.register ("PushBotManual", PushBotManual.class);
-    manager.register ("RhtpTankDrive", RhtpTankDrive.class);
+   // manager.register ("RhtpTankDrive", RhtpTankDrive.class);
     //manager.register ("RhtpTankDriveNegativeMotors", RhtpTankDriveNegativeMotors.class);
-    manager.register ("TestWheelsOP", TestWheelsOP.class);
+   // manager.register ("TestWheelsOP", TestWheelsOP.class);
     manager.register ("RhtpTankDrive2Controls4Op", RhtpTankDrive2Controls4OP.class);
     manager.register ("TwoServoIndependentControlOp", twoServoIndependentControlOP.class);
     //manager.register ("FourMotorControlOP", FourMotorControlOP.class);
     //manager.register ("AutoMoveForwardGyroOP", AutoMoveForwardGyroOP.class);
     //manager.register ("continousServoOp", continousServoOp.class);
-    manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
-    manager.register("K9TeleOp", K9TeleOp.class);
-    manager.register("PushBotAuto", PushBotAuto.class);
-    manager.register("PushBotManual", PushBotManual.class);
+   // manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
+   // manager.register("K9TeleOp", K9TeleOp.class);
+    //manager.register("PushBotAuto", PushBotAuto.class);
+   // manager.register("PushBotManual", PushBotManual.class);
     manager.register("ColrSensorDriver", ColorSensorDriver.class);
     manager.register("Auto_Tile1_RedGroundPark", Auto_Tile1_RedGroundPark.class);
     manager.register("WheelieBarTEST", WheelieBarTEST.class);
-    manager.register("triggersTEST", triggersTEST.class);
+    //manager.register("triggersTEST", triggersTEST.class);
     manager.register("AUTOBeaconRed",AUTOBeaconRed.class);
+    manager.register("AUTORedSideBlueRamp",AUTORedSideBlueRamp.class);
+    manager.register("AUTOBlueSideRedRamp",AUTOBlueSideRedRamp.class);
     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */

@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 /**
  * Created by Internet on 11/16/2015.
  */
-public class AUTOBeaconRed extends OpMode{
+public class AUTOBlueSideRedRamp extends OpMode{
 
     int timer = 0;
     DcMotor motorR;
@@ -29,13 +29,13 @@ public class AUTOBeaconRed extends OpMode{
             motorL.setPower(1);
             motorR.setPower(1);
         }
-        if(timer==180){
+        if(timer==100){
             motorL.setPower(0);
             motorR.setPower(0);
         }
         if(timer==181){
-            motorL.setPower(1);
-            motorR.setPower(0);
+            motorL.setPower(0);
+            motorR.setPower(1);
         }
         if(timer==260){
             motorL.setPower(0);
@@ -46,19 +46,20 @@ public class AUTOBeaconRed extends OpMode{
             motorL.setPower(1);
             motorR.setPower(1);
         }
-        if(timer==340)
+        if(timer==298)
         {
-            motorL.setPower(1);
-            motorR.setPower(0);
+            motorL.setPower(0);
+            motorR.setPower(1);
         }
-        if(timer==480)
+        if(timer==395)
         {
             motorL.setPower(1);
             motorR.setPower(1);
         }
-        if(timer==500){
+        if(timer==(490)){
             motorL.setPower(0);
             motorR.setPower(0);
         }
+        motorL.getCurrentPosition();
     }
 }
