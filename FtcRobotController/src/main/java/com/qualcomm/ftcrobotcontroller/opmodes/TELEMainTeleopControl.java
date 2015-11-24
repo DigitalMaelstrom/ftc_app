@@ -33,6 +33,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 
@@ -44,11 +45,11 @@ public class TELEMainTeleopControl extends OpMode {
 	//Servo servoback;
 	//Servo servotop;
 	//Servo servomid;
+	DcMotor motorBack;
 	DcMotor motorRight;
 	DcMotor motorLeft;
-	//DcMotor motorFront;
 	//DcMotor motorCapture;
-	//DcMotor motorArm;
+	DcMotor motorArm;
 	int timerslowmo = 0;
 	int timercowcatch = 0;
 	int timerdumper = 0;
@@ -68,6 +69,8 @@ public class TELEMainTeleopControl extends OpMode {
 		cowcatchpos =0.5;
 		dumperpos =0.1;
 		ziplinepos =0.5;
+
+
 		//servofront = hardwareMap.servo.get("servoFront");
 		motorRight = hardwareMap.dcMotor.get("motorR");
 		motorLeft = hardwareMap.dcMotor.get("motorL");
@@ -75,7 +78,8 @@ public class TELEMainTeleopControl extends OpMode {
 		//servomid = hardwareMap.servo.get("servoMid");
 		//motorCapture = hardwareMap.dcMotor.get("motorCollect");
 		//servoback = hardwareMap.servo.get("servoBack");
-		//motorArm = hardwareMap.dcMotor.get("motorArm");
+		motorBack = hardwareMap.dcMotor.get("motorWheelie");
+		motorArm = hardwareMap.dcMotor.get("motorArm");
 		//servotop=hardwareMap.servo.get("servoTop");
 
 	}
@@ -88,6 +92,7 @@ public class TELEMainTeleopControl extends OpMode {
 			float right = gamepad1.right_stick_y;
 			float left2 = gamepad1.left_stick_y;
 			float right2 = gamepad1.right_stick_y;
+
 
 		//Toggle slow mode by pressing X
 		if (timerslowmo>=30) {
@@ -129,19 +134,19 @@ public class TELEMainTeleopControl extends OpMode {
 		right2 = (float)scaleInput(right2);
 		left2 = (float)scaleInput(left2);
 
-		motorRight.setPower(right);
-		motorLeft.setPower(left);
+		motorRight.setPower(-right);
+		motorLeft.setPower(-left);
 
 		left2 = left2*0.2f;
 		right2= right2*0.2f;
 
 		//if slowmode is activated, use the slower powered tank drive
 		if (slowmo==true){
-			motorLeft.setPower(left2);
-			motorRight.setPower(right2);
+			motorLeft.setPower(-left2);
+			motorRight.setPower(-right2);
 		}
 
-		// *Wheelie Bar
+		// *Wheelie Bar (servo)
 		/*
 		//Press left bumper to lower wheelie bar, press right bumper to raise wheelie bar
 		if (gamepad1.left_bumper) {
@@ -149,11 +154,26 @@ public class TELEMainTeleopControl extends OpMode {
 		} else if (gamepad1.right_bumper) {
 			servoback.setPosition(0.95);
 		}*/
-
+		// *Wheelie Bar (motor)
+		//Press left bumper to lower wheelie bar, press right bumper to raise wheelie bar
+		/*if (gamepad1.left_bumper) {
+			motorBack.setPower(-1);
+		} else if (gamepad1.right_bumper) {
+			motorBack.setPower(1);
+		}
+		else
+		{
+			motorBack.setPower(0);
+		}*/
+		// (UNOFFICIAL) Right joystick on gamepad 2
+		float wheelie = gamepad2.right_stick_y;
+		wheelie = Range.clip(wheelie, -1, 1);
+		wheelie = (float)scaleInput(wheelie);
+		motorBack.setPower(wheelie);
 		// *Item Collector`
-		/*
+
 		//Press Y to spin the capture device forward, A to spin it backward
-		if (gamepad2.y)
+		/*if (gamepad2.y)
 		{
 			motorCapture.setPower(1);
 		}
@@ -166,9 +186,9 @@ public class TELEMainTeleopControl extends OpMode {
 		}*/
 
 		// *Arm Control
-		/*
+
 		//Press Y to raise arm, press A to lower arm
-		if (gamepad1.y)
+		/*if (gamepad1.y)
 		{
 			motorArm.setPower(1);
 		}
@@ -179,6 +199,11 @@ public class TELEMainTeleopControl extends OpMode {
 		{
 			motorArm.setPower(-1);
 		}*/
+		// (UNOFFICIAL) Left joystick on gamepad 2
+		float arm = gamepad2.left_stick_y;
+		arm = Range.clip(arm, -1, 1);
+		arm = (float)scaleInput(arm);
+		motorArm.setPower(arm);
 
 		// *Guy Dumper
 		/*dumperpos = Range.clip(dumperpos, 0.01, .99);
@@ -214,8 +239,8 @@ public class TELEMainTeleopControl extends OpMode {
 
 		telemetry.addData("Slowmo?", slowmo);
 		telemetry.addData("Timer", timerslowmo);
-		telemetry.addData("Teleop Version", "1.5, renamed motors and servos");
-		telemetry.addData("Can control:","2 motor driving (slowmo)");
+		telemetry.addData("Teleop Version", "1.7.5 TEST");
+		telemetry.addData("Can control:","2 motor driving (slowmo), Arm, Wheelie Bar, Zip-line");
 	}
 
 
