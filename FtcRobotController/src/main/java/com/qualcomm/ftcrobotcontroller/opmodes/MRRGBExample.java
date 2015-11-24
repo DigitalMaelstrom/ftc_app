@@ -77,6 +77,11 @@ public class MRRGBExample extends LinearOpMode {
 
     // wait for the start button to be pressed.
     waitForStart();
+      sensorRGB.enableLed(false);
+
+      waitOneFullHardwareCycle();
+
+      sensorRGB.enableLed(true);
 
     // hsvValues is an array that will hold the hue, saturation, and value information.
     float hsvValues[] = {0F,0F,0F};
@@ -96,10 +101,11 @@ public class MRRGBExample extends LinearOpMode {
     // Note we use opModeIsActive() as our loop condition because it is an interruptible method.
     while (opModeIsActive()) {
       // check the status of the x button on either gamepad.
-      bCurrState = gamepad1.x || gamepad2.x;
+     // bCurrState = gamepad1.x || gamepad2.x;
 
+        sensorRGB.enableLed(true);
       // check for button state transitions.
-      if (bCurrState == true && bCurrState != bPrevState)  {
+     /* if (bCurrState == true && bCurrState != bPrevState)  {
         // button is transitioning to a pressed state.
 
         // print a debug statement.
@@ -127,7 +133,7 @@ public class MRRGBExample extends LinearOpMode {
 
         // turn off the LED.
         sensorRGB.enableLed(false);
-      }
+      }*/
 
       // convert the RGB values to HSV values.
       //Color.RGBToHSV((sensorRGB.red() * 8), (sensorRGB.green() * 8), (sensorRGB.blue() * 8), hsvValues);
@@ -151,6 +157,9 @@ public class MRRGBExample extends LinearOpMode {
 
       // wait a hardware cycle before iterating.
       waitOneFullHardwareCycle();
+
+
+
     }
   }
 }
