@@ -103,7 +103,7 @@ public class twoServoIndependentControlOP extends OpMode {
 
 		if (timer==0)
 		{
-			servopos=0.1;
+			servopos=0.5;
 		}
 		timer++;
 		/*

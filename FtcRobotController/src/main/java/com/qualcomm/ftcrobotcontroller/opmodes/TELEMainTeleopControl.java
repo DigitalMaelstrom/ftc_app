@@ -40,17 +40,17 @@ import com.qualcomm.robotcore.util.Range;
 public class TELEMainTeleopControl extends OpMode {
 
 
-	boolean slowmo = false;
+
 	//Servo servofront;
 	//Servo servoback;
-	//Servo servotop;
-	//Servo servomid;
+	Servo servotop;
+	Servo servomid;
 	DcMotor motorBack;
 	DcMotor motorRight;
 	DcMotor motorLeft;
 	//DcMotor motorCapture;
 	DcMotor motorArm;
-	int timerslowmo = 0;
+
 	int timercowcatch = 0;
 	int timerdumper = 0;
 	int timerzipeline = 0;
@@ -75,12 +75,12 @@ public class TELEMainTeleopControl extends OpMode {
 		motorRight = hardwareMap.dcMotor.get("motorR");
 		motorLeft = hardwareMap.dcMotor.get("motorL");
 		motorLeft.setDirection(DcMotor.Direction.REVERSE);
-		//servomid = hardwareMap.servo.get("servoMid");
+		servomid = hardwareMap.servo.get("servoMid");
 		//motorCapture = hardwareMap.dcMotor.get("motorCollect");
 		//servoback = hardwareMap.servo.get("servoBack");
 		motorBack = hardwareMap.dcMotor.get("motorWheelie");
 		motorArm = hardwareMap.dcMotor.get("motorArm");
-		//servotop=hardwareMap.servo.get("servoTop");
+		servotop=hardwareMap.servo.get("servoTop");
 
 	}
 
@@ -94,24 +94,13 @@ public class TELEMainTeleopControl extends OpMode {
 			float right2 = gamepad1.right_stick_y;
 
 
-		//Toggle slow mode by pressing X
-		if (timerslowmo>=30) {
-			if (gamepad1.x) {
-				if (slowmo == true) {
-					slowmo = false;
-				} else {
-					slowmo = true;
-				}
-				timerslowmo =0;
-			}
-		}
-		timerslowmo++;
+
 
 		// *Cow-catcher
 		/*
 		//Push B to push out/pull in the cow catcher
 		if (timercowcatch >=30) {
-			if (gamepad1.b) {
+			if (gamepad1.a) {
 				if (cowcatchpos == 1) {
 					cowcatchpos = 0;
 				} else {
@@ -126,25 +115,16 @@ public class TELEMainTeleopControl extends OpMode {
 		// *Tank Drive part 2
 		right = Range.clip(right, -1, 1);
 		left = Range.clip(left, -1, 1);
-		right2 = Range.clip(right2, -1, 1);
-		left2 = Range.clip(left2, -1, 1);
+
 
 		right = (float)scaleInput(right);
 		left =  (float)scaleInput(left);
-		right2 = (float)scaleInput(right2);
-		left2 = (float)scaleInput(left2);
+
 
 		motorRight.setPower(-right);
 		motorLeft.setPower(-left);
 
-		left2 = left2*0.2f;
-		right2= right2*0.2f;
 
-		//if slowmode is activated, use the slower powered tank drive
-		if (slowmo==true){
-			motorLeft.setPower(-left2);
-			motorRight.setPower(-right2);
-		}
 
 		// *Wheelie Bar (servo)
 		/*
@@ -206,41 +186,51 @@ public class TELEMainTeleopControl extends OpMode {
 		motorArm.setPower(arm);
 
 		// *Guy Dumper
-		/*dumperpos = Range.clip(dumperpos, 0.01, .99);
+		dumperpos = Range.clip(dumperpos, 0.01, .99);
 		if (timerdumper ==0)
 		{
 			dumperpos =0.1;
 		}
 		timerdumper++;
 		//Use the left bumper to lower the guy dumper, right bumper to raise the guy dumper
-		if (gamepad2.left_bumper) {
+		if (gamepad2.left_trigger>=0.3) {
 			dumperpos -=0.005;
 		}
-		if (gamepad2.right_bumper) {
+		if (gamepad2.right_trigger>=0.3) {
 			dumperpos +=0.005;
 		}
-		servotop.setPosition(dumperpos);*/
+		servotop.setPosition(dumperpos);
 
 		// *Zipline Delivery
-		/*ziplinepos = Range.clip(ziplinepos, 0.01, .99);
+		ziplinepos = Range.clip(ziplinepos, 0.01, .99);
 		if (timerzipeline ==0)
 		{
-			ziplinepos =0.5;
+			ziplinepos =0.75;
 		}
 		//use left and right triggers to adjust zipline delivery
 		timerzipeline++;
-		if (gamepad1.left_trigger>=0.3) {
+		/*if (gamepad1.left_trigger>=0.3) {
 			ziplinepos -=0.005;
 		}
 		if (gamepad1.right_trigger>=0.3) {
 			ziplinepos +=0.005;
+		}*/
+		if (gamepad1.y)
+		{
+			ziplinepos=0.5;
 		}
-		servomid.setPosition(ziplinepos);*/
+		if (gamepad1.x)
+		{
+			ziplinepos=1;
+		}
+		if (gamepad1.b)
+		{
+			ziplinepos=0;
+		}
+		servomid.setPosition(ziplinepos);
 
-		telemetry.addData("Slowmo?", slowmo);
-		telemetry.addData("Timer", timerslowmo);
-		telemetry.addData("Teleop Version", "1.7.5 TEST");
-		telemetry.addData("Can control:","2 motor driving (slowmo), Arm, Wheelie Bar, Zip-line");
+		telemetry.addData("Teleop Version", "2.1.2");
+		telemetry.addData("Can control:","2 motor driving (slowmo), Wheelie Bar, Zip-line, Dumper, arm");
 	}
 
 
