@@ -22,17 +22,22 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
  *
  *
  */
+
+
+
 public class TESTGyro extends LinearOpMode {
 
+    GyroSensor sensorGyro;
+    DcMotor motorL;
+    DcMotor motorR;
 
     @Override
     public void runOpMode() throws InterruptedException {
 
-        GyroSensor sensorGyro;
+
         int xVal, yVal, zVal = 0;
         int heading = 0;
-        DcMotor motorL;
-        DcMotor motorR;
+
 
         // write some device information (connection info, name and type)
         // to the log file.
@@ -45,6 +50,9 @@ public class TESTGyro extends LinearOpMode {
 
         motorL.setDirection(DcMotor.Direction.REVERSE);
 
+        //To Turn right -power right +power left
+        //To turn left  -power left +power right
+
         // calibrate the gyro.
         sensorGyro.calibrate();
 
@@ -52,26 +60,25 @@ public class TESTGyro extends LinearOpMode {
         waitForStart();
 
         // make sure the gyro is calibrated.
+
         while (sensorGyro.isCalibrating()) {
             Thread.sleep(50);
         }
-
+                //Turn Right 90
               while (opModeIsActive()) {
-                if (sensorGyro.getHeading()<90) {
-                    motorL.setPower(.25);
-                    motorR.setPower(-.25);
-                }
-                if (sensorGyro.getHeading()==90){
-                    motorL.setPower(0);
-                    motorR.setPower(0);
-                }
+
                 // if the A and B buttons are pressed, reset Z heading.
                 if (gamepad1.a && gamepad1.b) {
                     // reset heading.
                     sensorGyro.resetZAxisIntegrator();
                 }
 
-                // get the x, y, and z values (rate of change of angle).
+                  turnRight(70, .9);
+                  Thread.sleep(500);
+                  turnLeft(70,.9);
+
+
+                  // get the x, y, and z values (rate of change of angle).
                 xVal = sensorGyro.rawX();
                 yVal = sensorGyro.rawY();
                 zVal = sensorGyro.rawZ();
@@ -86,9 +93,37 @@ public class TESTGyro extends LinearOpMode {
                 telemetry.addData("3. z", String.format("%03d", zVal));
                 telemetry.addData("4. h", String.format("%03d", heading));
 
-                Thread.sleep(100);
 
-                waitOneFullHardwareCycle();
+                //waitOneFullHardwareCycle();
             }
+
+        motorL.setPower(0);
+        motorR.setPower(0);
         }
+        public  void turnRight(int degrees, double speed) {
+            sensorGyro.resetZAxisIntegrator();
+            motorL.setPower(speed);
+            motorR.setPower(-speed);
+
+        while (sensorGyro.getHeading() < degrees) {
+        }
+            motorL.setPower(0);
+            motorR.setPower(0);
+        }
+
+    //FIXME: this code does not function properly
+    public  void turnLeft(int degrees, double speed) {
+        int currentHeading = sensorGyro.getHeading();
+        sensorGyro.resetZAxisIntegrator();
+        motorL.setPower(-speed);
+        motorR.setPower(speed);
+
+        while(Math.abs(360 - sensorGyro.getHeading()) < degrees) {
+        }
+        motorL.setPower(0);
+        motorR.setPower(0);
     }
+
+
+    }
+
