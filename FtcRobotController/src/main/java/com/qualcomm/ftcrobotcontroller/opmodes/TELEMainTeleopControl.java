@@ -45,7 +45,7 @@ public class TELEMainTeleopControl extends OpMode {
 	//Servo servoback;
 	Servo servotop;
 	Servo servomid;
-	DcMotor motorBack;
+	//DcMotor motorBack;
 	DcMotor motorRight;
 	DcMotor motorLeft;
 	//DcMotor motorCapture;
@@ -57,6 +57,7 @@ public class TELEMainTeleopControl extends OpMode {
 	double cowcatchpos;
 	double dumperpos;
 	double ziplinepos;
+	String zipisout;
 
 	public TELEMainTeleopControl() {
 
@@ -78,7 +79,7 @@ public class TELEMainTeleopControl extends OpMode {
 		servomid = hardwareMap.servo.get("servoMid");
 		//motorCapture = hardwareMap.dcMotor.get("motorCollect");
 		//servoback = hardwareMap.servo.get("servoBack");
-		motorBack = hardwareMap.dcMotor.get("motorWheelie");
+		//motorBack = hardwareMap.dcMotor.get("motorWheelie");
 		motorArm = hardwareMap.dcMotor.get("motorArm");
 		servotop=hardwareMap.servo.get("servoTop");
 
@@ -97,9 +98,9 @@ public class TELEMainTeleopControl extends OpMode {
 
 
 		// *Cow-catcher
-		/*
-		//Push B to push out/pull in the cow catcher
-		if (timercowcatch >=30) {
+
+		//Push A to push out/pull in the cow catcher
+		/*if (timercowcatch >=30) {
 			if (gamepad1.a) {
 				if (cowcatchpos == 1) {
 					cowcatchpos = 0;
@@ -126,32 +127,13 @@ public class TELEMainTeleopControl extends OpMode {
 
 
 
-		// *Wheelie Bar (servo)
-		/*
-		//Press left bumper to lower wheelie bar, press right bumper to raise wheelie bar
-		if (gamepad1.left_bumper) {
-			servoback.setPosition(0);
-		} else if (gamepad1.right_bumper) {
-			servoback.setPosition(0.95);
-		}*/
-		// *Wheelie Bar (motor)
-		//Press left bumper to lower wheelie bar, press right bumper to raise wheelie bar
-		/*if (gamepad1.left_bumper) {
-			motorBack.setPower(-1);
-		} else if (gamepad1.right_bumper) {
-			motorBack.setPower(1);
-		}
-		else
-		{
-			motorBack.setPower(0);
-		}*/
-		// (UNOFFICIAL) Right joystick on gamepad 2
-		float wheelie = gamepad2.right_stick_y;
+		// *Wheelie Bar
+		/*float wheelie = gamepad2.right_stick_y;
 		wheelie = Range.clip(wheelie, -1, 1);
 		wheelie = (float)scaleInput(wheelie);
-		motorBack.setPower(wheelie);
-		// *Item Collector`
+		motorBack.setPower(wheelie);*/
 
+		// *Item Collector`
 		//Press Y to spin the capture device forward, A to spin it backward
 		/*if (gamepad2.y)
 		{
@@ -166,24 +148,12 @@ public class TELEMainTeleopControl extends OpMode {
 		}*/
 
 		// *Arm Control
-
 		//Press Y to raise arm, press A to lower arm
-		/*if (gamepad1.y)
-		{
-			motorArm.setPower(1);
-		}
-		else{
-			motorArm.setPower(0);
-		}
-		if (gamepad1.a)
-		{
-			motorArm.setPower(-1);
-		}*/
-		// (UNOFFICIAL) Left joystick on gamepad 2
+		// Left joystick on gamepad 2
 		float arm = gamepad2.left_stick_y;
 		arm = Range.clip(arm, -1, 1);
 		arm = (float)scaleInput(arm);
-		motorArm.setPower(arm);
+		motorArm.setPower(-arm);
 
 		// *Guy Dumper
 		dumperpos = Range.clip(dumperpos, 0.01, .99);
@@ -192,7 +162,7 @@ public class TELEMainTeleopControl extends OpMode {
 			dumperpos =0.1;
 		}
 		timerdumper++;
-		//Use the left bumper to lower the guy dumper, right bumper to raise the guy dumper
+		//Use the left trigger to lower the guy dumper, right trigger to raise the guy dumper
 		if (gamepad2.left_trigger>=0.3) {
 			dumperpos -=0.005;
 		}
@@ -205,32 +175,29 @@ public class TELEMainTeleopControl extends OpMode {
 		ziplinepos = Range.clip(ziplinepos, 0.01, .99);
 		if (timerzipeline ==0)
 		{
-			ziplinepos =0.75;
+			ziplinepos =0.5;
 		}
-		//use left and right triggers to adjust zipline delivery
 		timerzipeline++;
-		/*if (gamepad1.left_trigger>=0.3) {
-			ziplinepos -=0.005;
-		}
-		if (gamepad1.right_trigger>=0.3) {
-			ziplinepos +=0.005;
-		}*/
 		if (gamepad1.y)
 		{
 			ziplinepos=0.5;
+			zipisout="The zipline is SAFE";
 		}
 		if (gamepad1.x)
 		{
-			ziplinepos=1;
+			ziplinepos=0.9;
+			zipisout="The zipline is out!";
 		}
 		if (gamepad1.b)
 		{
 			ziplinepos=0;
+			zipisout="The zipline is out!";
 		}
 		servomid.setPosition(ziplinepos);
 
-		telemetry.addData("Teleop Version", "2.1.2");
-		telemetry.addData("Can control:","2 motor driving (slowmo), Wheelie Bar, Zip-line, Dumper, arm");
+		telemetry.addData("Teleop Version", "2.4");
+		telemetry.addData("Can control:","2 motor driving (slowmo), Wheelie Bar, Zip-line, Dumper, Arm");
+		//telemetry.addData("Zipline?", zipisout);
 	}
 
 
