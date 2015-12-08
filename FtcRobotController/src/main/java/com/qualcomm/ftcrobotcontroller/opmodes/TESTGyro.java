@@ -24,7 +24,6 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
  */
 
 
-
 public class TESTGyro extends LinearOpMode {
 
     GyroSensor sensorGyro;
@@ -34,6 +33,7 @@ public class TESTGyro extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
+        telemetry.addData("Funct: ", "runOpMode()");
 
         int xVal, yVal, zVal = 0;
         int heading = 0;
@@ -62,68 +62,72 @@ public class TESTGyro extends LinearOpMode {
         // make sure the gyro is calibrated.
 
         while (sensorGyro.isCalibrating()) {
-            Thread.sleep(50);
+            Thread.sleep(500);
         }
-                //Turn Right 90
-              while (opModeIsActive()) {
+        //Turn Right 90
+        while (opModeIsActive()) {
 
-                // if the A and B buttons are pressed, reset Z heading.
-                if (gamepad1.a && gamepad1.b) {
-                    // reset heading.
-                    sensorGyro.resetZAxisIntegrator();
-                }
-
-                  turnRight(70, .9);
-                  Thread.sleep(500);
-                  turnLeft(70,.9);
-
-
-                  // get the x, y, and z values (rate of change of angle).
-                xVal = sensorGyro.rawX();
-                yVal = sensorGyro.rawY();
-                zVal = sensorGyro.rawZ();
-
-                // get the heading info.
-                // the Modern Robotics' gyro sensor keeps
-                // track of the current heading for the Z axis only.
-                heading = sensorGyro.getHeading();
-
-                telemetry.addData("1. x", String.format("%03d", xVal));
-                telemetry.addData("2. y", String.format("%03d", yVal));
-                telemetry.addData("3. z", String.format("%03d", zVal));
-                telemetry.addData("4. h", String.format("%03d", heading));
-
-
-                //waitOneFullHardwareCycle();
+            // if the A and B buttons are pressed, reset Z heading.
+            if (gamepad1.a && gamepad1.b) {
+                // reset heading.
+                sensorGyro.resetZAxisIntegrator();
             }
+
+
+            turnRight(70, .9);
+            Thread.sleep(500);
+            turnLeft(70, .9);
+            telemetry.addData("Funct: ", "runOpMode()");
+
+
+            // get the x, y, and z values (rate of change of angle).
+            xVal = sensorGyro.rawX();
+            yVal = sensorGyro.rawY();
+            zVal = sensorGyro.rawZ();
+
+            // get the heading info.
+            // the Modern Robotics' gyro sensor keeps
+            // track of the current heading for the Z axis only.
+            heading = sensorGyro.getHeading();
+
+            telemetry.addData("1. x", String.format("%03d", xVal));
+            telemetry.addData("2. y", String.format("%03d", yVal));
+            telemetry.addData("3. z", String.format("%03d", zVal));
+            telemetry.addData("4. h", String.format("%03d", heading));
+
+
+            //waitOneFullHardwareCycle();
+        }
 
         motorL.setPower(0);
         motorR.setPower(0);
-        }
-        public  void turnRight(int degrees, double speed) {
-            sensorGyro.resetZAxisIntegrator();
-            motorL.setPower(speed);
-            motorR.setPower(-speed);
+    }
+
+    public void turnRight(int degrees, double speed) {
+        telemetry.addData("Funct: ", "turnRight()");
+        sensorGyro.resetZAxisIntegrator();
+        motorL.setPower(speed);
+        motorR.setPower(-speed);
 
         while (sensorGyro.getHeading() < degrees) {
         }
-            motorL.setPower(0);
-            motorR.setPower(0);
-        }
+        motorL.setPower(0);
+        motorR.setPower(0);
+    }
 
     //FIXME: this code does not function properly
-    //nevermind, alex fixed it b/c he is the best
     public  void turnLeft(int degrees, double speed) {
         int currentHeading = sensorGyro.getHeading();
         sensorGyro.resetZAxisIntegrator();
         motorL.setPower(-speed);
         motorR.setPower(speed);
 
-        while(Math.abs(360 - sensorGyro.getHeading()) < degrees) {}
-            motorL.setPower(0);
-            motorR.setPower(0);
+        while(Math.abs(360 - sensorGyro.getHeading()) < degrees) {
+        }
+        motorL.setPower(0);
+        motorR.setPower(0);
     }
 
 
-    }
+}
 
