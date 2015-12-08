@@ -33,6 +33,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
@@ -40,16 +41,18 @@ import com.qualcomm.robotcore.util.Range;
 public class TELEMainTeleopControl extends OpMode {
 
 
-
-	//Servo servofront;
-	//Servo servoback;
+    DcMotorController motorController;
+    //Servo servofront;
 	Servo servotop;
 	Servo servomid;
-	//DcMotor motorBack;
+	DcMotor motorBack;
 	DcMotor motorRight;
 	DcMotor motorLeft;
 	//DcMotor motorCapture;
 	DcMotor motorArm;
+    boolean gototop=false;
+    boolean gotobot=false;
+    boolean gotonone=false;
 
 	int timercowcatch = 0;
 	int timerdumper = 0;
@@ -57,7 +60,7 @@ public class TELEMainTeleopControl extends OpMode {
 	double cowcatchpos;
 	double dumperpos;
 	double ziplinepos;
-	String zipisout;
+	String zipisout="";
 
 	public TELEMainTeleopControl() {
 
@@ -71,35 +74,43 @@ public class TELEMainTeleopControl extends OpMode {
 		dumperpos =0.1;
 		ziplinepos =0.5;
 
-
+        motorController = hardwareMap.dcMotorController.get("Motor Controller 1");
 		//servofront = hardwareMap.servo.get("servoFront");
 		motorRight = hardwareMap.dcMotor.get("motorR");
 		motorLeft = hardwareMap.dcMotor.get("motorL");
 		motorLeft.setDirection(DcMotor.Direction.REVERSE);
 		servomid = hardwareMap.servo.get("servoMid");
 		//motorCapture = hardwareMap.dcMotor.get("motorCollect");
-		//servoback = hardwareMap.servo.get("servoBack");
-		//motorBack = hardwareMap.dcMotor.get("motorWheelie");
+		motorBack = hardwareMap.dcMotor.get("motorWheelie");
 		motorArm = hardwareMap.dcMotor.get("motorArm");
 		servotop=hardwareMap.servo.get("servoTop");
 
+        // Encoders
+        motorController.setMotorChannelMode(motorBack.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
+        motorController.setMotorChannelMode(motorBack.getPortNumber(), DcMotorController.RunMode.RUN_TO_POSITION);
 	}
 
 	@Override
 	public void loop() {
 
-			// *Tank Drive part 1
-			float left = gamepad1.left_stick_y;
-			float right = gamepad1.right_stick_y;
-			float left2 = gamepad1.left_stick_y;
-			float right2 = gamepad1.right_stick_y;
+        // *Tank Drive
+        float left = gamepad1.left_stick_y;
+        float right = gamepad1.right_stick_y;
+
+		right = Range.clip(right, -1, 1);
+		left = Range.clip(left, -1, 1);
 
 
+		right = (float)scaleInput(right);
+		left =  (float)scaleInput(left);
 
 
-		// *Cow-catcher
+		motorRight.setPower(-right);
+		motorLeft.setPower(-left);
 
-		//Push A to push out/pull in the cow catcher
+        // *Cow-catcher
+
+        //Push A to push out/pull in the cow catcher
 		/*if (timercowcatch >=30) {
 			if (gamepad1.a) {
 				if (cowcatchpos == 1) {
@@ -113,43 +124,61 @@ public class TELEMainTeleopControl extends OpMode {
 		timercowcatch++;
 		servofront.setPosition(cowcatchpos);*/
 
-		// *Tank Drive part 2
-		right = Range.clip(right, -1, 1);
-		left = Range.clip(left, -1, 1);
-
-
-		right = (float)scaleInput(right);
-		left =  (float)scaleInput(left);
-
-
-		motorRight.setPower(-right);
-		motorLeft.setPower(-left);
-
-
 
 		// *Wheelie Bar
-		/*float wheelie = gamepad2.right_stick_y;
+		float wheelie = gamepad2.right_stick_y;
 		wheelie = Range.clip(wheelie, -1, 1);
 		wheelie = (float)scaleInput(wheelie);
-		motorBack.setPower(wheelie);*/
 
-		// *Item Collector`
-		//Press Y to spin the capture device forward, A to spin it backward
-		/*if (gamepad2.y)
-		{
-			motorCapture.setPower(1);
-		}
-		else{
-			motorCapture.setPower(0);
-		}
-		if (gamepad2.a)
-		{
-			motorCapture.setPower(-1);
-		}*/
+        if (gamepad2.y)
+        {
+            gotonone=true;
+            gototop=false;
+            gotobot=false;
+        }
+        if (gamepad2.x)
+        {
+            gototop=true;
+            gotonone=false;
+            gotobot=false;
+        }
+        if (gamepad2.b)
+        {
+            gotobot=true;
+            gototop=false;
+            gotonone=false;
+        }
+
+        if (gotonone==true) {
+            motorBack.setPower(wheelie);
+        }
+        if (gototop==true)
+        {
+            if (motorBack.getCurrentPosition()>0)
+            {
+                motorBack.setPower(-1);
+            }
+            if (motorBack.getCurrentPosition()<0)
+            {
+                motorBack.setPower(1);
+            }
+            motorBack.setTargetPosition(0);
+        }
+        if (gotobot==true)
+        {
+            if (motorBack.getCurrentPosition()>310)
+            {
+                motorBack.setPower(-1);
+            }
+            if (motorBack.getCurrentPosition()<310)
+            {
+                motorBack.setPower(1);
+            }
+            motorBack.setTargetPosition(310);
+        }
 
 		// *Arm Control
-		//Press Y to raise arm, press A to lower arm
-		// Left joystick on gamepad 2
+		//Left joystick on gamepad 2
 		float arm = gamepad2.left_stick_y;
 		arm = Range.clip(arm, -1, 1);
 		arm = (float)scaleInput(arm);
@@ -195,9 +224,9 @@ public class TELEMainTeleopControl extends OpMode {
 		}
 		servomid.setPosition(ziplinepos);
 
-		telemetry.addData("Teleop Version", "2.4");
-		telemetry.addData("Can control:","2 motor driving (slowmo), Wheelie Bar, Zip-line, Dumper, Arm");
-		//telemetry.addData("Zipline?", zipisout);
+		telemetry.addData("Teleop Version", "2.9");
+		telemetry.addData("Can control:","2 motor driving, Zip-line, Dumper, Arm");
+		telemetry.addData("Zipline?", zipisout);
 	}
 
 

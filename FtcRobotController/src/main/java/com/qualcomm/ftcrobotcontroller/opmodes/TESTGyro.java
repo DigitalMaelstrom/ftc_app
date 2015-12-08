@@ -112,16 +112,16 @@ public class TESTGyro extends LinearOpMode {
         }
 
     //FIXME: this code does not function properly
+    //nevermind, alex fixed it b/c he is the best
     public  void turnLeft(int degrees, double speed) {
         int currentHeading = sensorGyro.getHeading();
         sensorGyro.resetZAxisIntegrator();
         motorL.setPower(-speed);
         motorR.setPower(speed);
 
-        while(Math.abs(360 - sensorGyro.getHeading()) < degrees) {
-        }
-        motorL.setPower(0);
-        motorR.setPower(0);
+        while(Math.abs(360 - sensorGyro.getHeading()) < degrees) {}
+            motorL.setPower(0);
+            motorR.setPower(0);
     }
 
 
