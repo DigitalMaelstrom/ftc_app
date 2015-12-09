@@ -84,6 +84,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("MRRGBExample",MRRGBExample.class);
     manager.register("MRGyroTest",MRGyroTest.class);
     manager.register("TESTGyro",TESTGyro.class);
+    manager.register("TESTAUTOmove",TESTAUTOmove.class);
     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */
