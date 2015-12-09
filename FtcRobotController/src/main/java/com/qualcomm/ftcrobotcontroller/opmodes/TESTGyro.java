@@ -51,7 +51,7 @@ public class TESTGyro extends LinearOpMode {
         motorL.setDirection(DcMotor.Direction.REVERSE);
 
         //To Turn right -power right +power left
-        //To turn left  -power left +power right
+        //To turn left  +power left -power right
 
         // calibrate the gyro.
         sensorGyro.calibrate();
@@ -66,34 +66,17 @@ public class TESTGyro extends LinearOpMode {
         }
         //Turn Right 90
         while (opModeIsActive()) {
+            heading = sensorGyro.getHeading();
 
-            // if the A and B buttons are pressed, reset Z heading.
-            if (gamepad1.a && gamepad1.b) {
-                // reset heading.
-                sensorGyro.resetZAxisIntegrator();
-            }
+            telemetry.addData("4. h", String.format("%03d", heading));
 
 
-            turnRight(70, .9);
-            Thread.sleep(500);
-            turnLeft(70, .9);
-            telemetry.addData("Funct: ", "runOpMode()");
-
-
-            // get the x, y, and z values (rate of change of angle).
-            xVal = sensorGyro.rawX();
-            yVal = sensorGyro.rawY();
-            zVal = sensorGyro.rawZ();
-
+            turnRight(70, .15);
+            Thread.sleep(3000);
+           // turnLeft(70, .9);
             // get the heading info.
             // the Modern Robotics' gyro sensor keeps
             // track of the current heading for the Z axis only.
-            heading = sensorGyro.getHeading();
-
-            telemetry.addData("1. x", String.format("%03d", xVal));
-            telemetry.addData("2. y", String.format("%03d", yVal));
-            telemetry.addData("3. z", String.format("%03d", zVal));
-            telemetry.addData("4. h", String.format("%03d", heading));
 
 
             //waitOneFullHardwareCycle();
@@ -103,18 +86,31 @@ public class TESTGyro extends LinearOpMode {
         motorR.setPower(0);
     }
 
-    public void turnRight(int degrees, double speed) {
-        telemetry.addData("Funct: ", "turnRight()");
-        sensorGyro.resetZAxisIntegrator();
-        motorL.setPower(speed);
+
+    public void turnRight(int mag,double speed){
+        int start =sensorGyro.getHeading();
+        boolean ZeroFlag = start+ mag > 359;
+        int End = start + mag % 360;
+
+
+        //Start the motors turning right at speed.
+        motorL.setPower(+speed);
         motorR.setPower(-speed);
 
-        while (sensorGyro.getHeading() < degrees) {
-        }
-        motorL.setPower(0);
-        motorR.setPower(0);
-    }
+        while (sensorGyro.getHeading()<End || ZeroFlag) {
+            if (ZeroFlag) {
+                while (sensorGyro.getHeading()>start){
+                    //Motors should be turning right.
+                }
+                ZeroFlag=false;
+            }
 
+        }
+        //Stop the motors.
+        motorR.setPower(0);
+        motorL.setPower(0);
+
+    }
     //FIXME: this code does not function properly
     public void turnLeft(int degrees, double speed) {
         telemetry.addData("Funct: ", "turnLeft()");
