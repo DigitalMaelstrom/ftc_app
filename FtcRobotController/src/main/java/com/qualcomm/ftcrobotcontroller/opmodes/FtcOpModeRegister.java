@@ -79,11 +79,13 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("WheelieBarTEST", WheelieBarTEST.class);
     //manager.register("triggersTEST", triggersTEST.class);
     manager.register("AUTOWaitThenGo",AUTOWaitThenGo.class);
-    manager.register("AUTORedSideBlueRamp",AUTORedSideBlueRamp.class);
+    manager.register("AUTOGo",AUTOGo.class);
     manager.register("AUTOBlueSideRedRamp",AUTOBlueSideRedRamp.class);
     manager.register("MRRGBExample",MRRGBExample.class);
     manager.register("MRGyroTest",MRGyroTest.class);
     manager.register("TESTGyro",TESTGyro.class);
+    manager.register("TESTDistanceSensor",TESTDistanceSensor.class);
+
     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */

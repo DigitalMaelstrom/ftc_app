@@ -188,7 +188,7 @@ public class TELEMainTeleopControl extends OpMode {
 		dumperpos = Range.clip(dumperpos, 0.01, .99);
 		if (timerdumper ==0)
 		{
-			dumperpos =0.1;
+			dumperpos =0.0;
 		}
 		timerdumper++;
 		//Use the left trigger to lower the guy dumper, right trigger to raise the guy dumper
