@@ -35,10 +35,9 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.Range;
 
 
-public class AUTOWaitThenGo extends OpMode {
+public class AUTOWheelieDownThenGo_UNTESTED_ extends OpMode {
 
 
     //DcMotorController motorController;
@@ -63,7 +62,7 @@ public class AUTOWaitThenGo extends OpMode {
 	double ziplinepos;
 	String zipisout="";
 
-	public AUTOWaitThenGo() {
+	public AUTOWheelieDownThenGo_UNTESTED_() {
 
 	}
 
@@ -94,12 +93,19 @@ public class AUTOWaitThenGo extends OpMode {
 	@Override
 	public void loop() {
 		timerauto++;
-		if (timerauto>=2500)
+		motorRight.setPower(0);
+		motorLeft.setPower(0);
+		motorBack.setPower(1);
+		if (timerauto>=40)
 		{
-			motorLeft.setPower(1);
-			motorRight.setPower(1);
+			motorBack.setPower(0);
 		}
-		if (timerauto>=2790)
+		if (timerauto>=60)
+		{
+			motorLeft.setPower(-1);
+			motorRight.setPower(-1);
+		}
+		if (timerauto>=380)
 		{
 			motorRight.setPower(0);
 			motorLeft.setPower(0);
