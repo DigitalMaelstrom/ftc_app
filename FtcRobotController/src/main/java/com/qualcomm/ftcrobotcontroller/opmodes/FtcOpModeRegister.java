@@ -82,6 +82,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("AUTOGo",AUTOGo.class);
     manager.register("AUTOWheelieDownThenGoBack",AUTOWheelieDownThenGo.class);
     manager.register("SolaBotEncoderTest",SolaBotEncoderTest.class);
+    manager.register("SolaBotGyroTest",SolaBotGyroTest.class);
     //manager.register("MRRGBExample",MRRGBExample.class);
     //manager.register("MRGyroTest",MRGyroTest.class);
     //manager.register("TESTGyro",TESTGyro.class);
