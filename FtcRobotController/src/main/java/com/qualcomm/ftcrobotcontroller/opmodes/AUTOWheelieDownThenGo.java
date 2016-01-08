@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-public class AUTOWheelieDownThenGo_UNTESTED_ extends OpMode {
+public class AUTOWheelieDownThenGo extends OpMode {
 
 
     //DcMotorController motorController;
@@ -62,7 +62,7 @@ public class AUTOWheelieDownThenGo_UNTESTED_ extends OpMode {
 	double ziplinepos;
 	String zipisout="";
 
-	public AUTOWheelieDownThenGo_UNTESTED_() {
+	public AUTOWheelieDownThenGo() {
 
 	}
 
