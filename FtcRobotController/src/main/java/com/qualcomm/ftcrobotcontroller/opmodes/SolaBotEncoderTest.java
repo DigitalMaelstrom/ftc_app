@@ -67,7 +67,7 @@ public class SolaBotEncoderTest extends OpMode {
         if (assignmenttimer==2)
         {
             motorController = hardwareMap.dcMotorController.get("Motor Controller 1");
-            motorBack = hardwareMap.dcMotor.get("motorBack");
+            motorBack = hardwareMap.dcMotor.get("motorR");
         }
         if (assignmenttimer==20)
         {
