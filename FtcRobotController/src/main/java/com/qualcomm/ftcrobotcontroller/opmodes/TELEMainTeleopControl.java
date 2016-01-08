@@ -41,7 +41,7 @@ import com.qualcomm.robotcore.util.Range;
 public class TELEMainTeleopControl extends OpMode {
 
 
-    DcMotorController motorController;
+    //DcMotorController motorController;
     //Servo servofront;
 	Servo servotop;
 	Servo servomid;
@@ -52,7 +52,7 @@ public class TELEMainTeleopControl extends OpMode {
 	DcMotor motorArm;
     boolean gototop=false;
     boolean gotobot=false;
-    boolean gotonone=false;
+    boolean gotonone=true;
 
 	int timercowcatch = 0;
 	int timerdumper = 0;
@@ -74,7 +74,7 @@ public class TELEMainTeleopControl extends OpMode {
 		dumperpos =0.1;
 		ziplinepos =0.5;
 
-        motorController = hardwareMap.dcMotorController.get("Motor Controller 1");
+       // motorController = hardwareMap.dcMotorController.get("Motor Controller 1");
 		//servofront = hardwareMap.servo.get("servoFront");
 		motorRight = hardwareMap.dcMotor.get("motorR");
 		motorLeft = hardwareMap.dcMotor.get("motorL");
@@ -86,8 +86,8 @@ public class TELEMainTeleopControl extends OpMode {
 		servotop=hardwareMap.servo.get("servoTop");
 
         // Encoders
-        motorController.setMotorChannelMode(motorBack.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
-        motorController.setMotorChannelMode(motorBack.getPortNumber(), DcMotorController.RunMode.RUN_TO_POSITION);
+        //motorController.setMotorChannelMode(motorBack.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
+        //motorController.setMotorChannelMode(motorBack.getPortNumber(), DcMotorController.RunMode.RUN_TO_POSITION);
 	}
 
 	@Override
@@ -130,7 +130,7 @@ public class TELEMainTeleopControl extends OpMode {
 		wheelie = Range.clip(wheelie, -1, 1);
 		wheelie = (float)scaleInput(wheelie);
 
-        if (gamepad2.y)
+        /*if (gamepad2.y)
         {
             gotonone=true;
             gototop=false;
@@ -147,12 +147,12 @@ public class TELEMainTeleopControl extends OpMode {
             gotobot=true;
             gototop=false;
             gotonone=false;
-        }
+        }*/
 
         if (gotonone==true) {
             motorBack.setPower(wheelie);
         }
-        if (gototop==true)
+        /*if (gototop==true)
         {
             if (motorBack.getCurrentPosition()>0)
             {
@@ -175,7 +175,7 @@ public class TELEMainTeleopControl extends OpMode {
                 motorBack.setPower(1);
             }
             motorBack.setTargetPosition(310);
-        }
+        }*/
 
 		// *Arm Control
 		//Left joystick on gamepad 2
@@ -224,8 +224,8 @@ public class TELEMainTeleopControl extends OpMode {
 		}
 		servomid.setPosition(ziplinepos);
 
-		telemetry.addData("Teleop Version", "2.9");
-		telemetry.addData("Can control:","2 motor driving, Zip-line, Dumper, Arm");
+		telemetry.addData("Teleop Version", "3.0");
+		telemetry.addData("Can control:","2 motor driving, Zip-line, Dumper, Arm, Guy Deliver");
 		telemetry.addData("Zipline?", zipisout);
 	}
 

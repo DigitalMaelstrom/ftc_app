@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-public class AUTOGo extends OpMode {
+public class AUTOWheelieDownThenGo_UNTESTED_ extends OpMode {
 
 
     //DcMotorController motorController;
@@ -62,7 +62,7 @@ public class AUTOGo extends OpMode {
 	double ziplinepos;
 	String zipisout="";
 
-	public AUTOGo() {
+	public AUTOWheelieDownThenGo_UNTESTED_() {
 
 	}
 
@@ -86,16 +86,26 @@ public class AUTOGo extends OpMode {
 		servotop=hardwareMap.servo.get("servoTop");
 
         // Encoders
-       // motorController.setMotorChannelMode(motorBack.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
+        //motorController.setMotorChannelMode(motorBack.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
         //motorController.setMotorChannelMode(motorBack.getPortNumber(), DcMotorController.RunMode.RUN_TO_POSITION);
 	}
 
 	@Override
 	public void loop() {
 		timerauto++;
-			motorLeft.setPower(1);
-			motorRight.setPower(1);
-		if (timerauto>=320)
+		motorRight.setPower(0);
+		motorLeft.setPower(0);
+		motorBack.setPower(1);
+		if (timerauto>=40)
+		{
+			motorBack.setPower(0);
+		}
+		if (timerauto>=60)
+		{
+			motorLeft.setPower(-1);
+			motorRight.setPower(-1);
+		}
+		if (timerauto>=380)
 		{
 			motorRight.setPower(0);
 			motorLeft.setPower(0);

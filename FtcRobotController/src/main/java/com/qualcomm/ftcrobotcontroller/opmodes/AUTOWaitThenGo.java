@@ -41,7 +41,7 @@ import com.qualcomm.robotcore.util.Range;
 public class AUTOWaitThenGo extends OpMode {
 
 
-    DcMotorController motorController;
+    //DcMotorController motorController;
     //Servo servofront;
 	Servo servotop;
 	Servo servomid;
@@ -78,7 +78,7 @@ public class AUTOWaitThenGo extends OpMode {
 		dumperpos =0.1;
 		ziplinepos =0.5;
 
-        motorController = hardwareMap.dcMotorController.get("Motor Controller 1");
+        //motorController = hardwareMap.dcMotorController.get("Motor Controller 1");
 		//servofront = hardwareMap.servo.get("servoFront");
 		motorRight = hardwareMap.dcMotor.get("motorR");
 		motorLeft = hardwareMap.dcMotor.get("motorL");
@@ -90,8 +90,8 @@ public class AUTOWaitThenGo extends OpMode {
 		servotop=hardwareMap.servo.get("servoTop");
 
         // Encoders
-        motorController.setMotorChannelMode(motorBack.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
-        motorController.setMotorChannelMode(motorBack.getPortNumber(), DcMotorController.RunMode.RUN_TO_POSITION);
+        //motorController.setMotorChannelMode(motorBack.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
+        //motorController.setMotorChannelMode(motorBack.getPortNumber(), DcMotorController.RunMode.RUN_TO_POSITION);
 	}
 
 	@Override
