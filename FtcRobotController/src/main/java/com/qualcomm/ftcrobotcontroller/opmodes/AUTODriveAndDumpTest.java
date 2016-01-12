@@ -2,13 +2,17 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.GyroSensor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by Internet on 12/8/2015.
  */
-public class SolaBotGyroTest extends LinearOpMode {
+public class AUTODriveAndDumpTest extends LinearOpMode {
 
+    DcMotorController motorController;
+    Servo servotop;
     DcMotor motorLeft;
     DcMotor motorRight;
     GyroSensor gyroSensor;
@@ -24,7 +28,7 @@ public class SolaBotGyroTest extends LinearOpMode {
         motorLeft = hardwareMap.dcMotor.get("motorL");
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
         gyroSensor = hardwareMap.gyroSensor.get("gyro");
-
+        servotop=hardwareMap.servo.get("servoTop");
         gyroSensor.calibrate();
 
         waitForStart();
@@ -43,11 +47,29 @@ public class SolaBotGyroTest extends LinearOpMode {
             telemetry.addData("3. z", String.format("%03d", zVal));
             telemetry.addData("4. h", String.format("%03d", heading));
 
+            motorController = hardwareMap.dcMotorController.get("Motor Controller 2");
+            Thread.sleep(50);
+            motorController.setMotorChannelMode(motorRight.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
+            motorController.setMotorChannelMode(motorLeft.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
+        telemetry.addData("pos", motorLeft.getCurrentPosition());
+            Thread.sleep(40);
+        motorController.setMotorChannelMode(motorRight.getPortNumber(), DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+            motorController.setMotorChannelMode(motorLeft.getPortNumber(), DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+            Thread.sleep(40);
+       // motorRight.setTargetPosition(2240);
+        //motorLeft.setTargetPosition(2240);
+        motorLeft.setPower(1);
+        motorRight.setPower(1);
+            while(motorLeft.getCurrentPosition()>=-2240) {
 
-
-
+                telemetry.addData("pos", motorLeft.getCurrentPosition());
+            }
+        telemetry.addData("done", "Done moving forward");
+        motorLeft.setPower(0);
+        motorRight.setPower(0);
             TurnRight(90);
-
+        Thread.sleep(40);
+            TurnLeft(180);
         telemetry.addData("Gyro", gyroSensor.getHeading());
         telemetry.addData("Version ", "1");
 
