@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class AUTODriveAndDumpTest extends LinearOpMode {
 
     DcMotorController motorController;
-    Servo servotop;
+    //Servo servotop;
     DcMotor motorLeft;
     DcMotor motorRight;
     GyroSensor gyroSensor;
@@ -28,11 +28,12 @@ public class AUTODriveAndDumpTest extends LinearOpMode {
         motorLeft = hardwareMap.dcMotor.get("motorL");
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
         gyroSensor = hardwareMap.gyroSensor.get("gyro");
-        servotop=hardwareMap.servo.get("servoTop");
+       // servotop=hardwareMap.servo.get("servoTop");
         gyroSensor.calibrate();
 
         waitForStart();
         while(gyroSensor.isCalibrating()) {
+            telemetry.addData("pos2", "run withou");
             Thread.sleep(50);
         }
             heading = gyroSensor.getHeading();
@@ -47,38 +48,43 @@ public class AUTODriveAndDumpTest extends LinearOpMode {
             telemetry.addData("3. z", String.format("%03d", zVal));
             telemetry.addData("4. h", String.format("%03d", heading));
 
-            motorController = hardwareMap.dcMotorController.get("Motor Controller 2");
+            motorController = hardwareMap.dcMotorController.get("Motor Controller 1");
             Thread.sleep(50);
-            motorController.setMotorChannelMode(motorRight.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
+        motorController.setMotorChannelMode(motorRight.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
             motorController.setMotorChannelMode(motorLeft.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
         telemetry.addData("pos", motorLeft.getCurrentPosition());
             Thread.sleep(40);
         motorController.setMotorChannelMode(motorRight.getPortNumber(), DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
             motorController.setMotorChannelMode(motorLeft.getPortNumber(), DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        telemetry.addData("pos3", "run without encoders");
             Thread.sleep(40);
        // motorRight.setTargetPosition(2240);
         //motorLeft.setTargetPosition(2240);
-        motorLeft.setPower(1);
-        motorRight.setPower(1);
+        motorLeft.setPower(-1);
+        motorRight.setPower(-1);
             while(motorLeft.getCurrentPosition()>=-2240) {
 
                 telemetry.addData("pos", motorLeft.getCurrentPosition());
             }
         telemetry.addData("done", "Done moving forward");
+
         motorLeft.setPower(0);
         motorRight.setPower(0);
             TurnRight(90);
         Thread.sleep(40);
+        telemetry.addData("done", "Done moving forward");
             TurnLeft(180);
         telemetry.addData("Gyro", gyroSensor.getHeading());
         telemetry.addData("Version ", "1");
 
 
+
     }
 
-    public void TurnRight(int degrees) {
+    public void TurnRight(int degrees)throws InterruptedException {
         // Turn Right
         gyroSensor.resetZAxisIntegrator();
+        Thread.sleep(50);
         motorLeft.setPower(1);
         motorRight.setPower(-1);
         while(gyroSensor.getHeading() <= degrees) {
@@ -87,11 +93,14 @@ public class AUTODriveAndDumpTest extends LinearOpMode {
         motorRight.setPower(0);
     }
 
-    public void TurnLeft(int degrees) {
+    public void TurnLeft(int degrees) throws InterruptedException{
         // Turn Left
         gyroSensor.resetZAxisIntegrator();
+        Thread.sleep(50);
         motorLeft.setPower(-1);
         motorRight.setPower(1);
+        while (gyroSensor.getHeading() <= 360-degrees) {
+        }
         while (gyroSensor.getHeading() >= 360-degrees) {
         }
         motorLeft.setPower(0);
