@@ -19,7 +19,7 @@ public class AUTODriveAndDumpTest extends LinearOpMode {
     int count=0;
     int xVal, yVal, zVal = 0;
     public int heading = 0;
-
+    int turndelay=1000;
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -53,15 +53,15 @@ public class AUTODriveAndDumpTest extends LinearOpMode {
         motorController.setMotorChannelMode(motorRight.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
             motorController.setMotorChannelMode(motorLeft.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
         telemetry.addData("pos", motorLeft.getCurrentPosition());
-            Thread.sleep(40);
+            Thread.sleep(400);
         motorController.setMotorChannelMode(motorRight.getPortNumber(), DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
             motorController.setMotorChannelMode(motorLeft.getPortNumber(), DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         telemetry.addData("pos3", "run without encoders");
             Thread.sleep(40);
        // motorRight.setTargetPosition(2240);
         //motorLeft.setTargetPosition(2240);
-        motorLeft.setPower(-1);
-        motorRight.setPower(-1);
+        motorLeft.setPower(1);
+        motorRight.setPower(1);
             while(motorLeft.getCurrentPosition()>=-2240) {
 
                 telemetry.addData("pos", motorLeft.getCurrentPosition());
@@ -73,6 +73,18 @@ public class AUTODriveAndDumpTest extends LinearOpMode {
             TurnRight(90);
         Thread.sleep(40);
         telemetry.addData("done", "Done moving forward");
+
+        motorLeft.setPower(1);
+        motorRight.setPower(1);
+        while(motorLeft.getCurrentPosition()>=-4480) {
+
+            telemetry.addData("pos", motorLeft.getCurrentPosition());
+        }
+
+        telemetry.addData("done", "Done moving forward");
+
+        motorLeft.setPower(0);
+        motorRight.setPower(0);
             TurnLeft(180);
         telemetry.addData("Gyro", gyroSensor.getHeading());
         telemetry.addData("Version ", "1");
@@ -83,11 +95,13 @@ public class AUTODriveAndDumpTest extends LinearOpMode {
 
     public void TurnRight(int degrees)throws InterruptedException {
         // Turn Right
+        telemetry.addData("turn", "right");
         gyroSensor.resetZAxisIntegrator();
-        Thread.sleep(50);
+        telemetry.addData("Gyro2", gyroSensor.getHeading());
+        Thread.sleep(turndelay);
         motorLeft.setPower(1);
         motorRight.setPower(-1);
-        while(gyroSensor.getHeading() <= degrees) {
+        while (gyroSensor.getHeading() <= degrees) {
         }
         motorLeft.setPower(0);
         motorRight.setPower(0);
@@ -95,8 +109,10 @@ public class AUTODriveAndDumpTest extends LinearOpMode {
 
     public void TurnLeft(int degrees) throws InterruptedException{
         // Turn Left
+        telemetry.addData("turnn", "notright");
         gyroSensor.resetZAxisIntegrator();
-        Thread.sleep(50);
+        telemetry.addData("Gyro3", gyroSensor.getHeading());
+        Thread.sleep(turndelay);
         motorLeft.setPower(-1);
         motorRight.setPower(1);
         while (gyroSensor.getHeading() <= 360-degrees) {
