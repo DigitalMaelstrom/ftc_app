@@ -20,6 +20,7 @@ public class AUTODriveAndDumpTest extends LinearOpMode {
     int xVal, yVal, zVal = 0;
     public int heading = 0;
     int turndelay=1000;
+    int encoderatstart=0;
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -60,9 +61,10 @@ public class AUTODriveAndDumpTest extends LinearOpMode {
             Thread.sleep(40);
        // motorRight.setTargetPosition(2240);
         //motorLeft.setTargetPosition(2240);
+        encoderatstart=motorLeft.getCurrentPosition();
         motorLeft.setPower(1);
         motorRight.setPower(1);
-            while(motorLeft.getCurrentPosition()>=-2240) {
+            while(motorLeft.getCurrentPosition()>=-2240+encoderatstart) {
 
                 telemetry.addData("pos", motorLeft.getCurrentPosition());
             }
@@ -73,16 +75,16 @@ public class AUTODriveAndDumpTest extends LinearOpMode {
             TurnRight(90);
         Thread.sleep(40);
         telemetry.addData("done", "Done moving forward");
-
+        Thread.sleep(50);
+        encoderatstart=motorLeft.getCurrentPosition();
         motorLeft.setPower(1);
         motorRight.setPower(1);
-        while(motorLeft.getCurrentPosition()>=-4480) {
+        while(motorLeft.getCurrentPosition()>= -4480+encoderatstart) {
 
             telemetry.addData("pos", motorLeft.getCurrentPosition());
         }
 
         telemetry.addData("done", "Done moving forward");
-
         motorLeft.setPower(0);
         motorRight.setPower(0);
             TurnLeft(180);
