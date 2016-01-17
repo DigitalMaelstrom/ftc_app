@@ -79,18 +79,18 @@ public class AUTODriveAndDump extends LinearOpMode {
         motorLeft.setPower(0);
         motorRight.setPower(0);
 
-        TurnLeft(45);
+        TurnLeft(47);
         Thread.sleep(90);
 
         encoderatstart=motorLeft.getCurrentPosition();
         motorLeft.setPower(1);
         motorRight.setPower(1);
-        while(motorLeft.getCurrentPosition()>= -5400+encoderatstart) {
+        while(motorLeft.getCurrentPosition()>= -5500+encoderatstart) {
         }
         motorLeft.setPower(0);
         motorRight.setPower(0);
 
-        TurnLeft(20);
+        TurnLeft(25);
         Thread.sleep(90);
         encoderatstart=motorLeft.getCurrentPosition();
         motorLeft.setPower(1);
@@ -100,7 +100,7 @@ public class AUTODriveAndDump extends LinearOpMode {
         motorLeft.setPower(0);
         motorRight.setPower(0);
         dumpamount=0;
-        while (dumpamount<=0.85) {
+        while (dumpamount<=0.89) {
             dumpamount=dumpamount+0.000003;
             servotop.setPosition(dumpamount);
         }
@@ -112,8 +112,8 @@ public class AUTODriveAndDump extends LinearOpMode {
         gyroSensor.resetZAxisIntegrator();
         telemetry.addData("Gyro2", gyroSensor.getHeading());
         Thread.sleep(turndelay);
-        motorLeft.setPower(1);
-        motorRight.setPower(-1);
+        motorLeft.setPower(.75);
+        motorRight.setPower(-.75);
         while (gyroSensor.getHeading() <= degrees) {
         }
         motorLeft.setPower(0);
@@ -126,8 +126,8 @@ public class AUTODriveAndDump extends LinearOpMode {
         gyroSensor.resetZAxisIntegrator();
         telemetry.addData("Gyro3", gyroSensor.getHeading());
         Thread.sleep(turndelay);
-        motorLeft.setPower(-1);
-        motorRight.setPower(1);
+        motorLeft.setPower(-.75);
+        motorRight.setPower(.75);
         while (gyroSensor.getHeading() <= 360-degrees) {
         }
         while (gyroSensor.getHeading() >= 360-degrees) {
