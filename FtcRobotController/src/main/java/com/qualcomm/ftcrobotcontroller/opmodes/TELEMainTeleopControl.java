@@ -87,7 +87,7 @@ public class TELEMainTeleopControl extends OpMode {
 
         // Encoders
         //motorController.setMotorChannelMode(motorBack.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
-        //motorController.setMotorChannelMode(motorBack.getPortNumber(), DcMotorController.RunMode.RUN_TO_POSITION);
+        //motorController.setMotorChannelMode(motorBack.getPortNumber(), DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
 	}
 
 	@Override

@@ -11,6 +11,8 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 public class AUTODriveAndDump extends LinearOpMode {
 
+    public static final int ONEWHEELROTATION = 1220;
+
     DcMotorController motorController;
     Servo servotop;
     Servo servomid;
@@ -71,39 +73,34 @@ public class AUTODriveAndDump extends LinearOpMode {
 
 
 
-        encoderatstart=motorLeft.getCurrentPosition();
-        motorLeft.setPower(1);
-        motorRight.setPower(1);
-            while(motorLeft.getCurrentPosition()>=-4480+encoderatstart) {
-            }
-        motorLeft.setPower(0);
-        motorRight.setPower(0);
+        MoveForward(4480);
+
 
         TurnLeft(47);
         Thread.sleep(90);
 
-        encoderatstart=motorLeft.getCurrentPosition();
-        motorLeft.setPower(1);
-        motorRight.setPower(1);
-        while(motorLeft.getCurrentPosition()>= -5500+encoderatstart) {
-        }
-        motorLeft.setPower(0);
-        motorRight.setPower(0);
+        MoveForward(5500);
 
-        TurnLeft(25);
+        TurnLeft(23);
         Thread.sleep(90);
-        encoderatstart=motorLeft.getCurrentPosition();
-        motorLeft.setPower(1);
-        motorRight.setPower(1);
-        while(motorLeft.getCurrentPosition()>= -1220+encoderatstart) {
-        }
-        motorLeft.setPower(0);
-        motorRight.setPower(0);
+        MoveForward(ONEWHEELROTATION);
+
         dumpamount=0;
         while (dumpamount<=0.89) {
             dumpamount=dumpamount+0.000003;
             servotop.setPosition(dumpamount);
         }
+        TurnRight(90);
+    }
+
+    private void MoveForward(int moveamount) {
+        encoderatstart=motorLeft.getCurrentPosition();
+        motorLeft.setPower(1);
+        motorRight.setPower(1);
+        while(motorLeft.getCurrentPosition()>= -moveamount+encoderatstart) {
+        }
+        motorLeft.setPower(0);
+        motorRight.setPower(0);
     }
 
     public void TurnRight(int degrees)throws InterruptedException {
