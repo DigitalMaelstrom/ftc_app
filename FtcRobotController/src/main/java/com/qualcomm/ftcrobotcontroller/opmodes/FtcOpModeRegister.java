@@ -78,12 +78,18 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("Auto_Tile1_RedGroundPark", Auto_Tile1_RedGroundPark.class);
     //manager.register("WheelieBarTEST", WheelieBarTEST.class);
     //manager.register("triggersTEST", triggersTEST.class);
-    manager.register("AUTOWaitThenGo",AUTOWaitThenGo.class);
-    manager.register("AUTOGo",AUTOGo.class);
-    manager.register("AUTOWheelieDownThenGoBack",AUTOWheelieDownThenGo.class);
-    manager.register("SolaBotEncoderTest",SolaBotEncoderTest.class);
-    manager.register("SolaBotGyroTest",SolaBotGyroTest.class);
-    manager.register("AUTODriveAndDump",AUTODriveAndDump.class);
+    //manager.register("AUTOWaitThenGo",AUTOWaitThenGo.class);
+    //manager.register("AUTOGo",AUTOGo.class);
+    //manager.register("AUTOWheelieDownThenGoBack",AUTOWheelieDownThenGo.class);
+    //manager.register("SolaBotEncoderTest",SolaBotEncoderTest.class);
+    //manager.register("SolaBotGyroTest",SolaBotGyroTest.class);
+    manager.register("AUTODriveAndDumpPosARed",AUTODriveAndDumpPosARed.class);
+    manager.register("AUTODriveAndDumpPosBRed",AUTODriveAndDumpPosBRed.class);
+    manager.register("AUTODriveAndDumpPosABlue",AUTODriveAndDumpPosABlue.class);
+    manager.register("AUTODriveAndDumpPosBBlue",AUTODriveAndDumpPosBBlue.class);
+    manager.register("AUTODriveAndDumpPosARedWAITFIRST",AUTODriveAndDumpPosARedWAITFIRST.class);
+    manager.register("AUTODriveToBlueRampPosARed",AUTODriveToBlueRampPosARed.class);
+
     //manager.register("MRGyroTest",MRGyroTest.class);
     //manager.register("TESTGyro",TESTGyro.class);
     //manager.register("TESTAUTOmove",TESTAUTOmove.class);

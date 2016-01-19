@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Created by Internet on 12/8/2015.
  */
-public class AUTODriveAndDump extends LinearOpMode {
+public class AUTODriveAndDumpPosABlue extends LinearOpMode {
 
     public static final int ONEWHEELROTATION = 1220;
 
@@ -76,12 +76,12 @@ public class AUTODriveAndDump extends LinearOpMode {
         MoveForward(4480);
 
 
-        TurnLeft(47);
+        TurnRight(47);
         Thread.sleep(90);
 
         MoveForward(5500);
 
-        TurnLeft(23);
+        TurnRight(23);
         Thread.sleep(90);
         MoveForward(ONEWHEELROTATION);
 
@@ -90,9 +90,20 @@ public class AUTODriveAndDump extends LinearOpMode {
             dumpamount=dumpamount+0.000003;
             servotop.setPosition(dumpamount);
         }
-        TurnRight(90);
+        MoveBackward(ONEWHEELROTATION/2);
+        TurnLeft(90);
     }
 
+
+    private void MoveBackward(int moveamount) {
+        encoderatstart=motorLeft.getCurrentPosition();
+        motorLeft.setPower(-1);
+        motorRight.setPower(-1);
+        while(motorLeft.getCurrentPosition()<= moveamount+encoderatstart) {
+        }
+        motorLeft.setPower(0);
+        motorRight.setPower(0);
+    }
     private void MoveForward(int moveamount) {
         encoderatstart=motorLeft.getCurrentPosition();
         motorLeft.setPower(1);
