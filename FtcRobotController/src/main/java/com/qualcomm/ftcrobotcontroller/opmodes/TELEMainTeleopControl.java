@@ -57,7 +57,7 @@ public class TELEMainTeleopControl extends OpMode {
 	int timercowcatch = 0;
 	int timerdumper = 0;
 	int timerzipeline = 0;
-	double cowcatchpos;
+	double cowcatchpos = 1;
 	double dumperpos;
 	double ziplinepos;
 	String zipisout="";
@@ -114,7 +114,7 @@ public class TELEMainTeleopControl extends OpMode {
 		/*if (timercowcatch >=30) {
 			if (gamepad1.a) {
 				if (cowcatchpos == 1) {
-					cowcatchpos = 0;
+					cowcatchpos = .85;
 				} else {
 					cowcatchpos = 1;
 				}

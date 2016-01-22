@@ -51,7 +51,7 @@ public class twoServoIndependentControlOP extends OpMode {
     // TETRIX VALUES.
 	Servo servo;
 	//Servo servo1;
-	double servopos;
+	double servopos=1;
 
 	int timer = 0;
 	/**
@@ -73,7 +73,7 @@ public class twoServoIndependentControlOP extends OpMode {
 		 * that the names of the devices must match the names used when you
 		 * configured your robot and created the configuration file.
 		 */
-		double servopos=0.5;
+		double servopos=1;
 		double servopos2=0.5;
 		timer = 0;
 		/*
@@ -98,9 +98,12 @@ public class twoServoIndependentControlOP extends OpMode {
 	 */
 	@Override
 	public void loop() {
-		servopos= Range.clip(servopos, 0.01, .99);
-
-
+		servopos= Range.clip(servopos, 0.85, .99);
+if (timer==0)
+{
+	servopos=1;
+}
+timer++;
 
 
 

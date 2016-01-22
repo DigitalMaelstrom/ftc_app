@@ -66,7 +66,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register ("RhtpTankDrive2Controls4Op", RhtpTankDrive2Controls4OP.class);
     //manager.register ("TestWheelsOP", TestWheelsOP.class);
     manager.register ("TELEMainTeleopControl", TELEMainTeleopControl.class);
-   // manager.register ("TwoServoIndependentControlOp", twoServoIndependentControlOP.class);
+    manager.register ("TwoServoIndependentControlOp", twoServoIndependentControlOP.class);
     //manager.register ("FourMotorControlOP", FourMotorControlOP.class);
     //manager.register ("AutoMoveForwardGyroOP", AutoMoveForwardGyroOP.class);
     //manager.register ("continousServoOp", continousServoOp.class);
@@ -89,7 +89,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("AUTODriveAndDumpPosBBlue",AUTODriveAndDumpPosBBlue.class);
     manager.register("AUTODriveAndDumpPosARedWAITFIRST",AUTODriveAndDumpPosARedWAITFIRST.class);
     manager.register("AUTODriveToBlueRampPosARed",AUTODriveToBlueRampPosARed.class);
-
+    manager.register("AUTODriveAndDumpPosARedSOLABOT",AUTODriveAndDumpPosARedSOLABOT.class);
     //manager.register("MRGyroTest",MRGyroTest.class);
     //manager.register("TESTGyro",TESTGyro.class);
     //manager.register("TESTAUTOmove",TESTAUTOmove.class);
