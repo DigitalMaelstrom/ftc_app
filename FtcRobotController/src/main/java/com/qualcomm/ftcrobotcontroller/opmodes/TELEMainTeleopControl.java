@@ -111,7 +111,8 @@ public class TELEMainTeleopControl extends OpMode {
         // *Cow-catcher
 
         //Push A to push out/pull in the cow catcher
-		/*if (timercowcatch >=30) {
+		/*
+		if (timercowcatch >=30) {
 			if (gamepad1.a) {
 				if (cowcatchpos == 1) {
 					cowcatchpos = .85;

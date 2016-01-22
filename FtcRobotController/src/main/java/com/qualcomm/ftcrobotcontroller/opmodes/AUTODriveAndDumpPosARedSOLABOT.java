@@ -64,40 +64,27 @@ public class AUTODriveAndDumpPosARedSOLABOT extends LinearOpMode {
             motorController.setMotorChannelMode(motorLeft.getPortNumber(), DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
             telemetry.addData("pos3", "run without encoders");
             Thread.sleep(40);
-        //motorRight.setTargetPosition(2240);
-        //motorLeft.setTargetPosition(2240);
-
-
-
-        MoveForward(4480);
-        Log.d("AutoDrive", "Just Moved Forward");
-
-        TurnLeft(47);
-        Thread.sleep(90);
-
-        MoveForward(5500);
-
-        TurnLeft(23);
-        Thread.sleep(90);
-        MoveForward(ONEWHEELROTATION);
+        //PUT THE COMMANDS DOWN HERE VVVVVVVVVV
 
     }
 
 
     private void MoveBackward(int moveamount) {
         encoderatstart=motorLeft.getCurrentPosition();
-        motorLeft.setPower(-1);
-        motorRight.setPower(-1);
+        motorLeft.setPower(1);
+        motorRight.setPower(1);
         while(motorLeft.getCurrentPosition()<= moveamount+encoderatstart) {
+            telemetry.addData("po9999s",motorLeft.getCurrentPosition());
         }
         motorLeft.setPower(0);
         motorRight.setPower(0);
     }
     private void MoveForward(int moveamount) {
         encoderatstart=motorLeft.getCurrentPosition();
-        motorLeft.setPower(1);
-        motorRight.setPower(1);
+        motorLeft.setPower(-1);
+        motorRight.setPower(-1);
         while(motorLeft.getCurrentPosition()>= -moveamount+encoderatstart) {
+            telemetry.addData("po9999s",motorLeft.getCurrentPosition());
         }
         motorLeft.setPower(0);
         motorRight.setPower(0);
@@ -109,8 +96,8 @@ public class AUTODriveAndDumpPosARedSOLABOT extends LinearOpMode {
         gyroSensor.resetZAxisIntegrator();
         telemetry.addData("Gyro2", gyroSensor.getHeading());
         Thread.sleep(turndelay);
-        motorLeft.setPower(.75);
-        motorRight.setPower(-.75);
+        motorLeft.setPower(-.75);
+        motorRight.setPower(.75);
         while (gyroSensor.getHeading() <= degrees) {
         }
         motorLeft.setPower(0);
@@ -123,8 +110,8 @@ public class AUTODriveAndDumpPosARedSOLABOT extends LinearOpMode {
         gyroSensor.resetZAxisIntegrator();
         telemetry.addData("Gyro3", gyroSensor.getHeading());
         Thread.sleep(turndelay);
-        motorLeft.setPower(-.75);
-        motorRight.setPower(.75);
+        motorLeft.setPower(.75);
+        motorRight.setPower(-.75);
         while (gyroSensor.getHeading() <= 360-degrees) {
         }
         while (gyroSensor.getHeading() >= 360-degrees) {
