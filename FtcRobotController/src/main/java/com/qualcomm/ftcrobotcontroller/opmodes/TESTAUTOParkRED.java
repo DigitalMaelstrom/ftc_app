@@ -1,5 +1,7 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import android.util.Log;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
@@ -11,29 +13,36 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 public class TESTAUTOParkRED extends LinearOpMode {
 
+    public static final int ONEWHEELROTATION = 1220;
+
     DcMotorController motorController;
-    //Servo servotop;
+    Servo servotop;
+    Servo servomid;
+
     DcMotor motorLeft;
     DcMotor motorRight;
     GyroSensor gyroSensor;
     int count=0;
     int xVal, yVal, zVal = 0;
     public int heading = 0;
+    int turndelay=1000;
     int encoderatstart=0;
-
     @Override
     public void runOpMode() throws InterruptedException {
 
         int time = 0;
+        double dumpamount = 0;
         motorRight = hardwareMap.dcMotor.get("motorR");
         motorLeft = hardwareMap.dcMotor.get("motorL");
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
         gyroSensor = hardwareMap.gyroSensor.get("gyro");
-        // servotop=hardwareMap.servo.get("servoTop");
+        servotop = hardwareMap.servo.get("servoTop");
+        servomid = hardwareMap.servo.get("servoMid");
+
         gyroSensor.calibrate();
 
         waitForStart();
-        while(gyroSensor.isCalibrating()) {
+        while (gyroSensor.isCalibrating()) {
             telemetry.addData("pos2", "run withou");
             Thread.sleep(50);
         }
@@ -54,40 +63,59 @@ public class TESTAUTOParkRED extends LinearOpMode {
         motorController.setMotorChannelMode(motorRight.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
         motorController.setMotorChannelMode(motorLeft.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
         telemetry.addData("pos", motorLeft.getCurrentPosition());
-        Thread.sleep(40);
+        Thread.sleep(400);
         motorController.setMotorChannelMode(motorRight.getPortNumber(), DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         motorController.setMotorChannelMode(motorLeft.getPortNumber(), DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         telemetry.addData("pos3", "run without encoders");
         Thread.sleep(40);
-        // motorRight.setTargetPosition(2240);
+        //motorRight.setTargetPosition(2240);
         //motorLeft.setTargetPosition(2240);
+        servotop.setPosition(0.0);
+        servomid.setPosition(0.5);
+
+
+        MoveForward(4480);
+        Log.d("AutoDrive", "Just Moved Forward");
+
+        TurnLeft(47);
+        Thread.sleep(90);
+
+        MoveForward(3000);
+
+        TurnLeft(23);
+        Thread.sleep(90);
+
+    }
+
+
+    private void MoveBackward(int moveamount) {
         encoderatstart=motorLeft.getCurrentPosition();
-        MoveForward(-1220);
-        Thread.sleep(100);
-      //  MoveForward(5000);
-        Thread.sleep(50);
-        telemetry.addData("done1", "Done moving forward2");
-        TurnLeft(90);
-        telemetry.addData("done2", "I TURNED");
-        Thread.sleep(150);
-        TurnRight(90);
-        Thread.sleep(50);
-        telemetry.addData("done4", "I TURNED2");
-        telemetry.addData("done","DONE WITH EVERYTHINGGG");
-        telemetry.addData("Gyro", gyroSensor.getHeading());
-        telemetry.addData("Version ", "1");
-
-
-
+        motorLeft.setPower(-1);
+        motorRight.setPower(-1);
+        while(motorLeft.getCurrentPosition()<= moveamount+encoderatstart) {
+        }
+        motorLeft.setPower(0);
+        motorRight.setPower(0);
+    }
+    private void MoveForward(int moveamount) {
+        encoderatstart=motorLeft.getCurrentPosition();
+        motorLeft.setPower(1);
+        motorRight.setPower(1);
+        while(motorLeft.getCurrentPosition()>= -moveamount+encoderatstart) {
+        }
+        motorLeft.setPower(0);
+        motorRight.setPower(0);
     }
 
     public void TurnRight(int degrees)throws InterruptedException {
         // Turn Right
+        telemetry.addData("turn", "right");
         gyroSensor.resetZAxisIntegrator();
-        Thread.sleep(50);
-        motorLeft.setPower(1);
-        motorRight.setPower(-1);
-        while(gyroSensor.getHeading() <= degrees) {
+        telemetry.addData("Gyro2", gyroSensor.getHeading());
+        Thread.sleep(turndelay);
+        motorLeft.setPower(.75);
+        motorRight.setPower(-.75);
+        while (gyroSensor.getHeading() <= degrees) {
         }
         motorLeft.setPower(0);
         motorRight.setPower(0);
@@ -95,29 +123,18 @@ public class TESTAUTOParkRED extends LinearOpMode {
 
     public void TurnLeft(int degrees) throws InterruptedException{
         // Turn Left
+        telemetry.addData("turnn", "notright");
         gyroSensor.resetZAxisIntegrator();
-        Thread.sleep(50);
-        motorLeft.setPower(-1);
-        motorRight.setPower(1);
+        telemetry.addData("Gyro3", gyroSensor.getHeading());
+        Thread.sleep(turndelay);
+        motorLeft.setPower(-.75);
+        motorRight.setPower(.75);
         while (gyroSensor.getHeading() <= 360-degrees) {
         }
         while (gyroSensor.getHeading() >= 360-degrees) {
         }
         motorLeft.setPower(0);
         motorRight.setPower(0);
-    }
-    //1220 = full rotation
-    public void MoveForward(int rotations) throws InterruptedException{
-        //Move forward
-        Thread.sleep(50);
-        motorLeft.setPower(-1);
-        motorRight.setPower(-1);
-        while(motorLeft.getCurrentPosition()>=rotations+encoderatstart) {
 
-        }
-        motorLeft.setPower(0);
-        motorRight.setPower(0);
     }
 }
-
-
