@@ -73,25 +73,28 @@ public class AUTODriveAndDumpPosABlue extends LinearOpMode {
 
 
 
-        MoveForward(4480);
+        MoveForward(3880);
+        //Log.d("AutoDrive", "Just Moved Forward");
 
-
-        TurnRight(47);
+        TurnRight(37);
         Thread.sleep(90);
 
         MoveForward(5500);
 
-        TurnRight(23);
+        TurnRight(37);
         Thread.sleep(90);
-        MoveForward(ONEWHEELROTATION);
+        MoveForward(ONEWHEELROTATION+500);
 
         dumpamount=0;
         while (dumpamount<=0.89) {
-            dumpamount=dumpamount+0.000003;
+            dumpamount=dumpamount+0.000002;
             servotop.setPosition(dumpamount);
         }
-        MoveBackward(ONEWHEELROTATION/2);
-        TurnLeft(90);
+        Thread.sleep(10000);
+        servotop.setPosition(0);
+        MoveBackward(ONEWHEELROTATION / 2);
+        TurnLeft(80);
+        MoveForward(ONEWHEELROTATION/2);
     }
 
 

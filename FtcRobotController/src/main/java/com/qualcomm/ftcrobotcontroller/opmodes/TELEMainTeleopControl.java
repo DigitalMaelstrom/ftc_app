@@ -224,7 +224,7 @@ public class TELEMainTeleopControl extends OpMode {
 			zipisout="The zipline is out!";
 		}
 		servomid.setPosition(ziplinepos);
-
+		telemetry.addData("AAAA",wheelie);
 		telemetry.addData("Teleop Version", "3.0");
 		telemetry.addData("Can control:","2 motor driving, Zip-line, Dumper, Arm, Guy Deliver");
 		telemetry.addData("Zipline?", zipisout);
