@@ -53,7 +53,8 @@ public class TELEMainTeleopControl extends OpMode {
     boolean gototop=false;
     boolean gotobot=false;
     boolean gotonone=true;
-
+	boolean slowmode=false;
+	int timerarmcontrol=0;
 	int timercowcatch = 0;
 	int timerdumper = 0;
 	int timerzipeline = 0;
@@ -130,7 +131,22 @@ public class TELEMainTeleopControl extends OpMode {
 		float wheelie = gamepad2.right_stick_y;
 		wheelie = Range.clip(wheelie, -1, 1);
 		wheelie = (float)scaleInput(wheelie);
-
+		if (timerarmcontrol >=30) {
+			if (gamepad2.a) {
+				if (slowmode=true) {
+					slowmode=false;
+				} else {
+					slowmode=true;
+				}
+				timerarmcontrol =0;
+			}
+		}
+		timerarmcontrol++;
+		if (slowmode==true)
+		{
+			wheelie=wheelie*0.3f;
+		}
+		motorBack.setPower(wheelie);
         /*if (gamepad2.y)
         {
             gotonone=true;
@@ -150,9 +166,7 @@ public class TELEMainTeleopControl extends OpMode {
             gotonone=false;
         }*/
 
-        if (gotonone==true) {
-            motorBack.setPower(wheelie);
-        }
+
         /*if (gototop==true)
         {
             if (motorBack.getCurrentPosition()>0)
@@ -215,12 +229,12 @@ public class TELEMainTeleopControl extends OpMode {
 		}
 		if (gamepad1.x)
 		{
-			ziplinepos=0.9;
+			ziplinepos=1;
 			zipisout="The zipline is out!";
 		}
 		if (gamepad1.b)
 		{
-			ziplinepos=0;
+			ziplinepos=0.1;
 			zipisout="The zipline is out!";
 		}
 		servomid.setPosition(ziplinepos);
