@@ -76,12 +76,12 @@ public class AUTODriveAndDumpPosBBlue extends LinearOpMode {
         MoveForward(2585);
 
 
-        TurnRight(37);
+        TurnRight(30);
         Thread.sleep(90);
 
         MoveForward(7000);
 
-        TurnRight(37);
+        TurnRight(30);
         Thread.sleep(90);
         MoveForward((ONEWHEELROTATION*2)+800);
 

@@ -70,15 +70,16 @@ public class AUTODriveAndDumpPosARed extends LinearOpMode {
             Thread.sleep(40);
         //motorRight.setTargetPosition(2240);
         //motorLeft.setTargetPosition(2240);
+        //set servos to starting positions
         servotop.setPosition(0.0);
         servomid.setPosition(0.5);
 
 
-
+        //move forward
         MoveForward(3880);
         //Log.d("AutoDrive", "Just Moved Forward");
-
-        TurnLeft(47);
+        //turn left
+        TurnLeft(37);
         Thread.sleep(90);
 
         MoveForward(5650);
@@ -101,6 +102,7 @@ public class AUTODriveAndDumpPosARed extends LinearOpMode {
 
 
     private void MoveBackward(int moveamount) {
+        //MoveBackward
         encoderatstart=motorLeft.getCurrentPosition();
         motorLeft.setPower(-1);
         motorRight.setPower(-1);
@@ -110,6 +112,7 @@ public class AUTODriveAndDumpPosARed extends LinearOpMode {
         motorRight.setPower(0);
     }
     private void MoveForward(int moveamount) {
+        //Move Forward
         encoderatstart=motorLeft.getCurrentPosition();
         motorLeft.setPower(1);
         motorRight.setPower(1);
