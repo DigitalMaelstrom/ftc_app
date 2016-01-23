@@ -65,7 +65,7 @@ public class AUTODriveAndDumpPosARedSOLABOT extends LinearOpMode {
             telemetry.addData("pos3", "run without encoders");
             Thread.sleep(40);
         //PUT THE COMMANDS DOWN HERE VVVVVVVVVV
-
+        MoveForward(ONEWHEELROTATION*6);
     }
 
 
