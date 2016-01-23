@@ -81,7 +81,7 @@ public class AUTODriveAndDumpPosARed extends LinearOpMode {
         TurnLeft(47);
         Thread.sleep(90);
 
-        MoveForward(5500);
+        MoveForward(5650);
 
         TurnLeft(37);
         Thread.sleep(90);
