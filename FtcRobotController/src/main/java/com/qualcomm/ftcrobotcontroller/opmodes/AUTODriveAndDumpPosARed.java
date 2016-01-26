@@ -82,11 +82,11 @@ public class AUTODriveAndDumpPosARed extends LinearOpMode {
         TurnLeft(37);
         Thread.sleep(90);
 
-        MoveForward(5650);
+        MoveForward(4950);
 
         TurnLeft(37);
         Thread.sleep(90);
-        MoveForward(ONEWHEELROTATION+500);
+        MoveForward(ONEWHEELROTATION*2);
 
         dumpamount=0;
         while (dumpamount<=0.89) {
@@ -104,8 +104,8 @@ public class AUTODriveAndDumpPosARed extends LinearOpMode {
     private void MoveBackward(int moveamount) {
         //MoveBackward
         encoderatstart=motorLeft.getCurrentPosition();
-        motorLeft.setPower(-1);
-        motorRight.setPower(-1);
+        motorLeft.setPower(-0.6);
+        motorRight.setPower(-0.6);
         while(motorLeft.getCurrentPosition()<= moveamount+encoderatstart) {
         }
         motorLeft.setPower(0);
@@ -114,8 +114,8 @@ public class AUTODriveAndDumpPosARed extends LinearOpMode {
     private void MoveForward(int moveamount) {
         //Move Forward
         encoderatstart=motorLeft.getCurrentPosition();
-        motorLeft.setPower(1);
-        motorRight.setPower(1);
+        motorLeft.setPower(0.6);
+        motorRight.setPower(0.6);
         while(motorLeft.getCurrentPosition()>= -moveamount+encoderatstart) {
         }
         motorLeft.setPower(0);
@@ -127,11 +127,15 @@ public class AUTODriveAndDumpPosARed extends LinearOpMode {
         telemetry.addData("turn", "right");
         gyroSensor.resetZAxisIntegrator();
         telemetry.addData("Gyro2", gyroSensor.getHeading());
+        Log.d("RightTurn", "Start Position: " + gyroSensor.getHeading());
         Thread.sleep(turndelay);
-        motorLeft.setPower(.75);
-        motorRight.setPower(-.75);
+        motorLeft.setPower(.6);
+        motorRight.setPower(-.6);
         while (gyroSensor.getHeading() <= degrees) {
+            Thread.sleep(2);
+            Log.d("RightTurn", "Position: "+gyroSensor.getHeading());
         }
+        Log.d("RightTurn", "Finish Position: "+gyroSensor.getHeading());
         motorLeft.setPower(0);
         motorRight.setPower(0);
     }
@@ -141,13 +145,17 @@ public class AUTODriveAndDumpPosARed extends LinearOpMode {
         telemetry.addData("turnn", "notright");
         gyroSensor.resetZAxisIntegrator();
         telemetry.addData("Gyro3", gyroSensor.getHeading());
+        Log.d("LeftTurn", "Start Position: " + gyroSensor.getHeading());
         Thread.sleep(turndelay);
-        motorLeft.setPower(-.75);
-        motorRight.setPower(.75);
+        motorLeft.setPower(-.6);
+        motorRight.setPower(.6);
         while (gyroSensor.getHeading() <= 360-degrees) {
         }
         while (gyroSensor.getHeading() >= 360-degrees) {
+            Thread.sleep(2);
+            Log.d("LeftTurn", "Position: "+gyroSensor.getHeading());
         }
+        Log.d("LeftTurn", "End Position: "+gyroSensor.getHeading());
         motorLeft.setPower(0);
         motorRight.setPower(0);
 

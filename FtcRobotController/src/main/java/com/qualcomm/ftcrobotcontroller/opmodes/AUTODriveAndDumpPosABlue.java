@@ -1,5 +1,7 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import android.util.Log;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
@@ -76,32 +78,27 @@ public class AUTODriveAndDumpPosABlue extends LinearOpMode {
         MoveForward(3880);
         //Log.d("AutoDrive", "Just Moved Forward");
 
-        TurnRight(25);
+        TurnRight(33);
         Thread.sleep(90);
 
         MoveForward(5800);
 
-        TurnRight(25);
+        TurnRight(33);
         Thread.sleep(90);
-        MoveForward(ONEWHEELROTATION+500);
+        MoveForward(ONEWHEELROTATION + 500);
 
         dumpamount=0;
         while (dumpamount<=0.89) {
             dumpamount=dumpamount+0.000002;
             servotop.setPosition(dumpamount);
         }
-        Thread.sleep(10000);
-        servotop.setPosition(0);
-        MoveBackward(ONEWHEELROTATION / 2);
-        TurnRight(80);
-        MoveBackward(ONEWHEELROTATION/2);
     }
 
 
     private void MoveBackward(int moveamount) {
         encoderatstart=motorLeft.getCurrentPosition();
-        motorLeft.setPower(-1);
-        motorRight.setPower(-1);
+        motorLeft.setPower(-0.6);
+        motorRight.setPower(-0.6);
         while(motorLeft.getCurrentPosition()<= moveamount+encoderatstart) {
         }
         motorLeft.setPower(0);
@@ -109,8 +106,8 @@ public class AUTODriveAndDumpPosABlue extends LinearOpMode {
     }
     private void MoveForward(int moveamount) {
         encoderatstart=motorLeft.getCurrentPosition();
-        motorLeft.setPower(1);
-        motorRight.setPower(1);
+        motorLeft.setPower(0.6);
+        motorRight.setPower(0.6);
         while(motorLeft.getCurrentPosition()>= -moveamount+encoderatstart) {
         }
         motorLeft.setPower(0);
@@ -120,13 +117,18 @@ public class AUTODriveAndDumpPosABlue extends LinearOpMode {
     public void TurnRight(int degrees)throws InterruptedException {
         // Turn Right
         telemetry.addData("turn", "right");
+        Thread.sleep(turndelay);
         gyroSensor.resetZAxisIntegrator();
         telemetry.addData("Gyro2", gyroSensor.getHeading());
         Thread.sleep(turndelay);
-        motorLeft.setPower(.75);
-        motorRight.setPower(-.75);
+        Log.d("RightTurn", "Start Position: " + gyroSensor.getHeading());
+        motorLeft.setPower(.6);
+        motorRight.setPower(-.6);
         while (gyroSensor.getHeading() <= degrees) {
+            Thread.sleep(20);
+            Log.d("RightTurn", "Position: "+gyroSensor.getHeading());
         }
+        Log.d("RightTurn", "Finish Position: "+gyroSensor.getHeading());
         motorLeft.setPower(0);
         motorRight.setPower(0);
     }
@@ -134,15 +136,20 @@ public class AUTODriveAndDumpPosABlue extends LinearOpMode {
     public void TurnLeft(int degrees) throws InterruptedException{
         // Turn Left
         telemetry.addData("turnn", "notright");
+        Thread.sleep(turndelay);
         gyroSensor.resetZAxisIntegrator();
         telemetry.addData("Gyro3", gyroSensor.getHeading());
         Thread.sleep(turndelay);
-        motorLeft.setPower(-.75);
-        motorRight.setPower(.75);
+        Log.d("LeftTurn", "Start Position: "+gyroSensor.getHeading());
+        motorLeft.setPower(-.6);
+        motorRight.setPower(.6);
         while (gyroSensor.getHeading() <= 360-degrees) {
         }
         while (gyroSensor.getHeading() >= 360-degrees) {
+            Thread.sleep(20);
+            Log.d("LeftTurn", "Position: "+gyroSensor.getHeading());
         }
+        Log.d("LeftTurn", "End Position: "+gyroSensor.getHeading());
         motorLeft.setPower(0);
         motorRight.setPower(0);
 

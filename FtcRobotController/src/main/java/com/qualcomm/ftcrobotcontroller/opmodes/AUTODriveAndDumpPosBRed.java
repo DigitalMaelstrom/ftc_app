@@ -76,14 +76,14 @@ public class AUTODriveAndDumpPosBRed extends LinearOpMode {
         MoveForward(2585);
 
 
-        TurnLeft(37);
+        TurnLeft(40);
         Thread.sleep(90);
 
         MoveForward(6500);
 
-        TurnLeft(27);
+        TurnLeft(33);
         Thread.sleep(90);
-        MoveForward((ONEWHEELROTATION*2)+800);
+        MoveForward((ONEWHEELROTATION*3));
 
         dumpamount=0;
         while (dumpamount<=0.89) {
@@ -100,8 +100,8 @@ public class AUTODriveAndDumpPosBRed extends LinearOpMode {
 
     private void MoveBackward(int moveamount) {
         encoderatstart=motorLeft.getCurrentPosition();
-        motorLeft.setPower(-1);
-        motorRight.setPower(-1);
+        motorLeft.setPower(-0.6);
+        motorRight.setPower(-0.6);
         while(motorLeft.getCurrentPosition()<= moveamount+encoderatstart) {
         }
         motorLeft.setPower(0);
@@ -109,8 +109,8 @@ public class AUTODriveAndDumpPosBRed extends LinearOpMode {
     }
     private void MoveForward(int moveamount) {
         encoderatstart=motorLeft.getCurrentPosition();
-        motorLeft.setPower(1);
-        motorRight.setPower(1);
+        motorLeft.setPower(0.6);
+        motorRight.setPower(0.6);
         while(motorLeft.getCurrentPosition()>= -moveamount+encoderatstart) {
         }
         motorLeft.setPower(0);
@@ -123,8 +123,8 @@ public class AUTODriveAndDumpPosBRed extends LinearOpMode {
         gyroSensor.resetZAxisIntegrator();
         telemetry.addData("Gyro2", gyroSensor.getHeading());
         Thread.sleep(turndelay);
-        motorLeft.setPower(.75);
-        motorRight.setPower(-.75);
+        motorLeft.setPower(.6);
+        motorRight.setPower(-.6);
         while (gyroSensor.getHeading() <= degrees) {
         }
         motorLeft.setPower(0);
@@ -137,8 +137,8 @@ public class AUTODriveAndDumpPosBRed extends LinearOpMode {
         gyroSensor.resetZAxisIntegrator();
         telemetry.addData("Gyro3", gyroSensor.getHeading());
         Thread.sleep(turndelay);
-        motorLeft.setPower(-.75);
-        motorRight.setPower(.75);
+        motorLeft.setPower(-.6);
+        motorRight.setPower(.6);
         while (gyroSensor.getHeading() <= 360-degrees) {
         }
         while (gyroSensor.getHeading() >= 360-degrees) {
