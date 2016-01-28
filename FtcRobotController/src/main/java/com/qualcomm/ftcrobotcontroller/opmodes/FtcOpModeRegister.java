@@ -66,7 +66,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register ("RhtpTankDrive2Controls4Op", RhtpTankDrive2Controls4OP.class);
     //manager.register ("TestWheelsOP", TestWheelsOP.class);
     manager.register ("TELEMainTeleopControl", TELEMainTeleopControl.class);
-    //manager.register ("FourMotorControlOP", FourMotorControlOP.class);
+    manager.register ("twoServoIndependentControlOP", twoServoIndependentControlOP.class);
     //manager.register ("AutoMoveForwardGyroOP", AutoMoveForwardGyroOP.class);
     //manager.register ("continousServoOp", continousServoOp.class);
    // manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);

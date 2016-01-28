@@ -98,25 +98,26 @@ public class twoServoIndependentControlOP extends OpMode {
 	 */
 	@Override
 	public void loop() {
-		servopos= Range.clip(servopos, 0.85, .99);
+		servopos= Range.clip(servopos, 0.65, .99);
 if (timer==0)
 {
-	servopos=1;
-}
+	servo.setPosition(1);}
 timer++;
 
 
 
 		if (gamepad1.y) {
-			servopos+=0.005;
+			servo.setPosition(1);
 		}
+		if (gamepad1.b) {
+			servo.setPosition(0.81);		}
 		if (gamepad1.a) {
-			servopos-=0.005;
-		}
+			servo.setPosition(0.8);		}
+		if (gamepad1.x) {
+			servo.setPosition(0.79);		}
 
 
 
-		servo.setPosition(servopos);
 		//servo1.setPosition(servopos1);
 		// clip the right/left values so that the values never exceed +/- 1
 
@@ -136,8 +137,8 @@ timer++;
 
 		;
 
-		telemetry.addData("right program", "no what");
-		telemetry.addData("jnakfn", servopos);
+		telemetry.addData("right program", "limit");
+		telemetry.addData("jnakfn", servo.getPosition());
 	}
 
 	/*
