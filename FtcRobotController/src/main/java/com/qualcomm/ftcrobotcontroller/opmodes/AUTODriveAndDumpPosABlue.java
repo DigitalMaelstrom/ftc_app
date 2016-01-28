@@ -19,13 +19,14 @@ public class AUTODriveAndDumpPosABlue extends AutoOpMode {
 
         int time = 0;
         double dumpamount=0;
+        servofront = hardwareMap.servo.get("servoFront");
         motorRight = hardwareMap.dcMotor.get("motorR");
         motorLeft = hardwareMap.dcMotor.get("motorL");
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
         gyroSensor = hardwareMap.gyroSensor.get("gyro");
         servotop=hardwareMap.servo.get("servoTop");
         servomid = hardwareMap.servo.get("servoMid");
-
+        motorBack = hardwareMap.dcMotor.get("motorWheelie");
         gyroSensor.calibrate();
 
         waitForStart();
@@ -33,20 +34,21 @@ public class AUTODriveAndDumpPosABlue extends AutoOpMode {
         InitializeEncoders();
         servotop.setPosition(0.0);
         servomid.setPosition(0.5);
+        servofront.setPosition(0.81);
+        motorBack.setPower(0.1);
 
 
-
-        MoveForward(3880);
+        MoveForward(4080);
         //Log.d("AutoDrive", "Just Moved Forward");
 
-        TurnRight(33);
+        TurnRight(37);
         Thread.sleep(90);
 
-        MoveForward(5800);
+        MoveForward(4900);
 
-        TurnRight(33);
+        TurnRight(40);
         Thread.sleep(90);
-        MoveForward(ONEWHEELROTATION + 500);
+        MoveForward(ONEWHEELROTATION * 2);
 
         dumpamount=0;
         while (dumpamount<=0.89) {

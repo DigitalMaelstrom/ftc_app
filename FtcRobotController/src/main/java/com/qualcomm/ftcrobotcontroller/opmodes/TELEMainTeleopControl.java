@@ -42,7 +42,7 @@ public class TELEMainTeleopControl extends OpMode {
 
 
     //DcMotorController motorController;
-    //Servo servofront;
+    Servo servofront;
 	Servo servotop;
 	Servo servomid;
 	DcMotor motorBack;
@@ -71,12 +71,12 @@ public class TELEMainTeleopControl extends OpMode {
 	@Override
 	public void init() {
 
-		cowcatchpos =0.5;
+		cowcatchpos =1;
 		dumperpos =0.1;
 		ziplinepos =0.5;
 
        // motorController = hardwareMap.dcMotorController.get("Motor Controller 1");
-		//servofront = hardwareMap.servo.get("servoFront");
+		servofront = hardwareMap.servo.get("servoFront");
 		motorRight = hardwareMap.dcMotor.get("motorR");
 		motorLeft = hardwareMap.dcMotor.get("motorL");
 		motorLeft.setDirection(DcMotor.Direction.REVERSE);
@@ -112,11 +112,11 @@ public class TELEMainTeleopControl extends OpMode {
         // *Cow-catcher
 
         //Push A to push out/pull in the cow catcher
-		/*
+
 		if (timercowcatch >=30) {
 			if (gamepad1.a) {
 				if (cowcatchpos == 1) {
-					cowcatchpos = .85;
+					cowcatchpos = .81;
 				} else {
 					cowcatchpos = 1;
 				}
@@ -124,7 +124,7 @@ public class TELEMainTeleopControl extends OpMode {
 			}
 		}
 		timercowcatch++;
-		servofront.setPosition(cowcatchpos);*/
+		servofront.setPosition(cowcatchpos);
 
 
 		// *Wheelie Bar
@@ -239,8 +239,8 @@ public class TELEMainTeleopControl extends OpMode {
 		}
 		servomid.setPosition(ziplinepos);
 		telemetry.addData("AAAA",wheelie);
-		telemetry.addData("Teleop Version", "3.0");
-		telemetry.addData("Can control:","2 motor driving, Zip-line, Dumper, Arm, Guy Deliver");
+		telemetry.addData("Teleop Version", "4.2");
+		telemetry.addData("Can control:","2 motor driving, Zip-line, Dumper, Arm, Guy Deliver, Cow carcher");
 		telemetry.addData("Zipline?", zipisout);
 	}
 

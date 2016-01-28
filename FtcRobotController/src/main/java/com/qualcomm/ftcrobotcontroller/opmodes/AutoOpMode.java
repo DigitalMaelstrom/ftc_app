@@ -17,15 +17,16 @@ public abstract class AutoOpMode extends LinearOpMode{
     DcMotorController motorController;
     Servo servotop;
     Servo servomid;
-
+    Servo servofront;
     DcMotor motorLeft;
     DcMotor motorRight;
+    DcMotor motorBack;
     GyroSensor gyroSensor;
     double speed = .6;
     int count=0;
     int xVal, yVal, zVal = 0;
     int heading = 0;
-    int turndelay=3000;
+    int turndelay=300;
     int encoderatstart=0;
     //end of variable initilization
     protected void initializeGyro() throws InterruptedException {
