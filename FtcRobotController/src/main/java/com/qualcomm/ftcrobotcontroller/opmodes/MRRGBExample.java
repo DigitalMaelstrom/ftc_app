@@ -118,7 +118,7 @@ public class MRRGBExample extends LinearOpMode {
         bEnabled = true;
 
         // turn on the LED.
-        sensorRGB.enableLed(bEnabled);
+        sensorRGB1.enableLed(bEnabled);
       } else if (bCurrState == false && bCurrState != bPrevState)  {
         // button is transitioning to a released state.
 
@@ -132,11 +132,11 @@ public class MRRGBExample extends LinearOpMode {
         bEnabled = false;
 
         // turn off the LED.
-        sensorRGB.enableLed(false);
+        sensorRGB1.enableLed(false);
       }*/
 
       // convert the RGB values to HSV values.
-      //Color.RGBToHSV((sensorRGB.red() * 8), (sensorRGB.green() * 8), (sensorRGB.blue() * 8), hsvValues);
+      //Color.RGBToHSV((sensorRGB1.red() * 8), (sensorRGB1.green() * 8), (sensorRGB1.blue() * 8), hsvValues);
       Color.RGBToHSV(sensorRGB.red()*8, sensorRGB.green()*8, sensorRGB.blue()*8, hsvValues);
 
       // send the info back to driver station using telemetry function.

@@ -31,48 +31,41 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import android.app.Activity;
 import android.graphics.Color;
-import android.hardware.Sensor;
-import android.view.View;
 
-import com.qualcomm.ftcrobotcontroller.R;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
 public class AUTOBeaconPressTest extends LinearOpMode {
 
-  ColorSensor sensorRGB;
+  ColorSensor sensorRGB1;
   public void runOpMode() throws InterruptedException {
-    sensorRGB = hardwareMap.colorSensor.get("mr");
-    sensorRGB.enableLed(true);
+    sensorRGB1 = hardwareMap.colorSensor.get("mr");
+    sensorRGB1.enableLed(true);
 
     waitOneFullHardwareCycle();
     waitForStart();
-      sensorRGB.enableLed(false);
+      sensorRGB1.enableLed(false);
       waitOneFullHardwareCycle();
-      sensorRGB.enableLed(false);
+      sensorRGB1.enableLed(false);
 
 
     float hsvValues[] = {0F,0F,0F};
     final float values[] = hsvValues;
 
-      sensorRGB.enableLed(false);
-      Color.RGBToHSV(sensorRGB.red() * 8, sensorRGB.green() * 8, sensorRGB.blue() * 8, hsvValues);
-      telemetry.addData("Clear", sensorRGB.alpha());
-      telemetry.addData("Red  ", sensorRGB.red());
-      telemetry.addData("Green", sensorRGB.green());
-      telemetry.addData("Blue ", sensorRGB.blue());
+      sensorRGB1.enableLed(false);
+      Color.RGBToHSV(sensorRGB1.red() * 8, sensorRGB1.green() * 8, sensorRGB1.blue() * 8, hsvValues);
+      telemetry.addData("Clear", sensorRGB1.alpha());
+      telemetry.addData("Red  ", sensorRGB1.red());
+      telemetry.addData("Green", sensorRGB1.green());
+      telemetry.addData("Blue ", sensorRGB1.blue());
       telemetry.addData("Hue", hsvValues[0]);
       waitOneFullHardwareCycle();
 
       telemetry.addData("WAITING", "waiting");
       Thread.sleep(10000);
-      if (sensorRGB.red() > sensorRGB.blue())
-    {
-
-    }
-
-
+      if (sensorRGB1.red() > sensorRGB1.blue())
+      {
+      }
   }
 }

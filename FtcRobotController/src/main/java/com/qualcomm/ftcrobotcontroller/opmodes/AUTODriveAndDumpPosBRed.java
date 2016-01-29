@@ -25,14 +25,15 @@ public class AUTODriveAndDumpPosBRed extends AutoOpMode {
         servomid = hardwareMap.servo.get("servoMid");
         motorBack = hardwareMap.dcMotor.get("motorWheelie");
         gyroSensor.calibrate();
-
+        motorBack.setPower(-0.5);
+        servofront.setPosition(0.81);
         waitForStart();
         initializeGyro();
         InitializeEncoders();
         servotop.setPosition(0.0);
         servomid.setPosition(0.5);
         servofront.setPosition(0.81);
-        motorBack.setPower(0.1);
+        motorBack.setPower(-0.5);
 
         MoveForward(2585);
 
@@ -51,6 +52,8 @@ public class AUTODriveAndDumpPosBRed extends AutoOpMode {
             dumpamount=dumpamount+0.000003;
             servotop.setPosition(dumpamount);
         }
+        motorBack.setPower(0);
+
     }
 
 }

@@ -142,9 +142,10 @@ public class TELEMainTeleopControl extends OpMode {
 			}
 		}
 		timerarmcontrol++;
+		slowmode=false;
 		if (slowmode==true)
 		{
-			wheelie=wheelie*0.3f;
+			wheelie=wheelie*0.15f;
 		}
 		motorBack.setPower(wheelie);
         /*if (gamepad2.y)
@@ -242,6 +243,7 @@ public class TELEMainTeleopControl extends OpMode {
 		telemetry.addData("Teleop Version", "4.2");
 		telemetry.addData("Can control:","2 motor driving, Zip-line, Dumper, Arm, Guy Deliver, Cow carcher");
 		telemetry.addData("Zipline?", zipisout);
+		telemetry.addData("Wheelie Bar Slowmode?",slowmode);
 	}
 
 
