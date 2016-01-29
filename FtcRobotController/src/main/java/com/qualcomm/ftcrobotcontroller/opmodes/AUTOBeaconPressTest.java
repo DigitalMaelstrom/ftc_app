@@ -37,30 +37,46 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
 public class AUTOBeaconPressTest extends LinearOpMode {
-
+  ColorSensor sensorRGB2;
   ColorSensor sensorRGB1;
   public void runOpMode() throws InterruptedException {
     sensorRGB1 = hardwareMap.colorSensor.get("mr");
     sensorRGB1.enableLed(true);
+    sensorRGB2 = hardwareMap.colorSensor.get("mr2");
+    sensorRGB2.enableLed(true);
 
     waitOneFullHardwareCycle();
     waitForStart();
+      sensorRGB2.enableLed(false);
       sensorRGB1.enableLed(false);
       waitOneFullHardwareCycle();
+      sensorRGB2.enableLed(false);
       sensorRGB1.enableLed(false);
 
+
+    float hsvValues2[] = {0F,0F,0F};
+    final float values2[] = hsvValues2;
+
+      sensorRGB2.enableLed(false);
+      Color.RGBToHSV(sensorRGB2.red() * 8, sensorRGB2.green() * 8, sensorRGB2.blue() * 8, hsvValues2);
+      telemetry.addData("Clear2", sensorRGB2.alpha());
+      telemetry.addData("Red2  ", sensorRGB2.red());
+      telemetry.addData("Green2", sensorRGB2.green());
+      telemetry.addData("Blue2 ", sensorRGB2.blue());
+      telemetry.addData("Hue2", hsvValues2[0]);
+      waitOneFullHardwareCycle();
 
     float hsvValues[] = {0F,0F,0F};
     final float values[] = hsvValues;
 
-      sensorRGB1.enableLed(false);
-      Color.RGBToHSV(sensorRGB1.red() * 8, sensorRGB1.green() * 8, sensorRGB1.blue() * 8, hsvValues);
-      telemetry.addData("Clear", sensorRGB1.alpha());
-      telemetry.addData("Red  ", sensorRGB1.red());
-      telemetry.addData("Green", sensorRGB1.green());
-      telemetry.addData("Blue ", sensorRGB1.blue());
-      telemetry.addData("Hue", hsvValues[0]);
-      waitOneFullHardwareCycle();
+    sensorRGB1.enableLed(false);
+    Color.RGBToHSV(sensorRGB1.red() * 8, sensorRGB1.green() * 8, sensorRGB1.blue() * 8, hsvValues);
+    telemetry.addData("Clear", sensorRGB1.alpha());
+    telemetry.addData("Red  ", sensorRGB1.red());
+    telemetry.addData("Green", sensorRGB1.green());
+    telemetry.addData("Blue ", sensorRGB1.blue());
+    telemetry.addData("Hue", hsvValues[0]);
+    waitOneFullHardwareCycle();
 
       telemetry.addData("WAITING", "waiting");
       Thread.sleep(10000);
