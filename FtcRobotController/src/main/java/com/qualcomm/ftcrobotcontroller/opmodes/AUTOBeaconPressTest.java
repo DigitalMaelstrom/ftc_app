@@ -46,6 +46,7 @@ public class AUTOBeaconPressTest extends LinearOpMode {
     sensorRGB1 = hardwareMap.colorSensor.get("colorFront");
     sensorRGB1.enableLed(false);
     sensorRGB2 = hardwareMap.colorSensor.get("colorBack");
+    sensorRGB2.setI2cAddress(100);
     sensorRGB2.enableLed(false);
     servoa = hardwareMap.servo.get("servoColor");
     waitOneFullHardwareCycle();
