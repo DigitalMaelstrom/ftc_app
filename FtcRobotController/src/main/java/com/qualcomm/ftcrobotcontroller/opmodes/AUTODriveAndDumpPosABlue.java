@@ -29,17 +29,15 @@ public class AUTODriveAndDumpPosABlue extends AutoOpMode {
         motorBack = hardwareMap.dcMotor.get("motorWheelie");
         gyroSensor.calibrate();
         motorBack.setPower(-0.5);
-        servofront.setPosition(0.81);
+        initializeServos();
         waitForStart();
         initializeGyro();
         InitializeEncoders();
-        servotop.setPosition(0.0);
-        servomid.setPosition(0.5);
-        servofront.setPosition(0.81);
+        initializeServos();
         motorBack.setPower(-0.5);
 
 
-        MoveForward(4080);
+        MoveForward(4380);
         //Log.d("AutoDrive", "Just Moved Forward");
 
         TurnRight(37);
@@ -47,7 +45,7 @@ public class AUTODriveAndDumpPosABlue extends AutoOpMode {
 
         MoveForward(4900);
 
-        TurnRight(40);
+        TurnRight(37);
         Thread.sleep(90);
         MoveForward(ONEWHEELROTATION * 2);
 

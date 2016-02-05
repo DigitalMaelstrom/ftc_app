@@ -26,7 +26,7 @@ public abstract class AutoOpMode extends LinearOpMode{
     int count=0;
     int xVal, yVal, zVal = 0;
     int heading = 0;
-    int turndelay=300;
+    int turndelay=800;
     int encoderatstart=0;
     //end of variable initilization
     protected void initializeGyro() throws InterruptedException {
@@ -113,5 +113,10 @@ public abstract class AutoOpMode extends LinearOpMode{
         motorLeft.setPower(0);
         motorRight.setPower(0);
 
+    }
+    protected void initializeServos() {
+        servofront.setPosition(0.81);
+        servomid.setPosition(0.5);
+        servotop.setPosition(0.0);
     }
 }

@@ -60,17 +60,17 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("K9TeleOp", K9TeleOp.class);
     //manager.register ("PushBotAuto", PushBotAuto.class);
     //manager.register ("PushBotManual", PushBotManual.class);
-   // manager.register ("RhtpTankDrive", RhtpTankDrive.class);
+    // manager.register ("RhtpTankDrive", RhtpTankDrive.class);
     //manager.register ("RhtpTankDriveNegativeMotors", RhtpTankDriveNegativeMotors.class);
-   // manager.register ("TestWheelsOP", TestWheelsOP.class);
+    // manager.register ("TestWheelsOP", TestWheelsOP.class);
     //manager.register ("RhtpTankDrive2Controls4Op", RhtpTankDrive2Controls4OP.class);
     //manager.register ("TestWheelsOP", TestWheelsOP.class);
     manager.register ("TELEMainTeleopControl", TELEMainTeleopControl.class);
     manager.register ("twoServoIndependentControlOP", twoServoIndependentControlOP.class);
     //manager.register ("AutoMoveForwardGyroOP", AutoMoveForwardGyroOP.class);
     //manager.register ("continousServoOp", continousServoOp.class);
-   // manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
-   // manager.register("K9TeleOp", K9TeleOp.class);
+    // manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
+    // manager.register("K9TeleOp", K9TeleOp.class);
     //manager.register("PushBotAuto", PushBotAuto.class);
    // manager.register("PushBotManual", PushBotManual.class);
     //manager.register("ColrSensorDriver", ColorSensorDriver.class);
@@ -96,7 +96,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
     //manager.register("MRRGBExample", MRRGBExample.class);
     //manager.register("ColorSensorDriver", ColorSensorDriver.class);
-    manager.register("AUTOBeaconPressTest", AUTOBeaconPressTest.class);
+    //manager.register("AUTOBeaconPressTest", AUTOBeaconPressTest.class);
 
     //manager.register("IrSeekerOp", IrSeekerOp.class);
     //manager.register("CompassCalibration", CompassCalibration.class);

@@ -58,7 +58,7 @@ public class TELEMainTeleopControl extends OpMode {
 	int timercowcatch = 0;
 	int timerdumper = 0;
 	int timerzipeline = 0;
-	double cowcatchpos = 1;
+	double cowcatchpos = 0.81;
 	double dumperpos;
 	double ziplinepos;
 	String zipisout="";
@@ -71,7 +71,7 @@ public class TELEMainTeleopControl extends OpMode {
 	@Override
 	public void init() {
 
-		cowcatchpos =1;
+		cowcatchpos =0.81;
 		dumperpos =0.1;
 		ziplinepos =0.5;
 
@@ -85,7 +85,9 @@ public class TELEMainTeleopControl extends OpMode {
 		motorBack = hardwareMap.dcMotor.get("motorWheelie");
 		motorArm = hardwareMap.dcMotor.get("motorArm");
 		servotop=hardwareMap.servo.get("servoTop");
-
+		servofront.setPosition(cowcatchpos);
+		servomid.setPosition(0.5);
+		servotop.setPosition(0.0);
         // Encoders
         //motorController.setMotorChannelMode(motorBack.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
         //motorController.setMotorChannelMode(motorBack.getPortNumber(), DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
@@ -239,7 +241,7 @@ public class TELEMainTeleopControl extends OpMode {
 			zipisout="The zipline is out!";
 		}
 		servomid.setPosition(ziplinepos);
-		telemetry.addData("AAAA",wheelie);
+		telemetry.addData("AAAA", wheelie);
 		telemetry.addData("Teleop Version", "4.2");
 		telemetry.addData("Can control:","2 motor driving, Zip-line, Dumper, Arm, Guy Deliver, Cow carcher");
 		telemetry.addData("Zipline?", zipisout);

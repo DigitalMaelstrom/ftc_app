@@ -87,7 +87,7 @@ public class twoServoIndependentControlOP extends OpMode {
 		 *    "servo_6" controls the claw joint of the manipulator.
 		 */
 
-		servo = hardwareMap.servo.get("servo_1");
+		servo = hardwareMap.servo.get("servoFront");
 
 	}
 
