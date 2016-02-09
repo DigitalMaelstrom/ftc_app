@@ -21,13 +21,13 @@ public class AUTODriveAndDumpPosBRedDEBRIS extends AutoOpMode {
         servomid = hardwareMap.servo.get("servoMid");
         motorBack = hardwareMap.dcMotor.get("motorWheelie");
         gyroSensor.calibrate();
-        motorBack.setPower(-0.5);
+        motorBack.setPower(motorbackamount);
         initializeServos();
         waitForStart();
         initializeGyro();
         InitializeEncoders();
         initializeServos();
-        motorBack.setPower(-0.5);
+        motorBack.setPower(motorbackamount);
 
         MoveForward(3085);
         MoveBackward(500);

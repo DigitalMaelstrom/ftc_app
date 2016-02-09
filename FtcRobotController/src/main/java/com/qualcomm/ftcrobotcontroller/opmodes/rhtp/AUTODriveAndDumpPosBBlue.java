@@ -20,7 +20,7 @@ public class AUTODriveAndDumpPosBBlue extends AutoOpMode {
         servomid = hardwareMap.servo.get("servoMid");
         motorBack = hardwareMap.dcMotor.get("motorWheelie");
         gyroSensor.calibrate();
-        motorBack.setPower(-0.5);
+        motorBack.setPower(motorbackamount);
         initializeServos();
         waitForStart();
         initializeGyro();
@@ -28,7 +28,7 @@ public class AUTODriveAndDumpPosBBlue extends AutoOpMode {
         InitializeEncoders();
 
         initializeServos();
-        motorBack.setPower(-0.5);
+        motorBack.setPower(motorbackamount);
 
         MoveForward(1685);
 

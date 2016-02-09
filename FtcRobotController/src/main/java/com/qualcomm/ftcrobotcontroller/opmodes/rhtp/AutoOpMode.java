@@ -28,6 +28,7 @@ public abstract class AutoOpMode extends LinearOpMode{
     int heading = 0;
     int turndelay=800;
     int encoderatstart=0;
+    double motorbackamount=-0.2;
     //end of variable initilization
     protected void initializeGyro() throws InterruptedException {
         while(gyroSensor.isCalibrating()) {
@@ -86,7 +87,7 @@ public abstract class AutoOpMode extends LinearOpMode{
         Log.d("RightTurn", "Start Position: " + gyroSensor.getHeading());
         motorLeft.setPower(speed);
         motorRight.setPower(-speed);
-        while (gyroSensor.getHeading() == degrees) {
+        while ((gyroSensor.getHeading() >= degrees-2) && (gyroSensor.getHeading() <= degrees+2)) {
             //Thread.sleep(20);
             //Log.d("RightTurn", "Position: "+gyroSensor.getHeading());
         }
@@ -103,9 +104,13 @@ public abstract class AutoOpMode extends LinearOpMode{
         Log.d("LeftTurn", "Start Position: " + gyroSensor.getHeading());
         motorLeft.setPower(-speed);
         motorRight.setPower(speed);
-        while (gyroSensor.getHeading() == 360-degrees) {
+        while  ((gyroSensor.getHeading() >= 360-degrees-2) && (gyroSensor.getHeading() <= 360-degrees+2)) {
             //Thread.sleep(20);
             //Log.d("LeftTurn", "Position: "+gyroSensor.getHeading());
+            if( gyroSensor.getHeading()<360-degrees)
+            {
+                Log.d("LeftTurn", "Position has exceeded left turn threshold: "+gyroSensor.getHeading());
+            }
         }
         Log.d("LeftTurn", "End Position: "+gyroSensor.getHeading());
         motorLeft.setPower(0);
