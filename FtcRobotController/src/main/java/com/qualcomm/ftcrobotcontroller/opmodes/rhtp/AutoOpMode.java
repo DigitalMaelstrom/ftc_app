@@ -1,4 +1,4 @@
-package com.qualcomm.ftcrobotcontroller.opmodes;
+package com.qualcomm.ftcrobotcontroller.opmodes.rhtp;
 
 import android.util.Log;
 
@@ -86,9 +86,9 @@ public abstract class AutoOpMode extends LinearOpMode{
         Log.d("RightTurn", "Start Position: " + gyroSensor.getHeading());
         motorLeft.setPower(speed);
         motorRight.setPower(-speed);
-        while (gyroSensor.getHeading() <= degrees) {
-            Thread.sleep(20);
-            Log.d("RightTurn", "Position: "+gyroSensor.getHeading());
+        while (gyroSensor.getHeading() == degrees) {
+            //Thread.sleep(20);
+            //Log.d("RightTurn", "Position: "+gyroSensor.getHeading());
         }
         Log.d("RightTurn", "Finish Position: "+gyroSensor.getHeading());
         motorLeft.setPower(0);
@@ -103,11 +103,9 @@ public abstract class AutoOpMode extends LinearOpMode{
         Log.d("LeftTurn", "Start Position: " + gyroSensor.getHeading());
         motorLeft.setPower(-speed);
         motorRight.setPower(speed);
-        while (gyroSensor.getHeading() <= 360-degrees) {
-        }
-        while (gyroSensor.getHeading() >= 360-degrees) {
-            Thread.sleep(20);
-            Log.d("LeftTurn", "Position: "+gyroSensor.getHeading());
+        while (gyroSensor.getHeading() == 360-degrees) {
+            //Thread.sleep(20);
+            //Log.d("LeftTurn", "Position: "+gyroSensor.getHeading());
         }
         Log.d("LeftTurn", "End Position: "+gyroSensor.getHeading());
         motorLeft.setPower(0);

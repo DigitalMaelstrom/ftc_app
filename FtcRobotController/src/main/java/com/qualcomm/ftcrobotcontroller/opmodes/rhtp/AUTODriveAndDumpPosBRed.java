@@ -1,18 +1,12 @@
-package com.qualcomm.ftcrobotcontroller.opmodes;
+package com.qualcomm.ftcrobotcontroller.opmodes.rhtp;
 
-import android.util.Log;
-
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.ftcrobotcontroller.opmodes.rhtp.AutoOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorController;
-import com.qualcomm.robotcore.hardware.GyroSensor;
-import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by Internet on 12/8/2015.
  */
-public class AUTODriveAndDumpPosABlue extends AutoOpMode {
-
+public class AUTODriveAndDumpPosBRed extends AutoOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -36,27 +30,27 @@ public class AUTODriveAndDumpPosABlue extends AutoOpMode {
         initializeServos();
         motorBack.setPower(-0.5);
 
+        MoveForward(2585);
 
-        MoveForward(4380);
-        //Log.d("AutoDrive", "Just Moved Forward");
 
-        TurnRight(37);
+        TurnLeft(40);
         Thread.sleep(90);
 
-        MoveForward(4900);
+        MoveForward(6500);
 
-        TurnRight(37);
+        TurnLeft(40);
         Thread.sleep(90);
-        MoveForward(ONEWHEELROTATION * 2);
+        MoveForward((ONEWHEELROTATION*3)+800);
 
         dumpamount=0;
         while (dumpamount<=0.89) {
-            dumpamount=dumpamount+0.000002;
+            dumpamount=dumpamount+0.000003;
             servotop.setPosition(dumpamount);
         }
         motorBack.setPower(0);
 
     }
+
 
 
 }

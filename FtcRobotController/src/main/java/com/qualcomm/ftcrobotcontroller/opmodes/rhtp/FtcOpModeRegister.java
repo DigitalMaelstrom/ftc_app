@@ -29,7 +29,7 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
-package com.qualcomm.ftcrobotcontroller.opmodes;
+package com.qualcomm.ftcrobotcontroller.opmodes.rhtp;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
@@ -66,7 +66,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register ("RhtpTankDrive2Controls4Op", RhtpTankDrive2Controls4OP.class);
     //manager.register ("TestWheelsOP", TestWheelsOP.class);
     manager.register ("TELEMainTeleopControl", TELEMainTeleopControl.class);
-    manager.register ("twoServoIndependentControlOP", twoServoIndependentControlOP.class);
+    manager.register ("TESTServoControl", TESTServoControl.class);
     //manager.register ("AutoMoveForwardGyroOP", AutoMoveForwardGyroOP.class);
     //manager.register ("continousServoOp", continousServoOp.class);
     // manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);

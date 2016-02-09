@@ -29,7 +29,7 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
-package com.qualcomm.ftcrobotcontroller.opmodes;
+package com.qualcomm.ftcrobotcontroller.opmodes.rhtp;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -41,7 +41,7 @@ import com.qualcomm.robotcore.util.Range;
  * <p>
  * Enables control of the robot via the gamepad
  */
-public class twoServoIndependentControlOP extends OpMode {
+public class TESTServoControl extends OpMode {
 
 	/*
 	 * Note: the configuration of the servos is such that
@@ -57,7 +57,7 @@ public class twoServoIndependentControlOP extends OpMode {
 	/**
 	 * Constructor
 	 */
-	public twoServoIndependentControlOP() {
+	public TESTServoControl() {
 
 	}
 
