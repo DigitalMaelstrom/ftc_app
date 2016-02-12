@@ -42,7 +42,7 @@ public class TELEMainTeleopControl extends OpMode {
 
 
     //DcMotorController motorController;
-    Servo servofront;
+    //Servo servofront;
 	Servo servotop;
 	Servo servomid;
 	DcMotor motorBack;
@@ -76,7 +76,7 @@ public class TELEMainTeleopControl extends OpMode {
 		ziplinepos =0.5;
 
        // motorController = hardwareMap.dcMotorController.get("Motor Controller 1");
-		servofront = hardwareMap.servo.get("servoFront");
+		//servofront = hardwareMap.servo.get("servoFront");
 		motorRight = hardwareMap.dcMotor.get("motorR");
 		motorLeft = hardwareMap.dcMotor.get("motorL");
 		motorLeft.setDirection(DcMotor.Direction.REVERSE);
@@ -85,7 +85,7 @@ public class TELEMainTeleopControl extends OpMode {
 		motorBack = hardwareMap.dcMotor.get("motorWheelie");
 		motorArm = hardwareMap.dcMotor.get("motorArm");
 		servotop=hardwareMap.servo.get("servoTop");
-		servofront.setPosition(cowcatchpos);
+		//servofront.setPosition(cowcatchpos);
 		servomid.setPosition(0.5);
 		servotop.setPosition(0.0);
         // Encoders
@@ -115,7 +115,7 @@ public class TELEMainTeleopControl extends OpMode {
 
         //Push A to push out/pull in the cow catcher
 
-		if (timercowcatch >=30) {
+		/*if (timercowcatch >=30) {
 			if (gamepad1.a) {
 				if (cowcatchpos == 1) {
 					cowcatchpos = .81;
@@ -126,7 +126,7 @@ public class TELEMainTeleopControl extends OpMode {
 			}
 		}
 		timercowcatch++;
-		servofront.setPosition(cowcatchpos);
+		servofront.setPosition(cowcatchpos);*/
 
 
 		// *Wheelie Bar

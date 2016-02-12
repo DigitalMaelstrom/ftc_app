@@ -99,6 +99,9 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("MRRGBExample", MRRGBExample.class);
     //manager.register("ColorSensorDriver", ColorSensorDriver.class);
     manager.register("AUTOBeaconPressTest", AUTOBeaconPressTest.class);
+   // manager.register("newOpMode", newOpMode.class);
+   // manager.register("autoRight", autoRight.class);
+   // manager.register("autoLeft", autoLeft.class);
 
     //manager.register("IrSeekerOp", IrSeekerOp.class);
     //manager.register("CompassCalibration", CompassCalibration.class);
