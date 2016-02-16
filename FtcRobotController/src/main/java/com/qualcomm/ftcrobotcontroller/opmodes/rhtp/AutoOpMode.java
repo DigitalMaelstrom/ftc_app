@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.robocol.Telemetry;
 
 /**
  * Created by Internet on 1/27/2016.
@@ -29,6 +30,8 @@ public abstract class AutoOpMode extends LinearOpMode{
     int turndelay=800;
     int encoderatstart=0;
     double motorbackamount=-0.2;
+
+
     //end of variable initilization
     protected void initializeGyro() throws InterruptedException {
         while(gyroSensor.isCalibrating()) {
@@ -70,6 +73,7 @@ public abstract class AutoOpMode extends LinearOpMode{
         motorRight.setPower(0);
     }
     protected void MoveForward(int moveamount) {
+        Log.d("MoveForward","Starting To Move Forward");
         encoderatstart=motorLeft.getCurrentPosition();
         motorLeft.setPower(speed);
         motorRight.setPower(speed);
@@ -98,13 +102,14 @@ public abstract class AutoOpMode extends LinearOpMode{
 
     public void TurnLeft(int degrees) throws InterruptedException{
         // Turn Left
+        Log.d("LeftTurn", "Entering Left Turn Function");
         Thread.sleep(turndelay);
         gyroSensor.resetZAxisIntegrator();
         Thread.sleep(turndelay);
         Log.d("LeftTurn", "Start Position: " + gyroSensor.getHeading());
         motorLeft.setPower(-speed);
         motorRight.setPower(speed);
-        while  ((gyroSensor.getHeading() >= 360-degrees-2) && (gyroSensor.getHeading() <= 360-degrees+2)) {
+        while  (!((gyroSensor.getHeading() >= 360-degrees-2) && (gyroSensor.getHeading() <= 360-degrees+2))) {
             //Thread.sleep(20);
             //Log.d("LeftTurn", "Position: "+gyroSensor.getHeading());
             if( gyroSensor.getHeading()<360-degrees)
@@ -121,5 +126,8 @@ public abstract class AutoOpMode extends LinearOpMode{
         servofront.setPosition(0.81);
         servomid.setPosition(0.5);
         servotop.setPosition(0.0);
+    }
+    public void initializeCowCatch() {
+        servofront.setPosition(.85);
     }
 }

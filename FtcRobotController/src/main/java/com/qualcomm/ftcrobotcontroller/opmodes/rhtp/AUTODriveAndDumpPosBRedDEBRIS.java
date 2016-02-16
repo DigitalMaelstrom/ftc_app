@@ -27,6 +27,7 @@ public class AUTODriveAndDumpPosBRedDEBRIS extends AutoOpMode {
         initializeGyro();
         InitializeEncoders();
         initializeServos();
+        initializeCowCatch();
         motorBack.setPower(motorbackamount);
 
         MoveForward(3085);

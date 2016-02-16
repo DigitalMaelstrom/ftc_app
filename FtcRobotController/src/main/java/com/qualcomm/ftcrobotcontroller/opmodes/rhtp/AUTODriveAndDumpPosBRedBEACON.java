@@ -27,6 +27,7 @@ public class AUTODriveAndDumpPosBRedBEACON extends AutoOpMode {
         initializeGyro();
         InitializeEncoders();
         initializeServos();
+        initializeCowCatch();
         motorBack.setPower(motorbackamount);
 
         MoveForward(2585);

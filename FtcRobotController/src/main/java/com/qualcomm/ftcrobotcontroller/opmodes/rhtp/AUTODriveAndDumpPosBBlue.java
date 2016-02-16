@@ -28,6 +28,7 @@ public class AUTODriveAndDumpPosBBlue extends AutoOpMode {
         InitializeEncoders();
 
         initializeServos();
+        initializeCowCatch();
         motorBack.setPower(motorbackamount);
 
         MoveForward(1685);
