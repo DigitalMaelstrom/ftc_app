@@ -31,6 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes.rhtp;
 
+import com.qualcomm.ftcrobotcontroller.opmodes.TESTAutoFollowLine;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
@@ -67,6 +68,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register ("TestWheelsOP", TestWheelsOP.class);
     manager.register ("TELEMainTeleopControl", TELEMainTeleopControl.class);
     manager.register ("TESTServoControl", TESTServoControl.class);
+    manager.register("TESTAutoFollowLine", TESTAutoFollowLine.class);
     //manager.register ("AutoMoveForwardGyroOP", AutoMoveForwardGyroOP.class);
     //manager.register ("continousServoOp", continousServoOp.class);
     // manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
