@@ -87,7 +87,7 @@ public class TESTServoControl extends OpMode {
 		 *    "servo_6" controls the claw joint of the manipulator.
 		 */
 
-		servo = hardwareMap.servo.get("servoFront");
+		servo = hardwareMap.servo.get("servoColor");
 
 	}
 
@@ -98,35 +98,32 @@ public class TESTServoControl extends OpMode {
 	 */
 	@Override
 	public void loop() {
-		servopos= Range.clip(servopos, 0.65, .99);
-if (timer==0)
-{
-	servo.setPosition(1);}
-timer++;
-
-
-
-		if (gamepad1.y) {
-			servo.setPosition(1);
+		if (timer == 0) {
+			servopos = .6;
 		}
-		if (gamepad1.b) {
-			servo.setPosition(0.81);		}
-		if (gamepad1.a) {
-			servo.setPosition(0.8);		}
-		if (gamepad1.x) {
-			servo.setPosition(0.79);		}
+			timer++;
 
 
+			if (gamepad1.y) {
+				servopos += 0.01;
+			}
+			if (gamepad1.a) {
+				servopos -= 0.01;
+			}
+		servopos = Range.clip(servopos, 0.0, .99);
 
-		//servo1.setPosition(servopos1);
-		// clip the right/left values so that the values never exceed +/- 1
+			servo.setPosition(servopos);
 
-		// scale the joystick value to make it easier to control
-		// the robot more precisely at slower speeds.
 
-		// write the values to the motors
+			//servo1.setPosition(servopos1);
+			// clip the right/left values so that the values never exceed +/- 1
 
-		//motorFront.setPower(left);
+			// scale the joystick value to make it easier to control
+			// the robot more precisely at slower speeds.
+
+			// write the values to the motors
+
+			//motorFront.setPower(left);
 
 		/*
 		 * Send telemetry data back to driver station. Note that if we are using
@@ -135,10 +132,11 @@ timer++;
 		 * are currently write only.
 		 */
 
-		;
+			;
 
-		telemetry.addData("right program", "limit");
-		telemetry.addData("jnakfn", servo.getPosition());
+
+			telemetry.addData("jnakfn", servo.getPosition());
+
 	}
 
 	/*
@@ -146,15 +144,15 @@ timer++;
 	 *
 	 * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#stop()
 	 */
-	@Override
-	public void stop() {
+		@Override
+		public void stop () {
 
-	}
-	
+		}
+
 	/*
 	 * This method scales the joystick input so for low joystick values, the 
 	 * scaled value is less than linear.  This is to make it easier to drive
 	 * the robot more precisely at slower speeds.
 	 */
+	}
 
-}
