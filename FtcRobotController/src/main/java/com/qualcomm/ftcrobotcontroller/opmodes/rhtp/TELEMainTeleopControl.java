@@ -71,7 +71,7 @@ public class TELEMainTeleopControl extends OpMode {
 	@Override
 	public void init() {
 
-		cowcatchpos =0.81;
+		cowcatchpos =.85;
 		dumperpos =0.1;
 		ziplinepos =0.5;
 
@@ -117,10 +117,10 @@ public class TELEMainTeleopControl extends OpMode {
 /*
 		if (timercowcatch >=30) {
 			if (gamepad1.a) {
-				if (cowcatchpos == 1) {
-					cowcatchpos = .81;
+				if (cowcatchpos == .85) {
+					cowcatchpos = .5;
 				} else {
-					cowcatchpos = 1;
+					cowcatchpos = .85;
 				}
 				timercowcatch =0;
 			}

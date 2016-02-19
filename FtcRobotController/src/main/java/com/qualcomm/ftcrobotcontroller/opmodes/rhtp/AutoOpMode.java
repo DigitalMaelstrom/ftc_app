@@ -29,6 +29,8 @@ public abstract class AutoOpMode extends LinearOpMode{
     int turndelay=800;
     int encoderatstart=0;
     double motorbackamount=-0.2;
+
+
     //end of variable initilization
     protected void initializeGyro() throws InterruptedException {
         while(gyroSensor.isCalibrating()) {
@@ -61,6 +63,7 @@ public abstract class AutoOpMode extends LinearOpMode{
     }
 
     protected void MoveBackward(int moveamount) {
+        Log.d("MoveBackward","Starting To Move Backward");
         encoderatstart=motorLeft.getCurrentPosition();
         motorLeft.setPower(-speed);
         motorRight.setPower(-speed);
@@ -70,6 +73,7 @@ public abstract class AutoOpMode extends LinearOpMode{
         motorRight.setPower(0);
     }
     protected void MoveForward(int moveamount) {
+        Log.d("MoveForward","Starting To Move Forward");
         encoderatstart=motorLeft.getCurrentPosition();
         motorLeft.setPower(speed);
         motorRight.setPower(speed);
@@ -81,6 +85,7 @@ public abstract class AutoOpMode extends LinearOpMode{
 
     public void TurnRight(int degrees)throws InterruptedException {
         // Turn Right
+        Log.d("LeftTurn", "Entering Left Turn Function");
         Thread.sleep(turndelay);
         gyroSensor.resetZAxisIntegrator();
         Thread.sleep(turndelay);
@@ -98,27 +103,28 @@ public abstract class AutoOpMode extends LinearOpMode{
 
     public void TurnLeft(int degrees) throws InterruptedException{
         // Turn Left
+        Log.d("LeftTurn", "Entering Left Turn Function");
         Thread.sleep(turndelay);
         gyroSensor.resetZAxisIntegrator();
         Thread.sleep(turndelay);
         Log.d("LeftTurn", "Start Position: " + gyroSensor.getHeading());
         motorLeft.setPower(-speed);
         motorRight.setPower(speed);
-        while  ((gyroSensor.getHeading() <= 360-degrees-2) || (gyroSensor.getHeading() >= 360-degrees+2)) {
+        while  (!((gyroSensor.getHeading() >= 360-degrees-2) && (gyroSensor.getHeading() <= 360-degrees+2))) {
             //Thread.sleep(20);
             //Log.d("LeftTurn", "Position: "+gyroSensor.getHeading());
-            if( gyroSensor.getHeading()<360-degrees)
-            {
-                Log.d("LeftTurn", "Position has exceeded left turn threshold: "+gyroSensor.getHeading());
-            }
+            //if( gyroSensor.getHeading()<360-degrees)
+            //{
+              //  Log.d("LeftTurn", "Position has exceeded left turn threshold: "+gyroSensor.getHeading());
+            //}
         }
-        Log.d("LeftTurn", "End Position: "+gyroSensor.getHeading());
+        Log.d("LeftTurn", "End Position: " + gyroSensor.getHeading());
         motorLeft.setPower(0);
         motorRight.setPower(0);
 
     }
     protected void initializeServos() {
-        servofront.setPosition(0.81);
+        servofront.setPosition(0.85);
         servomid.setPosition(0.5);
         servotop.setPosition(0.0);
     }

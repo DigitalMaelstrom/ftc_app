@@ -29,6 +29,7 @@ public class AUTODriveAndDumpPosARed extends AutoOpMode {
         InitializeEncoders();
 
         initializeServos();
+        initializeCowCatch();
         motorBack.setPower(motorbackamount);
         //move forward
         MoveForward(3680);
