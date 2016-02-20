@@ -73,8 +73,7 @@ public class TESTServoControl extends OpMode {
 		 * that the names of the devices must match the names used when you
 		 * configured your robot and created the configuration file.
 		 */
-		double servopos=1;
-		double servopos2=0.5;
+		double servopos=0.5;
 		timer = 0;
 		/*
 		 * For the demo Tetrix K9 bot we assume the following,
@@ -87,7 +86,7 @@ public class TESTServoControl extends OpMode {
 		 *    "servo_6" controls the claw joint of the manipulator.
 		 */
 
-		servo = hardwareMap.servo.get("servoColor");
+		servo = hardwareMap.servo.get("servoToTest");
 
 	}
 
@@ -99,7 +98,7 @@ public class TESTServoControl extends OpMode {
 	@Override
 	public void loop() {
 		if (timer == 0) {
-			servopos = .6;
+			servopos = .5;
 		}
 			timer++;
 

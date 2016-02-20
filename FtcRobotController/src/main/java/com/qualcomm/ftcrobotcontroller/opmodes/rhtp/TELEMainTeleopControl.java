@@ -28,7 +28,8 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
-
+//Da
+//
 package com.qualcomm.ftcrobotcontroller.opmodes.rhtp;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -44,7 +45,7 @@ public class TELEMainTeleopControl extends OpMode {
     //DcMotorController motorController;
     Servo servofront;
 	Servo servotop;
-	Servo servomid;
+	//Servo servomid;
 	Servo servoAngle;
 	DcMotor motorBack;
 	DcMotor motorRight;
@@ -78,20 +79,23 @@ public class TELEMainTeleopControl extends OpMode {
 		cowcatchpos =.85;
 		dumperpos =0.1;
 		ziplinepos =0.5;
+		anglepos=0.5;
 
 		servofront = hardwareMap.servo.get("servoFront");
 		motorRight = hardwareMap.dcMotor.get("motorR");
 		motorLeft = hardwareMap.dcMotor.get("motorL");
-		motorLeft.setDirection(DcMotor.Direction.REVERSE);
-		servomid = hardwareMap.servo.get("servoMid");
+		motorRight.setDirection(DcMotor.Direction.REVERSE);
+		//servomid = hardwareMap.servo.get("servoMid");
 		servoAngle= hardwareMap.servo.get("servoAngle");
 		motorBack = hardwareMap.dcMotor.get("motorWheelie");
 		motorArm = hardwareMap.dcMotor.get("motorArm");
-		motorSecondary =  hardwareMap.dcMotor.get("motor");
+		motorSecondary =  hardwareMap.dcMotor.get("motorSecondary");
+		motorSecondary.setDirection(DcMotor.Direction.REVERSE);
 		servotop=hardwareMap.servo.get("servoTop");
 		servofront.setPosition(cowcatchpos);
-		servomid.setPosition(0.5);
+		//servomid.setPosition(0.5);
 		servotop.setPosition(0.0);
+		servoAngle.setPosition(0.5);
 	}
 
 	@Override
@@ -109,8 +113,8 @@ public class TELEMainTeleopControl extends OpMode {
 		left =  (float)scaleInput(left);
 
 
-		motorRight.setPower(-right);
-		motorLeft.setPower(-left);
+		motorRight.setPower(right);
+		motorLeft.setPower(left);
 
         // *Cow-catcher
 
@@ -129,6 +133,7 @@ public class TELEMainTeleopControl extends OpMode {
 		timercowcatch++;
 		servofront.setPosition(cowcatchpos);
 
+		//Secondary lift angle control
 		if (gamepad2.x) {
 			anglepos+=0.1;
 		}
@@ -136,6 +141,7 @@ public class TELEMainTeleopControl extends OpMode {
 		if (gamepad2.a) {
 			anglepos-=0.1;
 		}
+		anglepos = Range.clip(anglepos, 0.01, .99);
 		servoAngle.setPosition(anglepos);
 
 		// *Wheelie Bar
@@ -180,7 +186,7 @@ public class TELEMainTeleopControl extends OpMode {
 		servotop.setPosition(dumperpos);
 
 		// *Zipline Delivery
-		ziplinepos = Range.clip(ziplinepos, 0.01, .99);
+		/*ziplinepos = Range.clip(ziplinepos, 0.01, .99);
 		if (timerzipeline ==0)
 		{
 			ziplinepos =0.5;
@@ -201,10 +207,11 @@ public class TELEMainTeleopControl extends OpMode {
 			ziplinepos=0.1;
 			zipisout="The zipline is out!";
 		}
-		servomid.setPosition(ziplinepos);
+		servomid.setPosition(ziplinepos);*/
+
 		telemetry.addData("AAAA", wheelie);
-		telemetry.addData("Teleop Version", "4.9");
-		telemetry.addData("Can control:","4 motor driving, Zip-line, Dumper, Arm, Guy Deliver, Cow Catcher, Secondary Lifting, Lifting Angle Control");
+		telemetry.addData("Teleop Version", "4.99");
+		telemetry.addData("Can control:","4 motor driving, Wheelie, Arm, Guy Deliver, Cow Catcher, Secondary Lifting, Lifting Angle Control");
 		telemetry.addData("Zipline?", zipisout);
 		telemetry.addData("Wheelie Bar Slowmode?",slowmode);
 	}

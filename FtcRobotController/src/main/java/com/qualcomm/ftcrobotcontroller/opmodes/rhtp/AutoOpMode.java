@@ -58,7 +58,6 @@ public abstract class AutoOpMode extends LinearOpMode{
         Thread.sleep(400);
         motorController.setMotorChannelMode(motorRight.getPortNumber(), DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         motorController.setMotorChannelMode(motorLeft.getPortNumber(), DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
-        telemetry.addData("pos3", "run without encoders");
         Thread.sleep(40);
     }
 
@@ -85,7 +84,7 @@ public abstract class AutoOpMode extends LinearOpMode{
 
     public void TurnRight(int degrees)throws InterruptedException {
         // Turn Right
-        Log.d("LeftTurn", "Entering Left Turn Function");
+        Log.d("RightTurn", "Entering Right Turn Function");
         Thread.sleep(turndelay);
         gyroSensor.resetZAxisIntegrator();
         Thread.sleep(turndelay);
@@ -96,7 +95,7 @@ public abstract class AutoOpMode extends LinearOpMode{
             //Thread.sleep(20);
             //Log.d("RightTurn", "Position: "+gyroSensor.getHeading());
         }
-        Log.d("RightTurn", "Finish Position: "+gyroSensor.getHeading());
+        Log.d("RightTurn", "End Position: "+gyroSensor.getHeading());
         motorLeft.setPower(0);
         motorRight.setPower(0);
     }
