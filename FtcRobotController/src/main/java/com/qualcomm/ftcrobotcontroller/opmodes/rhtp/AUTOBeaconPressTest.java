@@ -40,7 +40,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class AUTOBeaconPressTest extends LinearOpMode {
   //ColorSensor sensorRGB2;
   ColorSensor sensorRGB1;
-  Servo servoa;
+ // Servo servoa;
 
   public void runOpMode() throws InterruptedException {
     sensorRGB1 = hardwareMap.colorSensor.get("colorFront");
@@ -53,15 +53,12 @@ public class AUTOBeaconPressTest extends LinearOpMode {
 
 
 
+    /*float hsvValues2[] = {0F, 0F, 0F};
+    final float values2[] = hsvValues2;*/
 
-      /*float hsvValues2[] = {0F, 0F, 0F};
-      final float values2[] = hsvValues2;
-
-*/
-
-      float hsvValues[] = {0F, 0F, 0F};
-      final float values[] = hsvValues;
-    servoa.setPosition(.6);
+    float hsvValues[] = {0F, 0F, 0F};
+    final float values[] = hsvValues;
+    //servoa.setPosition(.6);
     while (true) {
       Color.RGBToHSV(sensorRGB1.red() * 8, sensorRGB1.green() * 8, sensorRGB1.blue() * 8, hsvValues);
       telemetry.addData("Clear", sensorRGB1.alpha());
@@ -76,8 +73,6 @@ public class AUTOBeaconPressTest extends LinearOpMode {
       telemetry.addData("Green2", sensorRGB2.green());
       telemetry.addData("Blue2 ", sensorRGB2.blue());
       telemetry.addData("Hue2", hsvValues2[0]);
-      telemetry.addData("address1",sensorRGB1.getI2cAddress());
-      telemetry.addData("address2",sensorRGB2.getI2cAddress());
       waitOneFullHardwareCycle();
 
 
