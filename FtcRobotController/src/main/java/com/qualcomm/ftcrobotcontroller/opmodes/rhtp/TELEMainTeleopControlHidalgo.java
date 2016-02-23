@@ -34,41 +34,36 @@ package com.qualcomm.ftcrobotcontroller.opmodes.rhtp;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
-
-public class TELEMainTeleopControl extends OpMode {
+public class TELEMainTeleopControlHidalgo extends OpMode {
 
 
     //DcMotorController motorController;
-    Servo servofront;
-	Servo servotop;
+    //Servo servofront;
+	//Servo servotop;
 	//Servo servomid;
-	Servo servoAngle;
+	//Servo servomidLeft;
+	//Servo servomidRight;
+	//Servo servoAngle;
 	DcMotor motorBack;
 	DcMotor motorRight;
 	DcMotor motorLeft;
-	DcMotor motorSecondary;
-
+	//DcMotor motorSecondary;
 	//DcMotor motorCapture;
 	DcMotor motorArm;
-    boolean gototop=false;
-    boolean gotobot=false;
-    boolean gotonone=true;
-	boolean slowmode=false;
-	int timerarmcontrol=0;
-	int timercowcatch = 0;
-	int timerdumper = 0;
-	int timerzipeline = 0;
-	double cowcatchpos = 0.81;
-	double anglepos=0.5;
-	double dumperpos;
-	double ziplinepos;
-	String zipisout="";
 
-	public TELEMainTeleopControl() {
+	//int timercowcatch = 0;
+	//int timerdumper = 0;
+	//int timerzipeline = 0;
+	//double cowcatchpos = 0.81;
+	//double anglepos=0.5;
+	//double dumperpos;
+	//double ziplinepos;
+	//String zipisout="";
+
+	public TELEMainTeleopControlHidalgo() {
 
 	}
 
@@ -76,26 +71,28 @@ public class TELEMainTeleopControl extends OpMode {
 	@Override
 	public void init() {
 
-		cowcatchpos =.85;
-		dumperpos =0.1;
-		ziplinepos =0.5;
-		anglepos=0.5;
+		//cowcatchpos =.85;
+		//dumperpos =0.1;
+		//ziplinepos =0.5;
+		//anglepos=0.5;
 
-		servofront = hardwareMap.servo.get("servoFront");
+		//servofront = hardwareMap.servo.get("servoFront");
 		motorRight = hardwareMap.dcMotor.get("motorR");
 		motorLeft = hardwareMap.dcMotor.get("motorL");
 		motorRight.setDirection(DcMotor.Direction.REVERSE);
 		//servomid = hardwareMap.servo.get("servoMid");
-		servoAngle= hardwareMap.servo.get("servoAngle");
+		//servomidLeft= hardwareMap.servo.get("servoMidLeft");
+		//servomidRight= hardwareMap.servo.get("servoMidRight");
+		//servoAngle= hardwareMap.servo.get("servoAngle");
 		motorBack = hardwareMap.dcMotor.get("motorWheelie");
 		motorArm = hardwareMap.dcMotor.get("motorArm");
-		motorSecondary =  hardwareMap.dcMotor.get("motorSecondary");
-		motorSecondary.setDirection(DcMotor.Direction.REVERSE);
-		servotop=hardwareMap.servo.get("servoTop");
-		servofront.setPosition(cowcatchpos);
+		//motorSecondary =  hardwareMap.dcMotor.get("motorSecondary");
+		//motorSecondary.setDirection(DcMotor.Direction.REVERSE);
+		//servotop=hardwareMap.servo.get("servoTop");
+		//servofront.setPosition(cowcatchpos);
 		//servomid.setPosition(0.5);
-		servotop.setPosition(0.0);
-		servoAngle.setPosition(0.5);
+		//servotop.setPosition(0.0);
+		//servoAngle.setPosition(0.5);
 	}
 
 	@Override
@@ -119,9 +116,9 @@ public class TELEMainTeleopControl extends OpMode {
         // *Cow-catcher
 
         //Push A to push out/pull in the cow catcher
-
+/*
 		if (timercowcatch >=30) {
-			if (gamepad1.a) {
+			if (gamepad2.a) {
 				if (cowcatchpos == .85) {
 					cowcatchpos = .5;
 				} else {
@@ -134,15 +131,15 @@ public class TELEMainTeleopControl extends OpMode {
 		servofront.setPosition(cowcatchpos);
 
 		//Secondary lift angle control
-		if (gamepad2.x) {
-			anglepos+=0.1;
+		if (gamepad1.x) {
+			anglepos+=0.009;
 		}
 
-		if (gamepad2.a) {
-			anglepos-=0.1;
+		if (gamepad1.a) {
+			anglepos-=0.009;
 		}
 		anglepos = Range.clip(anglepos, 0.01, .99);
-		servoAngle.setPosition(anglepos);
+		servoAngle.setPosition(anglepos);*/
 
 		// *Wheelie Bar
 		float wheelie = gamepad2.right_stick_y;
@@ -158,14 +155,21 @@ public class TELEMainTeleopControl extends OpMode {
 		motorArm.setPower(-arm);
 
 		// *Secondary Lifting Functions
-		if (gamepad2.y) {
+/*
+		if (gamepad2.left_trigger>=0.3) {
 			motorSecondary.setPower(1);
 		}
 		else
 		{
 			motorSecondary.setPower(0);
 		}
-		if (gamepad2.b) {
+		if (gamepad2.right_trigger>=0.3) {
+			motorSecondary.setPower(-1);
+		}
+		if (gamepad1.left_trigger>=0.3) {
+			motorSecondary.setPower(1);
+		}
+		if (gamepad1.right_trigger>=0.3) {
 			motorSecondary.setPower(-1);
 		}
 
@@ -177,43 +181,69 @@ public class TELEMainTeleopControl extends OpMode {
 		}
 		timerdumper++;
 		//Use the left trigger to lower the guy dumper, right trigger to raise the guy dumper
-		if (gamepad2.left_trigger>=0.3) {
+		if (gamepad1.y) {
 			dumperpos -=0.005;
 		}
-		if (gamepad2.right_trigger>=0.3) {
+		if (gamepad1.b) {
 			dumperpos +=0.005;
 		}
 		servotop.setPosition(dumperpos);
 
-		// *Zipline Delivery
+		// *Zipline Delivery Type 1
 		/*ziplinepos = Range.clip(ziplinepos, 0.01, .99);
 		if (timerzipeline ==0)
 		{
 			ziplinepos =0.5;
 		}
 		timerzipeline++;
-		if (gamepad1.y)
+		if (gamepad2.y)
 		{
 			ziplinepos=0.5;
 			zipisout="The zipline is SAFE";
 		}
-		if (gamepad1.x)
+		if (gamepad2.x)
 		{
 			ziplinepos=1;
 			zipisout="The zipline is out!";
 		}
-		if (gamepad1.b)
+		if (gamepad2.b)
 		{
 			ziplinepos=0.1;
 			zipisout="The zipline is out!";
 		}
 		servomid.setPosition(ziplinepos);*/
 
+		// *Zipline Delivery Type 2
+		/*ziplinepos = Range.clip(ziplinepos, 0.01, .99);
+		if (timerzipeline ==0)
+		{
+			servomidLeft.setPosition(1);
+			servomidRight.setPosition(1);
+		}
+		timerzipeline++;
+		if (gamepad2.y)
+		{
+			servomidLeft.setPosition(1);
+			servomidRight.setPosition(1);
+			zipisout="The zipline is SAFE";
+		}
+		if (gamepad2.x)
+		{
+			servomidLeft.setPosition(0);
+			servomidRight.setPosition(1);
+			zipisout="The zipline is out!";
+		}
+		if (gamepad2.b)
+		{
+			servomidLeft.setPosition(1);
+			servomidRight.setPosition(0);
+			zipisout="The zipline is out!";
+		}*/
+
 		telemetry.addData("AAAA", wheelie);
 		telemetry.addData("Teleop Version", "4.99");
 		telemetry.addData("Can control:","4 motor driving, Wheelie, Arm, Guy Deliver, Cow Catcher, Secondary Lifting, Lifting Angle Control");
-		telemetry.addData("Zipline?", zipisout);
-		telemetry.addData("Wheelie Bar Slowmode?",slowmode);
+		//telemetry.addData("Zipline?", zipisout);
 	}
 
 

@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public abstract class AutoOpMode extends LinearOpMode{
     public static final int ONEWHEELROTATION = 1220;
 
+    //Initialize variables necessary for methods and auto code
     DcMotorController motorController;
     Servo servotop;
     Servo servomid;
@@ -43,23 +44,22 @@ public abstract class AutoOpMode extends LinearOpMode{
     double dumpamount=0;
 
     //end of variable initilization
+
     protected void initializeGyro() throws InterruptedException {
+        //initialize gyro with minimum required wait time for accuracy
         while(gyroSensor.isCalibrating()) {
             Thread.sleep(50);
         }
         heading = gyroSensor.getHeading();
 
 
-        xVal = gyroSensor.rawX();
+        /*xVal = gyroSensor.rawX();
         yVal = gyroSensor.rawY();
-        zVal = gyroSensor.rawZ();
+        zVal = gyroSensor.rawZ();*/
 
-        telemetry.addData("1. x", String.format("%03d", xVal));
-        telemetry.addData("2. y", String.format("%03d", yVal));
-        telemetry.addData("3. z", String.format("%03d", zVal));
-        telemetry.addData("4. h", String.format("%03d", heading));
     }
     protected void InitializeEncoders() throws InterruptedException {
+        //initialize encoders and set channels with minimum required wait time for accuracy
         motorController = hardwareMap.dcMotorController.get("Motor Controller 1");
         Thread.sleep(50);
         motorController.setMotorChannelMode(motorRight.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
@@ -72,6 +72,7 @@ public abstract class AutoOpMode extends LinearOpMode{
     }
 
     protected void InitializeColors() throws InterruptedException {
+        //initialize color sensors in correct order
         colorFront = hardwareMap.colorSensor.get("colorFront");
         colorFront.enableLed(false);
         colorBack = hardwareMap.colorSensor.get("colorBack");
@@ -122,33 +123,32 @@ public abstract class AutoOpMode extends LinearOpMode{
         motorRight.setPower(0);
     }
 
-    protected void BeaconPress() throws InterruptedException {
+    protected void BeaconPressRed() throws InterruptedException {
         while(BeaconHasBeenPressed=false){
-        Color.RGBToHSV(colorFront.red() * 8, colorFront.green() * 8, colorFront.blue() * 8, hsvValues);
-        telemetry.addData("Clear", colorFront.alpha());
-        telemetry.addData("Red  ", colorFront.red());
-        telemetry.addData("Green", colorFront.green());
-        telemetry.addData("Blue ", colorFront.blue());
-        telemetry.addData("Hue", hsvValues[0]);
+            Color.RGBToHSV(colorFront.red() * 8, colorFront.green() * 8, colorFront.blue() * 8, hsvValues);
+            telemetry.addData("Clear", colorFront.alpha());
+            telemetry.addData("Red  ", colorFront.red());
+            telemetry.addData("Green", colorFront.green());
+            telemetry.addData("Blue ", colorFront.blue());
+            telemetry.addData("Hue", hsvValues[0]);
 
-        Color.RGBToHSV(colorBack.red() * 8, colorBack.green() * 8, colorBack.blue() * 8, hsvValues2);
-        telemetry.addData("Clear2", colorBack.alpha());
-        telemetry.addData("Red2  ", colorBack.red());
-        telemetry.addData("Green2", colorBack.green());
-        telemetry.addData("Blue2 ", colorBack.blue());
-        telemetry.addData("Hue2", hsvValues2[0]);
-        waitOneFullHardwareCycle();
+            Color.RGBToHSV(colorBack.red() * 8, colorBack.green() * 8, colorBack.blue() * 8, hsvValues2);
+            telemetry.addData("Clear2", colorBack.alpha());
+            telemetry.addData("Red2  ", colorBack.red());
+            telemetry.addData("Green2", colorBack.green());
+            telemetry.addData("Blue2 ", colorBack.blue());
+            telemetry.addData("Hue2", hsvValues2[0]);
+            waitOneFullHardwareCycle();
 
-        if ((colorFront.red() > colorFront.blue()) && colorBack.red() < colorBack.blue()) {
-            servoBeacon.setPosition(0.85);
-            BeaconHasBeenPressed = true;
+            if ((colorFront.red() > colorFront.blue()) && colorBack.red() < colorBack.blue()) {
+                servoBeacon.setPosition(0.85);
+                BeaconHasBeenPressed = true;
+            }
+            if ((colorFront.red() < colorFront.blue()) && colorBack.red() > colorBack.blue()) {
+                servoBeacon.setPosition(.3);
+                BeaconHasBeenPressed = true;
+            }
         }
-        if ((colorFront.red() < colorFront.blue()) && colorBack.red() > colorBack.blue()) {
-            servoBeacon.setPosition(.3);
-            BeaconHasBeenPressed = true;
-        }
-    }
-
     }
 
     public void TurnRight(int degrees)throws InterruptedException {
@@ -161,8 +161,6 @@ public abstract class AutoOpMode extends LinearOpMode{
         motorLeft.setPower(speed);
         motorRight.setPower(-speed);
         while ((gyroSensor.getHeading() <= degrees-2) || (gyroSensor.getHeading() >= degrees+2)) {
-            //Thread.sleep(20);
-            //Log.d("RightTurn", "Position: "+gyroSensor.getHeading());
         }
         Log.d("RightTurn", "End Position: "+gyroSensor.getHeading());
         motorLeft.setPower(0);
@@ -178,13 +176,7 @@ public abstract class AutoOpMode extends LinearOpMode{
         Log.d("LeftTurn", "Start Position: " + gyroSensor.getHeading());
         motorLeft.setPower(-speed);
         motorRight.setPower(speed);
-        while  (!((gyroSensor.getHeading() >= 360-degrees-2) && (gyroSensor.getHeading() <= 360-degrees+2))) {
-            //Thread.sleep(20);
-            //Log.d("LeftTurn", "Position: "+gyroSensor.getHeading());
-            //if( gyroSensor.getHeading()<360-degrees)
-            //{
-              //  Log.d("LeftTurn", "Position has exceeded left turn threshold: "+gyroSensor.getHeading());
-            //}
+        while  ((gyroSensor.getHeading() <= 360-degrees-2) || (gyroSensor.getHeading() >= 360-degrees+2)) {
         }
         Log.d("LeftTurn", "End Position: " + gyroSensor.getHeading());
         motorLeft.setPower(0);
