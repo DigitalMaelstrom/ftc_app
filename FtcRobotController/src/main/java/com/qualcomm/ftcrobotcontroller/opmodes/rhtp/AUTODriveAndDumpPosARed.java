@@ -8,15 +8,15 @@ public class AUTODriveAndDumpPosARed extends AutoOpMode {
         StartAutoOpChimayo();
 
         //move forward
-        MoveForward(3680);
+        MoveForward(4000);
         //Log.d("AutoDrive", "Just Moved Forward");
         //turn left
-        TurnLeft(37);
+        TurnLeft(30);
         Thread.sleep(90);
 
-        MoveForward(4950);
+        MoveForward(4890);
 
-        TurnLeft(40);
+        TurnLeft(33);
         Thread.sleep(90);
         MoveForward(ONEWHEELROTATION*2);
 

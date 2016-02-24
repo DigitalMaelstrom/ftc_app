@@ -4,17 +4,17 @@ public class AUTODriveAndDumpPosBBlue extends AutoOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         StartAutoOpChimayo();
-        MoveForward(1685);
+        MoveForward(2585);
 
 
-        TurnRight(38);
+        TurnRight(58);
         Thread.sleep(90);
 
-        MoveForward(8300);
+        MoveForward(7800);
 
-        TurnRight(37);
+        TurnRight(50);
         Thread.sleep(90);
-        MoveForward((ONEWHEELROTATION*2));
+        MoveForward((ONEWHEELROTATION*3));
 
         dumpamount=0;
         while (dumpamount<=0.89) {
