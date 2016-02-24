@@ -1,14 +1,10 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.rhtp;
 
-import com.qualcomm.ftcrobotcontroller.opmodes.rhtp.AutoOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-
-
 public class AUTODriveAndDumpPosBRed extends AutoOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        StartAutoOp();
+        StartAutoOpChimayo();
         MoveForward(2585);
         Thread.sleep(90);
         telemetry.addData("Message","I got here");

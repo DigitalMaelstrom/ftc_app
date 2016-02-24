@@ -17,8 +17,8 @@ public abstract class AutoOpMode extends LinearOpMode{
     //Initialize variables necessary for methods and auto code
     DcMotorController motorController;
     Servo servotop;
-    Servo servomid;
-    Servo servofront;
+    //Servo servomid;
+    //Servo servofront;
     DcMotor motorLeft;
     DcMotor motorRight;
     DcMotor motorBack;
@@ -184,29 +184,29 @@ public abstract class AutoOpMode extends LinearOpMode{
 
     }
     protected void initializeServos() {
-        servofront.setPosition(0.85);
-        servomid.setPosition(0.5);
+        //servofront.setPosition(0.85);
+        //servomid.setPosition(0.5);
         servotop.setPosition(0.0);
         servoBeacon.setPosition(0.6);
     }
-    protected void StartAutoOp() throws InterruptedException {
-        servofront = hardwareMap.servo.get("servoFront");
+    protected void StartAutoOpChimayo() throws InterruptedException {
+        //servofront = hardwareMap.servo.get("servoFront");
         motorRight = hardwareMap.dcMotor.get("motorR");
         motorLeft = hardwareMap.dcMotor.get("motorL");
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
         gyroSensor = hardwareMap.gyroSensor.get("gyro");
         servotop=hardwareMap.servo.get("servoTop");
-        servomid = hardwareMap.servo.get("servoMid");
+        //servomid = hardwareMap.servo.get("servoMid");
         motorBack = hardwareMap.dcMotor.get("motorWheelie");
-        servoBeacon = hardwareMap.servo.get("servoBeacon");
+        //servoBeacon = hardwareMap.servo.get("servoBeacon");
         gyroSensor.calibrate();
         motorBack.setPower(motorbackamount);
         initializeServos();
         InitializeColors();
         waitForStart();
-        initializeGyro();
         InitializeEncoders();
         initializeServos();
         motorBack.setPower(motorbackamount);
     }
+
 }

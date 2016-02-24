@@ -1,14 +1,12 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.rhtp;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
-
 public class AUTODriveAndDumpPosABlue extends AutoOpMode {
 
 
     @Override
     public void runOpMode() throws InterruptedException {
 
-        StartAutoOp();
+        StartAutoOpChimayo();
 
 
 
