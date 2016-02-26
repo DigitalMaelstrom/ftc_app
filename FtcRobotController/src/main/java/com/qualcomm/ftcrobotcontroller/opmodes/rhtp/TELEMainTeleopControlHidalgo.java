@@ -44,8 +44,8 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
     //Servo servofront;
 	//Servo servotop;
 	//Servo servomid;
-	//Servo servomidLeft;
-	//Servo servomidRight;
+	Servo servomidLeft;
+	Servo servomidRight;
 	//Servo servoAngle;
 	DcMotor motorBack;
 	DcMotor motorRight;
@@ -56,12 +56,12 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 
 	//int timercowcatch = 0;
 	//int timerdumper = 0;
-	//int timerzipeline = 0;
+	int timerzipeline = 0;
 	//double cowcatchpos = 0.81;
 	//double anglepos=0.5;
 	//double dumperpos;
 	//double ziplinepos;
-	//String zipisout="";
+	String zipisout="";
 
 	public TELEMainTeleopControlHidalgo() {
 
@@ -81,8 +81,8 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 		motorLeft = hardwareMap.dcMotor.get("motorL");
 		motorRight.setDirection(DcMotor.Direction.REVERSE);
 		//servomid = hardwareMap.servo.get("servoMid");
-		//servomidLeft= hardwareMap.servo.get("servoMidLeft");
-		//servomidRight= hardwareMap.servo.get("servoMidRight");
+		servomidLeft= hardwareMap.servo.get("servoMidLeft");
+		servomidRight= hardwareMap.servo.get("servoMidRight");
 		//servoAngle= hardwareMap.servo.get("servoAngle");
 		motorBack = hardwareMap.dcMotor.get("motorWheelie");
 		motorArm = hardwareMap.dcMotor.get("motorArm");
@@ -214,31 +214,30 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 		servomid.setPosition(ziplinepos);*/
 
 		// *Zipline Delivery Type 2
-		/*ziplinepos = Range.clip(ziplinepos, 0.01, .99);
 		if (timerzipeline ==0)
 		{
-			servomidLeft.setPosition(1);
-			servomidRight.setPosition(1);
+			servomidLeft.setPosition(0.5);
+			servomidRight.setPosition(0.5);
 		}
 		timerzipeline++;
 		if (gamepad2.y)
 		{
-			servomidLeft.setPosition(1);
-			servomidRight.setPosition(1);
+			servomidLeft.setPosition(0.5);
+			servomidRight.setPosition(0.5);
 			zipisout="The zipline is SAFE";
 		}
 		if (gamepad2.x)
 		{
-			servomidLeft.setPosition(0);
-			servomidRight.setPosition(1);
+			servomidLeft.setPosition(0.25);
+			servomidRight.setPosition(0.75);
 			zipisout="The zipline is out!";
 		}
 		if (gamepad2.b)
 		{
-			servomidLeft.setPosition(1);
-			servomidRight.setPosition(0);
+			servomidLeft.setPosition(0.75);
+			servomidRight.setPosition(0.25);
 			zipisout="The zipline is out!";
-		}*/
+		}
 
 		telemetry.addData("AAAA", wheelie);
 		telemetry.addData("Teleop Version", "4.99");
