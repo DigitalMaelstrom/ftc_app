@@ -34,13 +34,14 @@ package com.qualcomm.ftcrobotcontroller.opmodes.rhtp;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 public class TELEMainTeleopControlHidalgo extends OpMode {
 
 
-    //DcMotorController motorController;
+    DcMotorController motorController;
     //Servo servofront;
 	//Servo servotop;
 	//Servo servomid;
@@ -53,10 +54,14 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 	//DcMotor motorSecondary;
 	//DcMotor motorCapture;
 	DcMotor motorArm;
+	int Timer=0;
+	int Stage=0;
 
 	//int timercowcatch = 0;
 	//int timerdumper = 0;
 	int timerzipeline = 0;
+	int encoderstart=0;
+
 	//double cowcatchpos = 0.81;
 	//double anglepos=0.5;
 	//double dumperpos;
@@ -93,17 +98,29 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 		//servomid.setPosition(0.5);
 		//servotop.setPosition(0.0);
 		//servoAngle.setPosition(0.5);
+
+		motorController = hardwareMap.dcMotorController.get("Motor Controller 1");
+		if ((Stage==0) && Timer==200) {
+			motorController.setMotorChannelMode(motorArm.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
+			Stage++;
+			Timer=0;
+		}
+		if ((Stage==1) && Timer==200) {
+			motorController.setMotorChannelMode(motorArm.getPortNumber(), DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+		}
+
 	}
 
 	@Override
 	public void loop() {
-
+		Timer++;
         // *Tank Drive
         float left = gamepad1.left_stick_y;
         float right = gamepad1.right_stick_y;
 
-		right = Range.clip(right, -1, 1);
-		left = Range.clip(left, -1, 1);
+			right = Range.clip(right, -1, 1);
+			left = Range.clip(left, -1, 1);
+
 
 
 		right = (float)scaleInput(right);
@@ -112,6 +129,10 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 
 		motorRight.setPower(right);
 		motorLeft.setPower(left);
+
+
+
+
 
         // *Cow-catcher
 
@@ -153,6 +174,10 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 		arm = Range.clip(arm, -1, 1);
 		arm = (float)scaleInput(arm);
 		motorArm.setPower(-arm);
+
+		// Hard Stop for Lift
+
+		//if ()
 
 		// *Secondary Lifting Functions
 /*
@@ -241,7 +266,8 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 
 		telemetry.addData("AAAA", wheelie);
 		telemetry.addData("Teleop Version", "4.99");
-		telemetry.addData("Can control:","4 motor driving, Wheelie, Arm, Guy Deliver, Cow Catcher, Secondary Lifting, Lifting Angle Control");
+		telemetry.addData("Can control:", "4 motor driving, Wheelie, Arm, Guy Deliver, Cow Catcher, Secondary Lifting, Lifting Angle Control");
+		telemetry.addData("ArmPos",motorArm.getCurrentPosition());
 		//telemetry.addData("Zipline?", zipisout);
 	}
 
