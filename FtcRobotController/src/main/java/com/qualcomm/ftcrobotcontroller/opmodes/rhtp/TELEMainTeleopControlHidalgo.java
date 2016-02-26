@@ -216,26 +216,26 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 		// *Zipline Delivery Type 2
 		if (timerzipeline ==0)
 		{
-			servomidLeft.setPosition(0.5);
-			servomidRight.setPosition(0.5);
+			servomidLeft.setPosition(0.0);
+			servomidRight.setPosition(0.0);
 		}
 		timerzipeline++;
 		if (gamepad2.y)
 		{
-			servomidLeft.setPosition(0.5);
-			servomidRight.setPosition(0.5);
+			servomidLeft.setPosition(0.0);
+			servomidRight.setPosition(0.8);
 			zipisout="The zipline is SAFE";
-		}
-		if (gamepad2.x)
-		{
-			servomidLeft.setPosition(0.25);
-			servomidRight.setPosition(0.75);
-			zipisout="The zipline is out!";
 		}
 		if (gamepad2.b)
 		{
-			servomidLeft.setPosition(0.75);
-			servomidRight.setPosition(0.25);
+			servomidLeft.setPosition(0.0);
+			servomidRight.setPosition(0.125);
+			zipisout="The zipline is out!";
+		}
+		if (gamepad2.x)
+		{
+			servomidLeft.setPosition(0.625);
+			servomidRight.setPosition(0.80);
 			zipisout="The zipline is out!";
 		}
 
