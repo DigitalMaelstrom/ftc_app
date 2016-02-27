@@ -33,18 +33,18 @@ public class TESTServoControl extends OpMode {
 	@Override
 	public void loop() {
 		if (timer == 0) {
-			servopos = .5;
+			servopos = .55;
 		}
 			timer++;
 
 
-			if (gamepad1.y) {
+			if (gamepad1.right_bumper) {
 				servopos += 0.01;
 			}
-			if (gamepad1.a) {
+			if (gamepad1.left_bumper) {
 				servopos -= 0.01;
 			}
-		servopos = Range.clip(servopos, 0.0, .99);
+		servopos = Range.clip(servopos, 0.50, .60);
 
 			servo.setPosition(servopos);
 

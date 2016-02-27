@@ -42,28 +42,30 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 
 
     DcMotorController motorController;
-    //Servo servofront;
+    Servo servofront;
 	//Servo servotop;
 	//Servo servomid;
+	Servo servoDeliver;
 	Servo servomidLeft;
 	Servo servomidRight;
-	//Servo servoAngle;
+	Servo servoAngle;
 	DcMotor motorBack;
 	DcMotor motorRight;
 	DcMotor motorLeft;
-	//DcMotor motorSecondary;
+	DcMotor motorSecondary;
 	//DcMotor motorCapture;
 	DcMotor motorArm;
 	int Timer=0;
 	int Stage=0;
 
-	//int timercowcatch = 0;
+	int timercowcatch = 0;
 	//int timerdumper = 0;
 	int timerzipeline = 0;
 	int encoderstart=0;
+	double servopos=0.55;
 
-	//double cowcatchpos = 0.81;
-	//double anglepos=0.5;
+	double cowcatchpos = 0.81;
+	double anglepos=0.5;
 	//double dumperpos;
 	//double ziplinepos;
 	String zipisout="";
@@ -76,28 +78,29 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 	@Override
 	public void init() {
 
-		//cowcatchpos =.85;
+		cowcatchpos =.85;
 		//dumperpos =0.1;
 		//ziplinepos =0.5;
-		//anglepos=0.5;
+		anglepos=0.5;
 
-		//servofront = hardwareMap.servo.get("servoFront");
+		servofront = hardwareMap.servo.get("servoFront");
+		servoDeliver = hardwareMap.servo.get("servoDeliver");
 		motorRight = hardwareMap.dcMotor.get("motorR");
 		motorLeft = hardwareMap.dcMotor.get("motorL");
 		motorRight.setDirection(DcMotor.Direction.REVERSE);
 		//servomid = hardwareMap.servo.get("servoMid");
 		servomidLeft= hardwareMap.servo.get("servoMidLeft");
 		servomidRight= hardwareMap.servo.get("servoMidRight");
-		//servoAngle= hardwareMap.servo.get("servoAngle");
+		servoAngle= hardwareMap.servo.get("servoAngle");
 		motorBack = hardwareMap.dcMotor.get("motorWheelie");
 		motorArm = hardwareMap.dcMotor.get("motorArm");
-		//motorSecondary =  hardwareMap.dcMotor.get("motorSecondary");
-		//motorSecondary.setDirection(DcMotor.Direction.REVERSE);
+		motorSecondary =  hardwareMap.dcMotor.get("motorSecondary");
+		motorSecondary.setDirection(DcMotor.Direction.REVERSE);
 		//servotop=hardwareMap.servo.get("servoTop");
-		//servofront.setPosition(cowcatchpos);
+		servofront.setPosition(cowcatchpos);
 		//servomid.setPosition(0.5);
 		//servotop.setPosition(0.0);
-		//servoAngle.setPosition(0.5);
+		servoAngle.setPosition(0.5);
 
 		motorController = hardwareMap.dcMotorController.get("Motor Controller 1");
 		if ((Stage==0) && Timer==200) {
@@ -137,7 +140,7 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
         // *Cow-catcher
 
         //Push A to push out/pull in the cow catcher
-/*
+
 		if (timercowcatch >=30) {
 			if (gamepad2.a) {
 				if (cowcatchpos == .85) {
@@ -160,7 +163,7 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 			anglepos-=0.009;
 		}
 		anglepos = Range.clip(anglepos, 0.01, .99);
-		servoAngle.setPosition(anglepos);*/
+		servoAngle.setPosition(anglepos);
 
 		// *Wheelie Bar
 		float wheelie = gamepad2.right_stick_y;
@@ -180,7 +183,7 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 		//if ()
 
 		// *Secondary Lifting Functions
-/*
+
 		if (gamepad2.left_trigger>=0.3) {
 			motorSecondary.setPower(1);
 		}
@@ -197,7 +200,7 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 		if (gamepad1.right_trigger>=0.3) {
 			motorSecondary.setPower(-1);
 		}
-
+/*
 		// *Guy Dumper
 		dumperpos = Range.clip(dumperpos, 0.01, .99);
 		if (timerdumper ==0)
@@ -263,6 +266,16 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 			servomidRight.setPosition(0.80);
 			zipisout="The zipline is out!";
 		}
+		//*ball delevery
+		if (gamepad1.right_bumper) {
+			servopos += 0.01;
+		}
+		if (gamepad1.left_bumper) {
+			servopos -= 0.01;
+		}
+		servopos = Range.clip(servopos, 0.50, .60);
+
+		servoDeliver.setPosition(servopos);
 
 		telemetry.addData("AAAA", wheelie);
 		telemetry.addData("Teleop Version", "4.99");
