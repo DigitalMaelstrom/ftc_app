@@ -4,7 +4,7 @@ public class AUTODriveAndDumpPosBRed extends AutoOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        StartAutoOpChimayo();
+        StartAutoOp();
         MoveForward(2585);
         Thread.sleep(90);
         telemetry.addData("Message","I got here");

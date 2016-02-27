@@ -25,8 +25,9 @@ public abstract class AutoOpMode extends LinearOpMode{
     GyroSensor gyroSensor;
     //ColorSensor colorFront;
     //ColorSensor colorBack;
-    //ColorSensor colorBot;
+    ColorSensor colorBot;
     double speed = .6;
+    int timer = 0;
     int xVal, yVal, zVal = 0;
     int heading = 0;
     int turndelay=800;
@@ -76,10 +77,11 @@ public abstract class AutoOpMode extends LinearOpMode{
         /*colorFront = hardwareMap.colorSensor.get("colorFront");
         colorFront.enableLed(false);
         colorBack = hardwareMap.colorSensor.get("colorBack");
-        colorBack.enableLed(false);
+        colorBack.enableLed(false);*/
         colorBot = hardwareMap.colorSensor.get("colorBot");
-        colorBot.enableLed(false);
-        waitOneFullHardwareCycle();*/
+        colorBot.enableLed(true);
+        waitOneFullHardwareCycle();
+        colorBot.enableLed(true);
     }
 
     protected void MoveBackward(int moveamount) {
@@ -102,16 +104,26 @@ public abstract class AutoOpMode extends LinearOpMode{
         motorLeft.setPower(0);
         motorRight.setPower(0);
     }
-    protected void MoveForwardTilWhite() {
-       /* motorLeft.setPower(speed / 3);
-        motorRight.setPower(speed / 3);
+    protected void MoveForwardTilWhite() throws InterruptedException {
+        motorLeft.setPower(speed / 6);
+        motorRight.setPower(speed / 6);
         Color.RGBToHSV(colorBot.red() * 8, colorBot.green() * 8, colorBot.blue() * 8, hsvValues3);
         telemetry.addData("Clear", colorBot.alpha());
         telemetry.addData("Red  ", colorBot.red());
         telemetry.addData("Green", colorBot.green());
         telemetry.addData("Blue ", colorBot.blue());
         telemetry.addData("Hue", hsvValues3[0]);
-        while (colorBack.alpha()<1) {
+        //while (colorBot.alpha()<1) {
+        colorBot.enableLed(true);
+        waitOneFullHardwareCycle();
+        colorBot.enableLed(true);
+
+        while (colorBot.alpha()<1) {
+            timer++;
+            if (timer==100) {
+                colorBot.enableLed(true);
+                timer=0;
+            }
             Color.RGBToHSV(colorBot.red() * 8, colorBot.green() * 8, colorBot.blue() * 8, hsvValues3);
             telemetry.addData("Clear", colorBot.alpha());
             telemetry.addData("Red  ", colorBot.red());
@@ -120,7 +132,7 @@ public abstract class AutoOpMode extends LinearOpMode{
             telemetry.addData("Hue", hsvValues3[0]);
         }
         motorLeft.setPower(0);
-        motorRight.setPower(0);*/
+        motorRight.setPower(0);
     }
 
     protected void BeaconPressRed() throws InterruptedException {
@@ -186,10 +198,10 @@ public abstract class AutoOpMode extends LinearOpMode{
     protected void initializeServos() {
         //servofront.setPosition(0.85);
         //servomid.setPosition(0.5);
-        servotop.setPosition(0.0);
+        //servotop.setPosition(0.0);
         //servoBeacon.setPosition(0.6);
     }
-    protected void StartAutoOpChimayo() throws InterruptedException {
+    protected void StartAutoOp() throws InterruptedException {
         //servofront = hardwareMap.servo.get("servoFront");
         motorRight = hardwareMap.dcMotor.get("motorR");
         motorLeft = hardwareMap.dcMotor.get("motorL");
