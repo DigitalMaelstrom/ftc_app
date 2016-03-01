@@ -160,7 +160,8 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 			anglepos-=0.009;
 		}
 		anglepos = Range.clip(anglepos, 0.01, .99);
-		servoAngle.setPosition(anglepos);*/
+		servoAngle.		arm = (float)scaleInput(arm);
+setPosition(anglepos);*/
 
 		// *Wheelie Bar
 		float wheelie = gamepad2.right_stick_y;
@@ -172,7 +173,6 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 		//Left joystick on gamepad 2
 		float arm = gamepad2.left_stick_y;
 		arm = Range.clip(arm, -1, 1);
-		arm = (float)scaleInput(arm);
 		motorArm.setPower(-arm);
 
 		// Hard Stop for Lift
