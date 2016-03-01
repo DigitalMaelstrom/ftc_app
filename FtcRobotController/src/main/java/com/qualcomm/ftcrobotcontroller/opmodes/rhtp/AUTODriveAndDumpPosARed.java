@@ -5,7 +5,7 @@ public class AUTODriveAndDumpPosARed extends AutoOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        StartAutoOpChimayo();
+        StartAutoOp();
 
         //move forward
         MoveForward(4000);

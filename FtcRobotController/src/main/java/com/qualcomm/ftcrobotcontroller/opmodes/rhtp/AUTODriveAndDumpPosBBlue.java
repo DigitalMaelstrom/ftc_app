@@ -3,7 +3,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes.rhtp;
 public class AUTODriveAndDumpPosBBlue extends AutoOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-        StartAutoOpChimayo();
+        StartAutoOp();
         MoveForward(2585);
 
 

@@ -6,7 +6,7 @@ public class AUTODriveAndDumpPosABlue extends AutoOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        StartAutoOpChimayo();
+        StartAutoOp();
 
 
 
