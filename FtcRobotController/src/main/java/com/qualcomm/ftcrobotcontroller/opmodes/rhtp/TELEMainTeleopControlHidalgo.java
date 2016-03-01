@@ -43,7 +43,7 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 
     DcMotorController motorController;
     Servo servofront;
-	//Servo servotop;
+	Servo servotop;
 	//Servo servomid;
 	Servo servoDeliver;
 	Servo servomidLeft;
@@ -59,14 +59,14 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 	int Stage=0;
 
 	int timercowcatch = 0;
-	//int timerdumper = 0;
+	int timerdumper = 0;
 	int timerzipeline = 0;
 	int encoderstart=0;
 	double servopos=0.55;
 
 	double cowcatchpos = 0.81;
 	double anglepos=0.5;
-	//double dumperpos;
+	double dumperpos;
 	//double ziplinepos;
 	String zipisout="";
 
@@ -96,21 +96,24 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 		motorArm = hardwareMap.dcMotor.get("motorArm");
 		motorSecondary =  hardwareMap.dcMotor.get("motorSecondary");
 		motorSecondary.setDirection(DcMotor.Direction.REVERSE);
-		//servotop=hardwareMap.servo.get("servoTop");
+		servotop=hardwareMap.servo.get("servoTop");
 		servofront.setPosition(cowcatchpos);
 		//servomid.setPosition(0.5);
-		//servotop.setPosition(0.0);
+		servotop.setPosition(0.0);
 		servoAngle.setPosition(0.5);
-
-		motorController = hardwareMap.dcMotorController.get("Motor Controller 1");
-		if ((Stage==0) && Timer==200) {
-			motorController.setMotorChannelMode(motorArm.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
-			Stage++;
-			Timer=0;
-		}
-		if ((Stage==1) && Timer==200) {
-			motorController.setMotorChannelMode(motorArm.getPortNumber(), DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
-		}
+		/*while (Stage!=2) {
+			motorController = hardwareMap.dcMotorController.get("Motor Controller 1");
+			if ((Stage == 0) && Timer == 200) {
+				motorController.setMotorChannelMode(motorArm.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
+				Stage++;
+				Timer = 0;
+			}
+			if ((Stage == 1) && Timer == 200) {
+				motorController.setMotorChannelMode(motorArm.getPortNumber(), DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+				Stage++;
+			}
+			Timer++;
+		}*/
 
 	}
 
@@ -200,7 +203,7 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 		if (gamepad1.right_trigger>=0.3) {
 			motorSecondary.setPower(-1);
 		}
-/*
+
 		// *Guy Dumper
 		dumperpos = Range.clip(dumperpos, 0.01, .99);
 		if (timerdumper ==0)
@@ -273,7 +276,7 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 		if (gamepad1.left_bumper) {
 			servopos -= 0.01;
 		}
-		servopos = Range.clip(servopos, 0.50, .60);
+		servopos = Range.clip(servopos, 0.45, .65);
 
 		servoDeliver.setPosition(servopos);
 
