@@ -71,6 +71,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register ("TELEMainTeleopControlHidalgo", TELEMainTeleopControlHidalgo.class);
     manager.register ("TESTMoveTillWhite", TESTMoveTillWhite.class);
     manager.register ("TESTServoControl", TESTServoControl.class);
+    manager.register("AUTOPresentation", AUTOPresentation.class);
    // manager.register("TESTAutoFollowLine", TESTAutoFollowLine.class);
     //manager.register ("AutoMoveForwardGyroOP", AutoMoveForwardGyroOP.class);
     //manager.register ("continousServoOp", continousServoOp.class);
