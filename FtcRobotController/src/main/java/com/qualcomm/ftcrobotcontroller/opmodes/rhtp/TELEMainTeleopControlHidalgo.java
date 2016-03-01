@@ -276,6 +276,9 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 		if (gamepad1.left_bumper) {
 			servopos -= 0.01;
 		}
+		if (gamepad1.start) {
+			servopos=0.55;
+		}
 		servopos = Range.clip(servopos, 0.45, .65);
 
 		servoDeliver.setPosition(servopos);
