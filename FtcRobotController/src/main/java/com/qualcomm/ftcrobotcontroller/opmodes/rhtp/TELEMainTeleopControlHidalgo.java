@@ -34,14 +34,12 @@ package com.qualcomm.ftcrobotcontroller.opmodes.rhtp;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 public class TELEMainTeleopControlHidalgo extends OpMode {
 
-
-    DcMotorController motorController;
+	//initialization of variables, motors, and servos
     Servo servofront;
 	Servo servotop;
 	//Servo servomid;
@@ -77,7 +75,7 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 
 	@Override
 	public void init() {
-
+		//Assignment of servo positions and hardwaremap registration
 		cowcatchpos =.6;
 		//dumperpos =0.1;
 		//ziplinepos =0.5;
