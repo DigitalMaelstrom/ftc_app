@@ -65,7 +65,7 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 	double servopos=0.55;
 
 	double cowcatchpos = 0.81;
-	double anglepos=0.5;
+	double anglepos=1.0;
 	double dumperpos;
 	//double ziplinepos;
 	String zipisout="";
@@ -78,10 +78,10 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 	@Override
 	public void init() {
 
-		cowcatchpos =.85;
+		cowcatchpos =.6;
 		//dumperpos =0.1;
 		//ziplinepos =0.5;
-		anglepos=0.5;
+		anglepos=1.0;
 
 		servofront = hardwareMap.servo.get("servoFront");
 		servoDeliver = hardwareMap.servo.get("servoDeliver");
@@ -100,7 +100,9 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 		servofront.setPosition(cowcatchpos);
 		//servomid.setPosition(0.5);
 		servotop.setPosition(0.0);
-		servoAngle.setPosition(0.5);
+		servoAngle.setPosition(1);
+		servoDeliver.setPosition(0.55);
+
 		/*while (Stage!=2) {
 			motorController = hardwareMap.dcMotorController.get("Motor Controller 1");
 			if ((Stage == 0) && Timer == 200) {
@@ -146,10 +148,10 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 
 		if (timercowcatch >=30) {
 			if (gamepad2.a) {
-				if (cowcatchpos == .85) {
-					cowcatchpos = .5;
+				if (cowcatchpos == .60) {
+					cowcatchpos = .20;
 				} else {
-					cowcatchpos = .85;
+					cowcatchpos = .60;
 				}
 				timercowcatch =0;
 			}
@@ -159,11 +161,11 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 
 		//Secondary lift angle control
 		if (gamepad1.x) {
-			anglepos+=0.009;
+			anglepos-=0.009;
 		}
 
 		if (gamepad1.a) {
-			anglepos-=0.009;
+			anglepos+=0.009;
 		}
 		anglepos = Range.clip(anglepos, 0.01, .99);
 		servoAngle.setPosition(anglepos);
