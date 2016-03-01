@@ -163,6 +163,34 @@ public abstract class AutoOpMode extends LinearOpMode{
         }*/
     }
 
+    protected void BeaconPressBlue() throws InterruptedException {
+        /*while(BeaconHasBeenPressed=false){
+            Color.RGBToHSV(colorFront.red() * 8, colorFront.green() * 8, colorFront.blue() * 8, hsvValues);
+            telemetry.addData("Clear", colorFront.alpha());
+            telemetry.addData("Red  ", colorFront.red());
+            telemetry.addData("Green", colorFront.green());
+            telemetry.addData("Blue ", colorFront.blue());
+            telemetry.addData("Hue", hsvValues[0]);
+
+            Color.RGBToHSV(colorBack.red() * 8, colorBack.green() * 8, colorBack.blue() * 8, hsvValues2);
+            telemetry.addData("Clear2", colorBack.alpha());
+            telemetry.addData("Red2  ", colorBack.red());
+            telemetry.addData("Green2", colorBack.green());
+            telemetry.addData("Blue2 ", colorBack.blue());
+            telemetry.addData("Hue2", hsvValues2[0]);
+            waitOneFullHardwareCycle();
+
+            if ((colorFront.red() < colorFront.blue()) && colorBack.red() > colorBack.blue()) {
+                servoBeacon.setPosition(0.85);
+                BeaconHasBeenPressed = true;
+            }
+            if ((colorFront.red() > colorFront.blue()) && colorBack.red() < colorBack.blue()) {
+                servoBeacon.setPosition(.3);
+                BeaconHasBeenPressed = true;
+            }
+        }*/
+    }
+
     public void TurnRight(int degrees)throws InterruptedException {
         // Turn Right
         Log.d("RightTurn", "Entering Right Turn Function");
