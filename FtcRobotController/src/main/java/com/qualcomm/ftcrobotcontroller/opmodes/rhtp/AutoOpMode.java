@@ -100,7 +100,7 @@ public abstract class AutoOpMode extends LinearOpMode{
         motorRight.setPower(0);
     }
     protected void MoveForward(int moveamount) {
-        Log.d("MoveForward","Starting To Move Forward");
+        Log.d("MoveForward", "Starting To Move Forward");
         encoderatstart=motorLeft.getCurrentPosition();
         motorLeft.setPower(speed);
         motorRight.setPower(speed);
@@ -162,7 +162,8 @@ public abstract class AutoOpMode extends LinearOpMode{
                 BeaconHasBeenPressed = true;
             }
             if ((colorFront.red() < colorFront.blue()) /*&& colorBack.red() > colorBack.blue()*/) {
-                servoBeacon.setPosition(.87);
+                MoveBackward(ONEWHEELROTATION/4);
+                servoBeacon.setPosition(0.28);
                 BeaconHasBeenPressed = true;
             }
         }
@@ -186,11 +187,12 @@ public abstract class AutoOpMode extends LinearOpMode{
             waitOneFullHardwareCycle();*/
 
             if ((colorFront.red() < colorFront.blue())/* && colorBack.red() > colorBack.blue()*/) {
-                servoBeacon.setPosition(0.85);
+                servoBeacon.setPosition(0.28);
                 BeaconHasBeenPressed = true;
             }
             if ((colorFront.red() > colorFront.blue())/* && colorBack.red() < colorBack.blue()*/) {
-                servoBeacon.setPosition(.3);
+                MoveBackward(ONEWHEELROTATION/4);
+                servoBeacon.setPosition(0.28);
                 BeaconHasBeenPressed = true;
             }
         }
