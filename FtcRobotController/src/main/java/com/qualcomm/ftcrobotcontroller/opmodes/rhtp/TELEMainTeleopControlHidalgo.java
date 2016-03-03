@@ -248,7 +248,7 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 		if (timerzipeline ==0)
 		{
 			servomidLeft.setPosition(0.0);
-			servomidRight.setPosition(0.0);
+			servomidRight.setPosition(0.8);
 		}
 		timerzipeline++;
 		if (gamepad2.y)

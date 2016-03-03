@@ -8,7 +8,7 @@ public class AUTODriveAndDumpPosARed extends AutoOpMode {
         StartAutoOp();
 
         //move forward
-        MoveForward(4000);
+        MoveForward(3500);
         //Log.d("AutoDrive", "Just Moved Forward");
         //turn left
         TurnLeft(30);

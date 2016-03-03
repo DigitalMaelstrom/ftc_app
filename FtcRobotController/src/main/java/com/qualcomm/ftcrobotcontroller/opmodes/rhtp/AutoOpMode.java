@@ -18,19 +18,24 @@ public abstract class AutoOpMode extends LinearOpMode{
     DcMotorController motorController;
     Servo servotop;
     //Servo servomid;
-    //Servo servofront;
+    Servo servofront;
+    Servo servomidLeft;
+    Servo servomidRight;
+    Servo servoAngle;
+    Servo servoDeliver;
     DcMotor motorLeft;
     DcMotor motorRight;
     DcMotor motorBack;
     GyroSensor gyroSensor;
-    //ColorSensor colorFront;
+    ColorSensor colorFront;
     //ColorSensor colorBack;
     ColorSensor colorBot;
     double speed = .6;
+
     int timer = 0;
     int xVal, yVal, zVal = 0;
     int heading = 0;
-    int turndelay=800;
+    int turndelay=1000;
     int encoderatstart=0;
     //double motorbackamount=-0.2;
     float hsvValues[] = {0F, 0F, 0F};
@@ -39,7 +44,7 @@ public abstract class AutoOpMode extends LinearOpMode{
     final float values2[] = hsvValues2;
     float hsvValues3[] = {0F, 0F, 0F};
     final float values3[] = hsvValues3;
-    //Servo servoBeacon;
+    Servo servoBeacon;
     boolean BeaconHasBeenPressed=false;
 
     double dumpamount=0;
@@ -74,9 +79,9 @@ public abstract class AutoOpMode extends LinearOpMode{
 
     protected void InitializeColors() throws InterruptedException {
         //initialize color sensors in correct order
-        /*colorFront = hardwareMap.colorSensor.get("colorFront");
+        colorFront = hardwareMap.colorSensor.get("colorFront");
         colorFront.enableLed(false);
-        colorBack = hardwareMap.colorSensor.get("colorBack");
+        /*colorBack = hardwareMap.colorSensor.get("colorBack");
         colorBack.enableLed(false);*/
         colorBot = hardwareMap.colorSensor.get("colorBot");
         colorBot.enableLed(true);
@@ -136,7 +141,7 @@ public abstract class AutoOpMode extends LinearOpMode{
     }
 
     protected void BeaconPressRed() throws InterruptedException {
-        /*while(BeaconHasBeenPressed=false){
+        while(BeaconHasBeenPressed==false){
             Color.RGBToHSV(colorFront.red() * 8, colorFront.green() * 8, colorFront.blue() * 8, hsvValues);
             telemetry.addData("Clear", colorFront.alpha());
             telemetry.addData("Red  ", colorFront.red());
@@ -144,27 +149,27 @@ public abstract class AutoOpMode extends LinearOpMode{
             telemetry.addData("Blue ", colorFront.blue());
             telemetry.addData("Hue", hsvValues[0]);
 
-            Color.RGBToHSV(colorBack.red() * 8, colorBack.green() * 8, colorBack.blue() * 8, hsvValues2);
+            /*Color.RGBToHSV(colorBack.red() * 8, colorBack.green() * 8, colorBack.blue() * 8, hsvValues2);
             telemetry.addData("Clear2", colorBack.alpha());
             telemetry.addData("Red2  ", colorBack.red());
             telemetry.addData("Green2", colorBack.green());
             telemetry.addData("Blue2 ", colorBack.blue());
             telemetry.addData("Hue2", hsvValues2[0]);
-            waitOneFullHardwareCycle();
+            waitOneFullHardwareCycle();*/
 
-            if ((colorFront.red() > colorFront.blue()) && colorBack.red() < colorBack.blue()) {
-                servoBeacon.setPosition(0.85);
+            if ((colorFront.red() > colorFront.blue()) /*&& colorBack.red() < colorBack.blue()*/) {
+                servoBeacon.setPosition(0.28);
                 BeaconHasBeenPressed = true;
             }
-            if ((colorFront.red() < colorFront.blue()) && colorBack.red() > colorBack.blue()) {
-                servoBeacon.setPosition(.3);
+            if ((colorFront.red() < colorFront.blue()) /*&& colorBack.red() > colorBack.blue()*/) {
+                servoBeacon.setPosition(.87);
                 BeaconHasBeenPressed = true;
             }
-        }*/
+        }
     }
 
     protected void BeaconPressBlue() throws InterruptedException {
-        /*while(BeaconHasBeenPressed=false){
+        while(BeaconHasBeenPressed==false){
             Color.RGBToHSV(colorFront.red() * 8, colorFront.green() * 8, colorFront.blue() * 8, hsvValues);
             telemetry.addData("Clear", colorFront.alpha());
             telemetry.addData("Red  ", colorFront.red());
@@ -172,23 +177,23 @@ public abstract class AutoOpMode extends LinearOpMode{
             telemetry.addData("Blue ", colorFront.blue());
             telemetry.addData("Hue", hsvValues[0]);
 
-            Color.RGBToHSV(colorBack.red() * 8, colorBack.green() * 8, colorBack.blue() * 8, hsvValues2);
+            /*Color.RGBToHSV(colorBack.red() * 8, colorBack.green() * 8, colorBack.blue() * 8, hsvValues2);
             telemetry.addData("Clear2", colorBack.alpha());
             telemetry.addData("Red2  ", colorBack.red());
             telemetry.addData("Green2", colorBack.green());
             telemetry.addData("Blue2 ", colorBack.blue());
             telemetry.addData("Hue2", hsvValues2[0]);
-            waitOneFullHardwareCycle();
+            waitOneFullHardwareCycle();*/
 
-            if ((colorFront.red() < colorFront.blue()) && colorBack.red() > colorBack.blue()) {
+            if ((colorFront.red() < colorFront.blue())/* && colorBack.red() > colorBack.blue()*/) {
                 servoBeacon.setPosition(0.85);
                 BeaconHasBeenPressed = true;
             }
-            if ((colorFront.red() > colorFront.blue()) && colorBack.red() < colorBack.blue()) {
+            if ((colorFront.red() > colorFront.blue())/* && colorBack.red() < colorBack.blue()*/) {
                 servoBeacon.setPosition(.3);
                 BeaconHasBeenPressed = true;
             }
-        }*/
+        }
     }
 
     public void TurnRight(int degrees)throws InterruptedException {
@@ -224,21 +229,29 @@ public abstract class AutoOpMode extends LinearOpMode{
 
     }
     protected void initializeServos() {
-        //servofront.setPosition(0.85);
+        servofront.setPosition(0.6);
+        servoAngle.setPosition(1);
+        servomidLeft.setPosition(0.0);
+        servomidRight.setPosition(0.8);
         //servomid.setPosition(0.5);
-        //servotop.setPosition(0.0);
-        //servoBeacon.setPosition(0.6);
+        servotop.setPosition(0.1);
+        servoBeacon.setPosition(0.6);
+        servoDeliver.setPosition(0.55);
     }
     protected void StartAutoOp() throws InterruptedException {
-        //servofront = hardwareMap.servo.get("servoFront");
+        servofront = hardwareMap.servo.get("servoFront");
+        servoDeliver = hardwareMap.servo.get("servoDeliver");
         motorRight = hardwareMap.dcMotor.get("motorR");
         motorLeft = hardwareMap.dcMotor.get("motorL");
+        servomidLeft= hardwareMap.servo.get("servoMidLeft");
+        servomidRight= hardwareMap.servo.get("servoMidRight");
+        servoAngle= hardwareMap.servo.get("servoAngle");
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
         gyroSensor = hardwareMap.gyroSensor.get("gyro");
         servotop=hardwareMap.servo.get("servoTop");
         //servomid = hardwareMap.servo.get("servoMid");
         motorBack = hardwareMap.dcMotor.get("motorWheelie");
-        //servoBeacon = hardwareMap.servo.get("servoBeacon");
+        servoBeacon = hardwareMap.servo.get("servoBeacon");
         gyroSensor.calibrate();
         //motorBack.setPower(motorbackamount);
         initializeServos();

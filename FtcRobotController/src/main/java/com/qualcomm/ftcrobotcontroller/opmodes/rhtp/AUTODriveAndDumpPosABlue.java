@@ -13,12 +13,12 @@ public class AUTODriveAndDumpPosABlue extends AutoOpMode {
         MoveForward(4380);
         //Log.d("AutoDrive", "Just Moved Forward");
 
-        TurnRight(37);
+        TurnRight(40);
         Thread.sleep(90);
 
         MoveForward(4900);
 
-        TurnRight(37);
+        TurnRight(40);
         Thread.sleep(90);
         MoveForward(ONEWHEELROTATION * 2);
 

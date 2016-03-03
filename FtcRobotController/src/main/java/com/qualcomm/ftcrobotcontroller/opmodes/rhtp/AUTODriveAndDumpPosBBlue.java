@@ -7,14 +7,14 @@ public class AUTODriveAndDumpPosBBlue extends AutoOpMode {
         MoveForward(2585);
 
 
-        TurnRight(58);
+        TurnRight(41);
         Thread.sleep(90);
 
         MoveForward(7800);
 
-        TurnRight(50);
+        TurnRight(41);
         Thread.sleep(90);
-        MoveForward((ONEWHEELROTATION*3));
+        MoveForward((ONEWHEELROTATION*2));
 
         dumpamount=0;
         while (dumpamount<=0.89) {
