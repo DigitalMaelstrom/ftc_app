@@ -94,12 +94,15 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 		motorArm = hardwareMap.dcMotor.get("motorArm");
 		motorSecondary =  hardwareMap.dcMotor.get("motorSecondary");
 		motorSecondary.setDirection(DcMotor.Direction.REVERSE);
+		motorArm.setDirection(DcMotor.Direction.REVERSE);
 		servotop=hardwareMap.servo.get("servoTop");
 		servofront.setPosition(cowcatchpos);
 		//servomid.setPosition(0.5);
 		servotop.setPosition(0.0);
 		servoAngle.setPosition(1);
 		servoDeliver.setPosition(0.55);
+		servomidLeft.setPosition(0.0);
+		servomidRight.setPosition(0.8);
 
 		/*while (Stage!=2) {
 			motorController = hardwareMap.dcMotorController.get("Motor Controller 1");

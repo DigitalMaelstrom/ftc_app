@@ -19,7 +19,7 @@ public class AUTODriveAndDumpPosBRed extends AutoOpMode {
 
         TurnLeft(41);
         Thread.sleep(90);
-        MoveForward((ONEWHEELROTATION*3)+800);
+        MoveForward((ONEWHEELROTATION*3));
 
         dumpamount=0;
         while (dumpamount<=0.89) {
@@ -27,18 +27,7 @@ public class AUTODriveAndDumpPosBRed extends AutoOpMode {
             servotop.setPosition(dumpamount);
         }
         motorBack.setPower(0);
-        if (hitthatbeacon==true)
-        {
-            Thread.sleep(5000);
-            //servotop.setPosition(0);
-            MoveBackward(ONEWHEELROTATION/3);
-            TurnRight(80);
-            MoveBackward(ONEWHEELROTATION/2);
-            MoveForwardTilWhite();
-            BeaconPressRed();
-            Thread.sleep(1000);
-            MoveBackward(ONEWHEELROTATION/5);
-        }
+        hitTheBeacon(hitthatbeacon,true);
     }
 
 

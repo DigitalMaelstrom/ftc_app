@@ -208,6 +208,7 @@ public abstract class AutoOpMode extends LinearOpMode{
         motorLeft.setPower(speed);
         motorRight.setPower(-speed);
         while ((gyroSensor.getHeading() <= degrees-2) || (gyroSensor.getHeading() >= degrees+2)) {
+            Log.d("RightTurn", "Current Position: " + gyroSensor.getHeading());
         }
         Log.d("RightTurn", "End Position: "+gyroSensor.getHeading());
         motorLeft.setPower(0);
@@ -224,6 +225,7 @@ public abstract class AutoOpMode extends LinearOpMode{
         motorLeft.setPower(-speed);
         motorRight.setPower(speed);
         while  ((gyroSensor.getHeading() <= 360-degrees-2) || (gyroSensor.getHeading() >= 360-degrees+2)) {
+            Log.d("LeftTurn", "Current Position: " + gyroSensor.getHeading());
         }
         Log.d("LeftTurn", "End Position: " + gyroSensor.getHeading());
         motorLeft.setPower(0);
@@ -263,5 +265,24 @@ public abstract class AutoOpMode extends LinearOpMode{
         initializeServos();
         //motorBack.setPower(motorbackamount);
     }
-
+    protected void hitTheBeacon(boolean hitthatbeacon,boolean red) throws InterruptedException {
+        if (hitthatbeacon==true)
+        {
+            Thread.sleep(5000);
+            //servotop.setPosition(0);
+            MoveBackward(ONEWHEELROTATION/3);
+            TurnRight(80);
+            MoveBackward(ONEWHEELROTATION / 2);
+            MoveForwardTilWhite();
+            if (red) {
+                BeaconPressRed();
+            }
+            else
+            {
+                BeaconPressBlue();
+            }
+            Thread.sleep(1000);
+            MoveBackward(ONEWHEELROTATION / 5);
+        }
+    }
 }

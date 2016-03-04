@@ -5,7 +5,7 @@ public class AUTODriveAndDumpPosABlue extends AutoOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-
+        boolean hitthatbeacon=true;
         StartAutoOp();
 
 
@@ -28,7 +28,7 @@ public class AUTODriveAndDumpPosABlue extends AutoOpMode {
             servotop.setPosition(dumpamount);
         }
         motorBack.setPower(0);
-
+        hitTheBeacon(hitthatbeacon,false);
     }
 
 

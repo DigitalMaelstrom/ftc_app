@@ -3,6 +3,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes.rhtp;
 public class AUTODriveAndDumpPosBBlue extends AutoOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
+        boolean hitthatbeacon=true;
         StartAutoOp();
         MoveForward(2585);
 
@@ -22,9 +23,8 @@ public class AUTODriveAndDumpPosBBlue extends AutoOpMode {
             servotop.setPosition(dumpamount);
         }
         motorBack.setPower(0);
-
+        hitTheBeacon(hitthatbeacon,false);
     }
-
 
 
 
