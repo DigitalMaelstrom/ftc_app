@@ -30,7 +30,7 @@ public abstract class AutoOpMode extends LinearOpMode{
     ColorSensor colorFront;
     //ColorSensor colorBack;
     ColorSensor colorBot;
-    double speed = .6;
+    double speed = -.5;
 
     int timer = 0;
     int xVal, yVal, zVal = 0;
@@ -70,7 +70,7 @@ public abstract class AutoOpMode extends LinearOpMode{
         Thread.sleep(50);
         motorController.setMotorChannelMode(motorRight.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
         motorController.setMotorChannelMode(motorLeft.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
-        telemetry.addData("pos", motorLeft.getCurrentPosition());
+        telemetry.addData("pos", -motorLeft.getCurrentPosition());
         Thread.sleep(400);
         motorController.setMotorChannelMode(motorRight.getPortNumber(), DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         motorController.setMotorChannelMode(motorLeft.getPortNumber(), DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
@@ -91,27 +91,27 @@ public abstract class AutoOpMode extends LinearOpMode{
 
     protected void MoveBackward(int moveamount) {
         Log.d("MoveBackward", "Starting To Move Backward");
-        encoderatstart=motorLeft.getCurrentPosition();
+        encoderatstart=-motorLeft.getCurrentPosition();
         motorLeft.setPower(-speed);
         motorRight.setPower(-speed);
-        while(motorLeft.getCurrentPosition()<= moveamount+encoderatstart) {
+        while(-motorLeft.getCurrentPosition()<= moveamount+encoderatstart) {
         }
         motorLeft.setPower(0);
         motorRight.setPower(0);
     }
     protected void MoveForward(int moveamount) {
         Log.d("MoveForward", "Starting To Move Forward");
-        encoderatstart=motorLeft.getCurrentPosition();
+        encoderatstart=-motorLeft.getCurrentPosition();
         motorLeft.setPower(speed);
         motorRight.setPower(speed);
-        while(motorLeft.getCurrentPosition()>= -moveamount+encoderatstart) {
+        while(-motorLeft.getCurrentPosition()>= -moveamount+encoderatstart) {
         }
         motorLeft.setPower(0);
         motorRight.setPower(0);
     }
     protected void MoveForwardTilWhite() throws InterruptedException {
-        motorLeft.setPower(speed / 6);
-        motorRight.setPower(speed / 6);
+        motorLeft.setPower(speed / 5);
+        motorRight.setPower(speed / 5);
         Color.RGBToHSV(colorBot.red() * 8, colorBot.green() * 8, colorBot.blue() * 8, hsvValues3);
         telemetry.addData("Clear", colorBot.alpha());
         telemetry.addData("Red  ", colorBot.red());
@@ -207,7 +207,7 @@ public abstract class AutoOpMode extends LinearOpMode{
         Log.d("RightTurn", "Start Position: " + gyroSensor.getHeading());
         motorLeft.setPower(speed);
         motorRight.setPower(-speed);
-        while ((gyroSensor.getHeading() <= degrees-2) || (gyroSensor.getHeading() >= degrees+2)) {
+        while ((gyroSensor.getHeading() <= degrees-3) || (gyroSensor.getHeading() >= degrees+3)) {
             Log.d("RightTurn", "Current Position: " + gyroSensor.getHeading());
         }
         Log.d("RightTurn", "End Position: "+gyroSensor.getHeading());
@@ -224,7 +224,7 @@ public abstract class AutoOpMode extends LinearOpMode{
         Log.d("LeftTurn", "Start Position: " + gyroSensor.getHeading());
         motorLeft.setPower(-speed);
         motorRight.setPower(speed);
-        while  ((gyroSensor.getHeading() <= 360-degrees-2) || (gyroSensor.getHeading() >= 360-degrees+2)) {
+        while  ((gyroSensor.getHeading() <= 360-degrees-3) || (gyroSensor.getHeading() >= 360-degrees+3)) {
             Log.d("LeftTurn", "Current Position: " + gyroSensor.getHeading());
         }
         Log.d("LeftTurn", "End Position: " + gyroSensor.getHeading());
@@ -250,7 +250,7 @@ public abstract class AutoOpMode extends LinearOpMode{
         servomidLeft= hardwareMap.servo.get("servoMidLeft");
         servomidRight= hardwareMap.servo.get("servoMidRight");
         servoAngle= hardwareMap.servo.get("servoAngle");
-        motorLeft.setDirection(DcMotor.Direction.REVERSE);
+        motorRight.setDirection(DcMotor.Direction.REVERSE);
         gyroSensor = hardwareMap.gyroSensor.get("gyro");
         servotop=hardwareMap.servo.get("servoTop");
         //servomid = hardwareMap.servo.get("servoMid");
@@ -269,7 +269,7 @@ public abstract class AutoOpMode extends LinearOpMode{
         if (hitthatbeacon==true)
         {
             Thread.sleep(5000);
-            //servotop.setPosition(0);
+            servotop.setPosition(0.1);
             MoveBackward(ONEWHEELROTATION/3);
             TurnRight(80);
             MoveBackward(ONEWHEELROTATION / 2);
