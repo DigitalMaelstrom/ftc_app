@@ -103,6 +103,8 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 		servoDeliver.setPosition(0.55);
 		servomidLeft.setPosition(0.0);
 		servomidRight.setPosition(0.8);
+		telemetry.addData("Teleop Version", "4.99");
+		telemetry.addData("Can control:", "4 motor driving, Wheelie, Arm, Guy Deliver, Cow Catcher, Secondary Lifting, Lifting Angle Control");
 
 		/*while (Stage!=2) {
 			motorController = hardwareMap.dcMotorController.get("Motor Controller 1");

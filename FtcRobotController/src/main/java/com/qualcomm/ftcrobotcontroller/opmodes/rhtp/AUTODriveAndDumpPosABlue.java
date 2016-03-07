@@ -5,7 +5,7 @@ public class AUTODriveAndDumpPosABlue extends AutoOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        boolean hitthatbeacon=true;
+        boolean hitthatbeacon=false;
         StartAutoOp();
 
 

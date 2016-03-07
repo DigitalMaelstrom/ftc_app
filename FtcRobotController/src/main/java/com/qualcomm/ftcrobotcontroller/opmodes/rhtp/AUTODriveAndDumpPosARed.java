@@ -4,7 +4,7 @@ public class AUTODriveAndDumpPosARed extends AutoOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        boolean hitthatbeacon=true;
+        boolean hitthatbeacon=false;
         StartAutoOp();
 
         //move forward
