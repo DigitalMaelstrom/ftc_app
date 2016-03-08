@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.GyroSensor;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -18,6 +19,7 @@ public abstract class AutoOpMode extends LinearOpMode{
     DcMotorController motorController;
     ElapsedTime eTime =new ElapsedTime();
     Servo servotop;
+    OpticalDistanceSensor DistanceSensor;
     //Servo servomid;
     Servo servofront;
     Servo servomidLeft;
@@ -29,6 +31,7 @@ public abstract class AutoOpMode extends LinearOpMode{
     DcMotor motorBack;
     GyroSensor gyroSensor;
     ColorSensor colorFront;
+    double FoundDistance = 0;
     //ColorSensor colorBack;
     ColorSensor colorBot;
     double defaultSpeed = -.5;
@@ -107,15 +110,32 @@ public abstract class AutoOpMode extends LinearOpMode{
         motorLeft.setPower(0);
         motorRight.setPower(0);
     }
+    protected void DistanceSensorValues(double Distance) throws InterruptedException {
+        motorLeft.setPower(-.15);
+        motorRight.setPower(-.15);
+        FoundDistance= DistanceSensor.getLightDetected();
+        Log.d("Start Distance", ((Double)FoundDistance).toString());
+
+        while(FoundDistance< Distance){
+            FoundDistance= DistanceSensor.getLightDetected();
+            Thread.sleep(10);
+            Log.d("Distance", ((Double)FoundDistance).toString());
+        }
+        motorLeft.setPower(0);
+        motorRight.setPower(0);
+        Log.d("End Distance", ((Double)FoundDistance).toString());
+    }
     protected void MoveForward(int moveamount) {
         MoveForward(moveamount, defaultSpeed);
     }
     protected void MoveForward(int moveamount, double speed) {
+
         Log.d("MoveForward", "Starting To Move Forward");
         encoderatstart=-motorLeft.getCurrentPosition();
         motorLeft.setPower(speed);
         motorRight.setPower(speed);
         while(-motorLeft.getCurrentPosition()>= -moveamount+encoderatstart) {
+            //DistanceSensorValues(.06);
             if (isTimeToStop()) break;
         }
         motorLeft.setPower(0);
@@ -289,8 +309,10 @@ public abstract class AutoOpMode extends LinearOpMode{
         //servomid = hardwareMap.servo.get("servoMid");
         motorBack = hardwareMap.dcMotor.get("motorWheelie");
         servoBeacon = hardwareMap.servo.get("servoBeacon");
+        DistanceSensor = hardwareMap.opticalDistanceSensor.get("opticalDistanceSensor");
         gyroSensor.calibrate();
         //motorBack.setPower(motorbackamount);
+        FoundDistance= DistanceSensor.getLightDetected();
         initializeServos();
         InitializeColors();
         waitForStart();
