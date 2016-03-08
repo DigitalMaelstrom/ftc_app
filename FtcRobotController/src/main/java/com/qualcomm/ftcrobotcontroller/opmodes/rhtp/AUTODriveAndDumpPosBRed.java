@@ -4,7 +4,7 @@ public class AUTODriveAndDumpPosBRed extends AutoOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        boolean hitthatbeacon=false;
+        boolean hitthatbeacon=true;
         StartAutoOp();
         MoveForward(2085);
         Thread.sleep(90);
@@ -21,12 +21,7 @@ public class AUTODriveAndDumpPosBRed extends AutoOpMode {
         Thread.sleep(90);
         MoveForward((ONEWHEELROTATION*3));
 
-        dumpamount=0;
-        while (dumpamount<=0.89) {
-            dumpamount=dumpamount+0.000004;
-            servotop.setPosition(dumpamount);
-        }
-
+        dump();
         motorBack.setPower(0);
         hitTheBeacon(hitthatbeacon,true);
     }

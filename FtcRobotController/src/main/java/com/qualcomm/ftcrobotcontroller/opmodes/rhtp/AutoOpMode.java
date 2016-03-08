@@ -9,13 +9,14 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
-
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 public abstract class AutoOpMode extends LinearOpMode{
     public static final int ONEWHEELROTATION = 1220;
-
+    public static final double TIME_TO_STOP = 29.0;
     //Initialize variables necessary for methods and auto code
     DcMotorController motorController;
+    ElapsedTime eTime =new ElapsedTime();
     Servo servotop;
     //Servo servomid;
     Servo servofront;
@@ -30,7 +31,9 @@ public abstract class AutoOpMode extends LinearOpMode{
     ColorSensor colorFront;
     //ColorSensor colorBack;
     ColorSensor colorBot;
-    double speed = -.5;
+    double defaultSpeed = -.5;
+    double defaultTurnSpeed = -.35;
+    double currentposgps = 0;
 
     int timer = 0;
     int xVal, yVal, zVal = 0;
@@ -90,26 +93,38 @@ public abstract class AutoOpMode extends LinearOpMode{
     }
 
     protected void MoveBackward(int moveamount) {
+        MoveBackward(moveamount, defaultSpeed);
+    }
+
+    protected void MoveBackward(int moveamount, double speed) {
         Log.d("MoveBackward", "Starting To Move Backward");
         encoderatstart=-motorLeft.getCurrentPosition();
         motorLeft.setPower(-speed);
         motorRight.setPower(-speed);
         while(-motorLeft.getCurrentPosition()<= moveamount+encoderatstart) {
+            if (isTimeToStop()) break;
         }
         motorLeft.setPower(0);
         motorRight.setPower(0);
     }
     protected void MoveForward(int moveamount) {
+        MoveForward(moveamount, defaultSpeed);
+    }
+    protected void MoveForward(int moveamount, double speed) {
         Log.d("MoveForward", "Starting To Move Forward");
         encoderatstart=-motorLeft.getCurrentPosition();
         motorLeft.setPower(speed);
         motorRight.setPower(speed);
         while(-motorLeft.getCurrentPosition()>= -moveamount+encoderatstart) {
+            if (isTimeToStop()) break;
         }
         motorLeft.setPower(0);
         motorRight.setPower(0);
     }
-    protected void MoveForwardTilWhite() throws InterruptedException {
+    protected void MoveForwardTilWhite() throws InterruptedException{
+       MoveForwardTilWhite(defaultSpeed);
+    }
+    protected void MoveForwardTilWhite(double speed) throws InterruptedException {
         motorLeft.setPower(speed / 5);
         motorRight.setPower(speed / 5);
         Color.RGBToHSV(colorBot.red() * 8, colorBot.green() * 8, colorBot.blue() * 8, hsvValues3);
@@ -124,6 +139,7 @@ public abstract class AutoOpMode extends LinearOpMode{
         colorBot.enableLed(true);
 
         while (colorBot.alpha()<1) {
+            if (isTimeToStop()) break;
             timer++;
             if (timer==100) {
                 colorBot.enableLed(true);
@@ -142,6 +158,7 @@ public abstract class AutoOpMode extends LinearOpMode{
 
     protected void BeaconPressRed() throws InterruptedException {
         while(BeaconHasBeenPressed==false){
+            if (isTimeToStop()) break;
             Color.RGBToHSV(colorFront.red() * 8, colorFront.green() * 8, colorFront.blue() * 8, hsvValues);
             telemetry.addData("Clear", colorFront.alpha());
             telemetry.addData("Red  ", colorFront.red());
@@ -171,6 +188,7 @@ public abstract class AutoOpMode extends LinearOpMode{
 
     protected void BeaconPressBlue() throws InterruptedException {
         while(BeaconHasBeenPressed==false){
+            if (isTimeToStop()) break;
             Color.RGBToHSV(colorFront.red() * 8, colorFront.green() * 8, colorFront.blue() * 8, hsvValues);
             telemetry.addData("Clear", colorFront.alpha());
             telemetry.addData("Red  ", colorFront.red());
@@ -198,7 +216,10 @@ public abstract class AutoOpMode extends LinearOpMode{
         }
     }
 
-    public void TurnRight(int degrees)throws InterruptedException {
+    protected void TurnRight(int degrees) throws InterruptedException{
+        TurnRight(degrees, defaultTurnSpeed);
+    }
+    public void TurnRight(int degrees, double speed)throws InterruptedException {
         // Turn Right
         Log.d("RightTurn", "Entering Right Turn Function");
         Thread.sleep(turndelay);
@@ -207,15 +228,22 @@ public abstract class AutoOpMode extends LinearOpMode{
         Log.d("RightTurn", "Start Position: " + gyroSensor.getHeading());
         motorLeft.setPower(speed);
         motorRight.setPower(-speed);
-        while ((gyroSensor.getHeading() <= degrees-3) || (gyroSensor.getHeading() >= degrees+13)) {
-            Log.d("RightTurn", "Current Position: " + gyroSensor.getHeading());
+        currentposgps=gyroSensor.getHeading();
+        while ((currentposgps <= degrees-3) || (currentposgps >= degrees + 3)) {
+            Log.d("RightTurn", "Current Position: " + currentposgps);
+            Thread.sleep(15);
+            currentposgps=gyroSensor.getHeading();
+
+            if (isTimeToStop()) break;
         }
         Log.d("RightTurn", "End Position: "+gyroSensor.getHeading());
         motorLeft.setPower(0);
         motorRight.setPower(0);
     }
-
-    public void TurnLeft(int degrees) throws InterruptedException{
+    protected void TurnLeft(int degrees) throws InterruptedException {
+        TurnLeft(degrees, defaultTurnSpeed);
+    }
+    public void TurnLeft(int degrees, double speed) throws InterruptedException{
         // Turn Left
         Log.d("LeftTurn", "Entering Left Turn Function");
         Thread.sleep(turndelay);
@@ -224,8 +252,13 @@ public abstract class AutoOpMode extends LinearOpMode{
         Log.d("LeftTurn", "Start Position: " + gyroSensor.getHeading());
         motorLeft.setPower(-speed);
         motorRight.setPower(speed);
-        while  ((gyroSensor.getHeading() <= 360-degrees-3) || (gyroSensor.getHeading() >= 360-degrees+3)) {
+        currentposgps=gyroSensor.getHeading();
+        while  ((currentposgps <= 360-degrees-3) || (currentposgps >= 360-degrees+3)) {
             Log.d("LeftTurn", "Current Position: " + gyroSensor.getHeading());
+            Thread.sleep(15);
+            currentposgps=gyroSensor.getHeading();
+
+            if (isTimeToStop()) {break;}
         }
         Log.d("LeftTurn", "End Position: " + gyroSensor.getHeading());
         motorLeft.setPower(0);
@@ -261,6 +294,8 @@ public abstract class AutoOpMode extends LinearOpMode{
         initializeServos();
         InitializeColors();
         waitForStart();
+        eTime.reset();
+        eTime.startTime();
         InitializeEncoders();
         initializeServos();
         //motorBack.setPower(motorbackamount);
@@ -268,9 +303,10 @@ public abstract class AutoOpMode extends LinearOpMode{
     protected void hitTheBeacon(boolean hitthatbeacon,boolean red) throws InterruptedException {
         if (hitthatbeacon==true)
         {
+
             Thread.sleep(2000);
             servotop.setPosition(0.1);
-            MoveBackward(ONEWHEELROTATION/3);
+            MoveBackward(ONEWHEELROTATION / 3);
             TurnRight(80);
             MoveBackward(ONEWHEELROTATION / 2);
             MoveForwardTilWhite();
@@ -284,5 +320,21 @@ public abstract class AutoOpMode extends LinearOpMode{
             Thread.sleep(1000);
             MoveBackward(ONEWHEELROTATION / 9);
         }
+    }
+    protected void dump() {
+        dumpamount=0;
+        while (dumpamount<=0.89) {
+            dumpamount=dumpamount+0.000002;
+            servotop.setPosition(dumpamount);
+            if (isTimeToStop()) break;
+        }
+    }
+
+    private boolean isTimeToStop() {
+        if (eTime.time()>=TIME_TO_STOP)
+        {
+            return true;
+        }
+        return false;
     }
 }
