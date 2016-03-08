@@ -32,7 +32,7 @@ public abstract class AutoOpMode extends LinearOpMode{
     //ColorSensor colorBack;
     ColorSensor colorBot;
     double defaultSpeed = -.5;
-    double defaultTurnSpeed = -.35;
+    double defaultTurnSpeed = -.45;
     double currentposgps = 0;
 
     int timer = 0;
@@ -229,7 +229,7 @@ public abstract class AutoOpMode extends LinearOpMode{
         motorLeft.setPower(speed);
         motorRight.setPower(-speed);
         currentposgps=gyroSensor.getHeading();
-        while ((currentposgps <= degrees-3) || (currentposgps >= degrees + 3)) {
+        while ((currentposgps <= degrees-1) || (currentposgps >= degrees + 13)) {
             Log.d("RightTurn", "Current Position: " + currentposgps);
             Thread.sleep(15);
             currentposgps=gyroSensor.getHeading();
@@ -253,7 +253,7 @@ public abstract class AutoOpMode extends LinearOpMode{
         motorLeft.setPower(-speed);
         motorRight.setPower(speed);
         currentposgps=gyroSensor.getHeading();
-        while  ((currentposgps <= 360-degrees-3) || (currentposgps >= 360-degrees+3)) {
+        while  ((currentposgps <= 360-degrees-13) || (currentposgps >= 360-degrees+1)) {
             Log.d("LeftTurn", "Current Position: " + gyroSensor.getHeading());
             Thread.sleep(15);
             currentposgps=gyroSensor.getHeading();
