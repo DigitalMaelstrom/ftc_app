@@ -6,7 +6,8 @@ public class TESTAutoStop extends AutoOpMode {
     public void runOpMode() throws InterruptedException {
 
         StartAutoOp();
-        DistanceSensorValues(.05);
+        DistanceSensorValues(.05,ONEWHEELROTATION);
+
 
 
     }

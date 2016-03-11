@@ -110,13 +110,13 @@ public abstract class AutoOpMode extends LinearOpMode{
         motorLeft.setPower(0);
         motorRight.setPower(0);
     }
-    protected void DistanceSensorValues(double Distance) throws InterruptedException {
-        motorLeft.setPower(-.15);
-        motorRight.setPower(-.15);
+    protected boolean DistanceSensorValues(double Distance,int moveamount) throws InterruptedException {
+        motorLeft.setPower(defaultSpeed/5);
+        motorRight.setPower(defaultSpeed/5);
         FoundDistance= DistanceSensor.getLightDetected();
         Log.d("Start Distance", ((Double)FoundDistance).toString());
 
-        while(FoundDistance< Distance){
+        while((FoundDistance< Distance)||-motorLeft.getCurrentPosition()>= -moveamount+encoderatstart){
             FoundDistance= DistanceSensor.getLightDetected();
             Thread.sleep(10);
             Log.d("Distance", ((Double)FoundDistance).toString());
@@ -124,6 +124,14 @@ public abstract class AutoOpMode extends LinearOpMode{
         motorLeft.setPower(0);
         motorRight.setPower(0);
         Log.d("End Distance", ((Double)FoundDistance).toString());
+        if (FoundDistance< Distance)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     protected void MoveForward(int moveamount) {
         MoveForward(moveamount, defaultSpeed);
