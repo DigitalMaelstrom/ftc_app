@@ -12,13 +12,13 @@ public class AUTODriveAndDumpPosBRed extends AutoOpMode {
         telemetry.addData("Message", "I got here");
 
 
-        TurnLeft(48);
+        TurnLeft(42);
         Thread.sleep(90);
         telemetry.addData("Message2", "I got past the Left");
 
-        MoveForward(7800);
+        MoveForward(7785);
 
-        TurnLeft(45);
+        TurnLeft(41);
         Thread.sleep(90);
         MoveForward((ONEWHEELROTATION*3));
 

@@ -42,6 +42,7 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 	//initialization of variables, motors, and servos
     Servo servofront;
 	Servo servotop;
+	Servo servoBeacon;
 	//Servo servomid;
 	Servo servoDeliver;
 	Servo servomidLeft;
@@ -96,6 +97,7 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 		motorSecondary.setDirection(DcMotor.Direction.REVERSE);
 		motorArm.setDirection(DcMotor.Direction.REVERSE);
 		servotop=hardwareMap.servo.get("servoTop");
+		servoBeacon = hardwareMap.servo.get("servoBeacon");
 		servofront.setPosition(cowcatchpos);
 		//servomid.setPosition(0.5);
 		servotop.setPosition(0.0);
@@ -103,6 +105,7 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 		servoDeliver.setPosition(0.55);
 		servomidLeft.setPosition(0.0);
 		servomidRight.setPosition(0.8);
+		servoBeacon.setPosition(0.6);
 		telemetry.addData("Teleop Version", "4.99");
 		telemetry.addData("Can control:", "4 motor driving, Wheelie, Arm, Guy Deliver, Cow Catcher, Secondary Lifting, Lifting Angle Control");
 
@@ -265,7 +268,7 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 		if (gamepad2.b)
 		{
 			servomidLeft.setPosition(0.0);
-			servomidRight.setPosition(0.125);
+			servomidRight.setPosition(0.08);
 			zipisout="The zipline is out!";
 		}
 		if (gamepad2.x)

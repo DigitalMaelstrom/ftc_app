@@ -6,7 +6,7 @@ public class TESTAutoStop extends AutoOpMode {
     public void runOpMode() throws InterruptedException {
 
         StartAutoOp();
-        MoveForwardTilDistance(.05, ONEWHEELROTATION);
+        //MoveForwardTilDistance(.05, ONEWHEELROTATION);
 
 
 
