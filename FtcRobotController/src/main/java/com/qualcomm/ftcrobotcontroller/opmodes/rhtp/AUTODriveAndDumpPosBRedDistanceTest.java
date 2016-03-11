@@ -21,7 +21,7 @@ public class AUTODriveAndDumpPosBRedDistanceTest extends AutoOpMode {
         TurnLeft(45);
         Thread.sleep(90);
         MoveForward((ONEWHEELROTATION * 2));
-        if (DistanceSensorValues(.05,ONEWHEELROTATION)) {
+        if (MoveForwardTilDistance(.05, ONEWHEELROTATION)) {
 
 
             dump();
