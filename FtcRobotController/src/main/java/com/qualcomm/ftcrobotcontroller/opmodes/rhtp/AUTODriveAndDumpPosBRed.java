@@ -17,7 +17,7 @@ public class AUTODriveAndDumpPosBRed extends AutoOpMode {
         telemetry.addData("Message2", "I got past the Left");
 
         MoveForward(8600, -0.7);
-        MoveBackward(ONEWHEELROTATION);
+        MoveBackward(ONEWHEELROTATION+500);
         TurnLeft(39);
         Thread.sleep(90);
         MoveForward((ONEWHEELROTATION * 3));

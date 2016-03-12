@@ -336,7 +336,7 @@ public abstract class AutoOpMode extends LinearOpMode{
     protected void hitTheBeacon(boolean hitthatbeacon,boolean red) throws InterruptedException {
         if (hitthatbeacon==true) {
 
-            Thread.sleep(2000);
+            Thread.sleep(1300);
             servotop.setPosition(0.0);
             MoveBackward(ONEWHEELROTATION / 3);
             TurnRight(85);
