@@ -14,12 +14,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 public abstract class AutoOpMode extends LinearOpMode{
     public static final int ONEWHEELROTATION = 1220;
-    public static final double TIME_TO_STOP = 29.0;
+    public static final double TIME_TO_STOP = 29.5;
     //Initialize variables necessary for methods and auto code
     DcMotorController motorController;
     ElapsedTime eTime =new ElapsedTime();
     Servo servotop;
-    //OpticalDistanceSensor DistanceSensor;
+    OpticalDistanceSensor DistanceSensor;
     //Servo servomid;
     Servo servofront;
     Servo servomidLeft;
@@ -31,7 +31,7 @@ public abstract class AutoOpMode extends LinearOpMode{
     DcMotor motorBack;
     GyroSensor gyroSensor;
     ColorSensor colorFront;
-    //double FoundDistance = 0;
+    double FoundDistance = 0;
     //ColorSensor colorBack;
     ColorSensor colorBot;
     double defaultSpeed = -.6;
@@ -104,18 +104,18 @@ public abstract class AutoOpMode extends LinearOpMode{
         encoderatstart=-motorLeft.getCurrentPosition();
         motorLeft.setPower(-speed);
         motorRight.setPower(-speed);
+        encoderatstart=-motorLeft.getCurrentPosition();
         while(-motorLeft.getCurrentPosition()<= moveamount+encoderatstart) {
             if (isTimeToStop()) break;
         }
         motorLeft.setPower(0);
         motorRight.setPower(0);
     }
-    /*protected boolean MoveForwardTilDistance(double Distance, int moveamount) throws InterruptedException {
+    protected boolean MoveForwardTilDistance(double Distance, int moveamount) throws InterruptedException {
         motorLeft.setPower(defaultSpeed/5);
         motorRight.setPower(defaultSpeed/5);
-        FoundDistance= DistanceSensor.getLightDetected();
+        FoundDistance = DistanceSensor.getLightDetected();
         Log.d("Start Distance", ((Double)FoundDistance).toString());
-
         while((FoundDistance< Distance)||-motorLeft.getCurrentPosition()>= -moveamount+encoderatstart){
             FoundDistance= DistanceSensor.getLightDetected();
             Thread.sleep(10);
@@ -132,7 +132,7 @@ public abstract class AutoOpMode extends LinearOpMode{
         {
             return false;
         }
-    }*/
+    }
     protected void MoveForward(int moveamount) {
         MoveForward(moveamount, defaultSpeed);
     }
@@ -203,11 +203,12 @@ public abstract class AutoOpMode extends LinearOpMode{
             waitOneFullHardwareCycle();*/
 
             if ((colorFront.red() > colorFront.blue()) /*&& colorBack.red() < colorBack.blue()*/) {
+                MoveBackward(ONEWHEELROTATION / 9);
                 servoBeacon.setPosition(0.28);
                 BeaconHasBeenPressed = true;
             }
             if ((colorFront.red() < colorFront.blue()) /*&& colorBack.red() > colorBack.blue()*/) {
-                MoveBackward(ONEWHEELROTATION/4);
+                MoveBackward(ONEWHEELROTATION/2);
                 servoBeacon.setPosition(0.28);
                 BeaconHasBeenPressed = true;
             }
@@ -233,11 +234,13 @@ public abstract class AutoOpMode extends LinearOpMode{
             waitOneFullHardwareCycle();*/
 
             if ((colorFront.red() < colorFront.blue())/* && colorBack.red() > colorBack.blue()*/) {
+                MoveBackward(ONEWHEELROTATION / 9);
                 servoBeacon.setPosition(0.28);
                 BeaconHasBeenPressed = true;
             }
             if ((colorFront.red() > colorFront.blue())/* && colorBack.red() < colorBack.blue()*/) {
                 MoveBackward(ONEWHEELROTATION/4);
+                MoveBackward(ONEWHEELROTATION / 9);
                 servoBeacon.setPosition(0.28);
                 BeaconHasBeenPressed = true;
             }
@@ -317,10 +320,10 @@ public abstract class AutoOpMode extends LinearOpMode{
         //servomid = hardwareMap.servo.get("servoMid");
         motorBack = hardwareMap.dcMotor.get("motorWheelie");
         servoBeacon = hardwareMap.servo.get("servoBeacon");
-//        DistanceSensor = hardwareMap.opticalDistanceSensor.get("opticalDistanceSensor");
+        DistanceSensor = hardwareMap.opticalDistanceSensor.get("opticalDistanceSensor");
         gyroSensor.calibrate();
         //motorBack.setPower(motorbackamount);
-        //FoundDistance= DistanceSensor.getLightDetected();
+        FoundDistance= DistanceSensor.getLightDetected();
         initializeServos();
         InitializeColors();
         waitForStart();
@@ -331,13 +334,12 @@ public abstract class AutoOpMode extends LinearOpMode{
         //motorBack.setPower(motorbackamount);
     }
     protected void hitTheBeacon(boolean hitthatbeacon,boolean red) throws InterruptedException {
-        if (hitthatbeacon==true)
-        {
+        if (hitthatbeacon==true) {
 
             Thread.sleep(2000);
             servotop.setPosition(0.0);
             MoveBackward(ONEWHEELROTATION / 3);
-            TurnRight(80);
+            TurnRight(85);
             MoveBackward(ONEWHEELROTATION / 2);
             MoveForwardTilWhite();
             if (red) {
@@ -348,7 +350,6 @@ public abstract class AutoOpMode extends LinearOpMode{
                 BeaconPressBlue();
             }
             Thread.sleep(1000);
-            MoveBackward(ONEWHEELROTATION / 9);
         }
     }
     protected void dump() {

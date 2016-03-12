@@ -39,11 +39,10 @@ import com.qualcomm.robotcore.util.Range;
 
 public class TELEMainTeleopControlHidalgo extends OpMode {
 
-	//initialization of variables, motors, and servos
+	//initialization of servos and motors
     Servo servofront;
 	Servo servotop;
 	Servo servoBeacon;
-	//Servo servomid;
 	Servo servoDeliver;
 	Servo servomidLeft;
 	Servo servomidRight;
@@ -52,21 +51,18 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 	DcMotor motorRight;
 	DcMotor motorLeft;
 	DcMotor motorSecondary;
-	//DcMotor motorCapture;
 	DcMotor motorArm;
-	int Timer=0;
-	int Stage=0;
 
+    //timers and servo defaults
 	int timercowcatch = 0;
 	int timerdumper = 0;
 	int timerzipeline = 0;
-	int encoderstart=0;
 	double servopos=0.55;
-
 	double cowcatchpos = 0.81;
 	double anglepos=1.0;
 	double dumperpos;
-	//double ziplinepos;
+
+    //data output
 	String zipisout="";
 
 	public TELEMainTeleopControlHidalgo() {
@@ -76,82 +72,53 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 
 	@Override
 	public void init() {
-		//Assignment of servo positions and hardwaremap registration
-		cowcatchpos =.6;
-		//dumperpos =0.1;
-		//ziplinepos =0.5;
-		anglepos=1.0;
 
+        //hardware map names
 		servofront = hardwareMap.servo.get("servoFront");
 		servoDeliver = hardwareMap.servo.get("servoDeliver");
+        servoAngle= hardwareMap.servo.get("servoAngle");
+        servotop=hardwareMap.servo.get("servoTop");
+        servoBeacon = hardwareMap.servo.get("servoBeacon");
 		motorRight = hardwareMap.dcMotor.get("motorR");
 		motorLeft = hardwareMap.dcMotor.get("motorL");
 		motorRight.setDirection(DcMotor.Direction.REVERSE);
-		//servomid = hardwareMap.servo.get("servoMid");
 		servomidLeft= hardwareMap.servo.get("servoMidLeft");
 		servomidRight= hardwareMap.servo.get("servoMidRight");
-		servoAngle= hardwareMap.servo.get("servoAngle");
 		motorBack = hardwareMap.dcMotor.get("motorWheelie");
 		motorArm = hardwareMap.dcMotor.get("motorArm");
+        motorArm.setDirection(DcMotor.Direction.REVERSE);
 		motorSecondary =  hardwareMap.dcMotor.get("motorSecondary");
 		motorSecondary.setDirection(DcMotor.Direction.REVERSE);
-		motorArm.setDirection(DcMotor.Direction.REVERSE);
-		servotop=hardwareMap.servo.get("servoTop");
-		servoBeacon = hardwareMap.servo.get("servoBeacon");
-		servofront.setPosition(cowcatchpos);
-		//servomid.setPosition(0.5);
-		servotop.setPosition(0.0);
+
+        //Assignment of servo positions
+        cowcatchpos =.6;
+        anglepos=1.0;
+        servofront.setPosition(cowcatchpos);
+        servotop.setPosition(0.0);
 		servoAngle.setPosition(1);
 		servoDeliver.setPosition(0.55);
 		servomidLeft.setPosition(0.0);
 		servomidRight.setPosition(0.8);
 		servoBeacon.setPosition(0.6);
+        //teleop version data
 		telemetry.addData("Teleop Version", "4.99");
 		telemetry.addData("Can control:", "4 motor driving, Wheelie, Arm, Guy Deliver, Cow Catcher, Secondary Lifting, Lifting Angle Control");
-
-		/*while (Stage!=2) {
-			motorController = hardwareMap.dcMotorController.get("Motor Controller 1");
-			if ((Stage == 0) && Timer == 200) {
-				motorController.setMotorChannelMode(motorArm.getPortNumber(), DcMotorController.RunMode.RESET_ENCODERS);
-				Stage++;
-				Timer = 0;
-			}
-			if ((Stage == 1) && Timer == 200) {
-				motorController.setMotorChannelMode(motorArm.getPortNumber(), DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
-				Stage++;
-			}
-			Timer++;
-		}*/
 
 	}
 
 	@Override
 	public void loop() {
-		Timer++;
         // *Tank Drive
         float left = gamepad1.left_stick_y;
         float right = gamepad1.right_stick_y;
-
-			right = Range.clip(right, -1, 1);
-			left = Range.clip(left, -1, 1);
-
-
-
+        right = Range.clip(right, -1, 1);
+        left = Range.clip(left, -1, 1);
 		right = (float)scaleInput(right);
 		left =  (float)scaleInput(left);
-
-
 		motorRight.setPower(right);
 		motorLeft.setPower(left);
 
-
-
-
-
         // *Cow-catcher
-
-        //Push A to push out/pull in the cow catcher
-
 		if (timercowcatch >=30) {
 			if (gamepad2.a) {
 				if (cowcatchpos == .60) {
@@ -183,18 +150,12 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 		motorBack.setPower(wheelie);
 
 		// *Arm Control
-		//Left joystick on gamepad 2
 		float arm = gamepad2.left_stick_y;
 		arm = Range.clip(arm, -1, 1);
 		arm = (float)scaleInput(arm);
 		motorArm.setPower(-arm);
 
-		// Hard Stop for Lift
-
-		//if ()
-
 		// *Secondary Lifting Functions
-
 		if (gamepad2.left_trigger>=0.3) {
 			motorSecondary.setPower(1);
 		}
@@ -219,7 +180,6 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 			dumperpos =0.0;
 		}
 		timerdumper++;
-		//Use the left trigger to lower the guy dumper, right trigger to raise the guy dumper
 		if (gamepad1.y) {
 			dumperpos -=0.005;
 		}
@@ -228,31 +188,7 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 		}
 		servotop.setPosition(dumperpos);
 
-		// *Zipline Delivery Type 1
-		/*ziplinepos = Range.clip(ziplinepos, 0.01, .99);
-		if (timerzipeline ==0)
-		{
-			ziplinepos =0.5;
-		}
-		timerzipeline++;
-		if (gamepad2.y)
-		{
-			ziplinepos=0.5;
-			zipisout="The zipline is SAFE";
-		}
-		if (gamepad2.x)
-		{
-			ziplinepos=1;
-			zipisout="The zipline is out!";
-		}
-		if (gamepad2.b)
-		{
-			ziplinepos=0.1;
-			zipisout="The zipline is out!";
-		}
-		servomid.setPosition(ziplinepos);*/
-
-		// *Zipline Delivery Type 2
+		// Zipline Delivery
 		if (timerzipeline ==0)
 		{
 			servomidLeft.setPosition(0.0);
@@ -277,7 +213,8 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 			servomidRight.setPosition(0.80);
 			zipisout="The zipline is out!";
 		}
-		//*ball delevery
+
+		//* Ball delivery
 		if (gamepad1.right_bumper) {
 			servopos += 0.01;
 		}
@@ -288,26 +225,16 @@ public class TELEMainTeleopControlHidalgo extends OpMode {
 			servopos=0.55;
 		}
 		servopos = Range.clip(servopos, 0.45, .65);
-
 		servoDeliver.setPosition(servopos);
 
-		telemetry.addData("AAAA", wheelie);
 		telemetry.addData("Teleop Version", "4.99");
 		telemetry.addData("Can control:", "4 motor driving, Wheelie, Arm, Guy Deliver, Cow Catcher, Secondary Lifting, Lifting Angle Control");
-		telemetry.addData("ArmPos",motorArm.getCurrentPosition());
-		//telemetry.addData("Zipline?", zipisout);
+		telemetry.addData("Zipline?", zipisout);
 	}
-
 
 	@Override
 	public void stop() {
 	}
-
-
-
-
-
-
 
 	double scaleInput(double dVal)  {
 		double[] scaleArray = { 0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
