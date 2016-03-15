@@ -39,7 +39,7 @@ public abstract class AutoOpMode extends LinearOpMode{
     int timer = 0;
     int xVal, yVal, zVal = 0;
     int heading = 0;
-    int turndelay=250;
+    int turndelay=1000;
     int encoderatstart=0;
     float hsvValues[] = {0F, 0F, 0F};
     final float values[] = hsvValues;
@@ -246,9 +246,9 @@ public abstract class AutoOpMode extends LinearOpMode{
     public void TurnRight(int degrees, double speed)throws InterruptedException {
         // log turn right and restart gyro
         Log.d("RightTurn", "Entering Right Turn Function");
-        Thread.sleep(turndelay);
+
         gyroSensor.resetZAxisIntegrator();
-        initializeGyro();
+        Thread.sleep(turndelay);
         Log.d("RightTurn", "Start Position: " + gyroSensor.getHeading());
         motorLeft.setPower(speed);
         motorRight.setPower(-speed);
@@ -271,9 +271,9 @@ public abstract class AutoOpMode extends LinearOpMode{
     public void TurnLeft(int degrees, double speed) throws InterruptedException{
         // log turn left and restart gyro
         Log.d("LeftTurn", "Entering Left Turn Function");
-        Thread.sleep(turndelay);
+
         gyroSensor.resetZAxisIntegrator();
-        initializeGyro();
+        Thread.sleep(turndelay);
         Log.d("LeftTurn", "Start Position: " + gyroSensor.getHeading());
         motorLeft.setPower(-speed);
         motorRight.setPower(speed);
