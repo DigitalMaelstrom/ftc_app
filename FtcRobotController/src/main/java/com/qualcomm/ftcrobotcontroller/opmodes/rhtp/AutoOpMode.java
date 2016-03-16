@@ -158,8 +158,8 @@ public abstract class AutoOpMode extends LinearOpMode{
        MoveForwardTilWhite(defaultSpeed);
     }
     protected void MoveForwardTilWhite(double speed) throws InterruptedException {
-        motorLeft.setPower(speed / 5);
-        motorRight.setPower(speed / 5);
+        motorLeft.setPower(-0.25);
+        motorRight.setPower(-0.25);
         //activate color sensors
         Color.RGBToHSV(colorBot.red() * 8, colorBot.green() * 8, colorBot.blue() * 8, hsvValues3);
         telemetry.addData("Clear", colorBot.alpha());
@@ -295,7 +295,7 @@ public abstract class AutoOpMode extends LinearOpMode{
         servomidLeft.setPosition(0.0);
         servomidRight.setPosition(0.8);
         servotop.setPosition(0.0);
-        servoBeacon.setPosition(0.6);
+        servoBeacon.setPosition(0.7);
         servoDeliver.setPosition(0.55);
     }
     protected void StartAutoOp() throws InterruptedException {
@@ -328,6 +328,7 @@ public abstract class AutoOpMode extends LinearOpMode{
             servotop.setPosition(0.0);
             MoveBackward(ONEWHEELROTATION / 3);
             TurnRight(85);
+            servoBeacon.setPosition(0.6);
             MoveBackward(ONEWHEELROTATION / 2);
             MoveForwardTilWhite();
             if (red) {

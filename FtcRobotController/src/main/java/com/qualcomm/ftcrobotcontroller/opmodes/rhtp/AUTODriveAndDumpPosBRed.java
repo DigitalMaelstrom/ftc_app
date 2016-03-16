@@ -9,11 +9,12 @@ public class AUTODriveAndDumpPosBRed extends AutoOpMode {
         MoveForward(2285);
 
 
-        TurnLeft(41);
+        TurnLeft(39);
 
 
         MoveForward(8600, -0.7);
-        MoveBackward(ONEWHEELROTATION+500);
+        Thread.sleep(50);
+        MoveBackward(ONEWHEELROTATION+300);
         TurnLeft(38);
 
         MoveForward((ONEWHEELROTATION * 2));
