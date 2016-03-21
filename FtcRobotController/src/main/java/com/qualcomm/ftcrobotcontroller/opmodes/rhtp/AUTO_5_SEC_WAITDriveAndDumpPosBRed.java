@@ -1,12 +1,12 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.rhtp;
 
-public class AUTODriveAndDumpPosBRed extends AutoOpMode {
+public class AUTO_5_SEC_WAITDriveAndDumpPosBRed extends AutoOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
         boolean hitthatbeacon=true;
         StartAutoOp();
-        //Thread.sleep(5000);
+        Thread.sleep(7000);
         MoveForward(2285);
 
 
@@ -15,7 +15,7 @@ public class AUTODriveAndDumpPosBRed extends AutoOpMode {
 
         MoveForward(8600, -0.7);
         Thread.sleep(50);
-        MoveBackward(ONEWHEELROTATION+300);
+        MoveBackward(ONEWHEELROTATION + 300);
         TurnLeft(38);
 
         MoveForward((ONEWHEELROTATION * 2));

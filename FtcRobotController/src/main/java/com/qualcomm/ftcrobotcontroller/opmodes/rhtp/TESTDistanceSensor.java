@@ -13,19 +13,19 @@ public class TESTDistanceSensor extends AutoOpMode {
 
         DistanceSensor = hardwareMap.opticalDistanceSensor.get("opticalDistanceSensor");
 
-        double FoundDistance = DistanceSensor.getLightDetected();
-        double Distance = .06;
+        //double FoundDistance = DistanceSensor.getLightDetected();
+        //double Distance = .06;
 
-//        while(true){
-//            telemetry.addData("Distance",DistanceSensor.getLightDetected());
-//        }
-
-        while(FoundDistance < Distance){
-            FoundDistance = DistanceSensor.getLightDetected();
+        while(true){
             telemetry.addData("Distance",DistanceSensor.getLightDetected());
-            telemetry.addData("Movement","I am still moving!");
         }
-        telemetry.addData("Stop","I have stoped.");
+
+//        while(FoundDistance < Distance){
+//            FoundDistance = DistanceSensor.getLightDetected();
+//            telemetry.addData("Distance",DistanceSensor.getLightDetected());
+//            telemetry.addData("Movement","I am still moving!");
+//        }
+//        telemetry.addData("Stop","I have stoped.");
 
 
 

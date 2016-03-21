@@ -69,10 +69,10 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register ("TestWheelsOP", TestWheelsOP.class);
     manager.register ("TELEMainTeleopControlChimayo", TELEMainTeleopControlChimayo.class);
     manager.register ("TELEMainTeleopControlHidalgo", TELEMainTeleopControlHidalgo.class);
-    manager.register ("TESTMoveTillWhite", TESTMoveTillWhite.class);
-    manager.register ("TESTServoControl", TESTServoControl.class);
+    //manager.register ("TESTMoveTillWhite", TESTMoveTillWhite.class);
+    //manager.register ("TESTServoControl", TESTServoControl.class);
     manager.register("TESTDistanceSensor", TESTDistanceSensor.class);
-    manager.register("TESTAutoStop", TESTAutoStop.class);
+    //manager.register("TESTAutoStop", TESTAutoStop.class);
    // manager.register("TESTAutoFollowLine", TESTAutoFollowLine.class);
     //manager.register ("AutoMoveForwardGyroOP", AutoMoveForwardGyroOP.class);
     //manager.register ("continousServoOp", continousServoOp.class);
@@ -89,11 +89,13 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("AUTOWheelieDownThenGoBack",AUTOWheelieDownThenGo.class);
     //manager.register("SolaBotEncoderTest",SolaBotEncoderTest.class);
     //manager.register("SolaBotGyroTest",SolaBotGyroTest.class);
-    manager.register("AUTODriveAndDumpPosARed",AUTODriveAndDumpPosARed.class);
+    //manager.register("AUTODriveAndDumpPosARed",AUTODriveAndDumpPosARed.class);
+    //manager.register("AUTODriveAndDumpPosBRed",AUTODriveAndDumpPosBRed.class);
+    manager.register("WAIT AUTODriveAndDumpPosBRed",AUTO_5_SEC_WAITDriveAndDumpPosBRed.class);
     manager.register("AUTODriveAndDumpPosBRed",AUTODriveAndDumpPosBRed.class);
-    manager.register("AUTODriveAndDumpPosABlue",AUTODriveAndDumpPosABlue.class);
+    manager.register("WAIT AUTODriveAndDumpPosBBlue",AUTO_5_SEC_WAITDriveAndDumpPosBBlue.class);
     manager.register("AUTODriveAndDumpPosBBlue",AUTODriveAndDumpPosBBlue.class);
-    manager.register("AUTODriveAndDumpPosBRedDistanceTest",AUTODriveAndDumpPosBRedDistanceTest.class);
+    //manager.register("AUTODriveAndDumpPosBRedDistanceTest",AUTODriveAndDumpPosBRedDistanceTest.class);
 
 
     //manager.register("MRGyroTest",MRGyroTest.class);
@@ -104,9 +106,10 @@ public class FtcOpModeRegister implements OpModeRegister {
      */
 
     //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
-    manager.register("MRRGBExample", MRRGBExample.class);
+
+    //manager.register("MRRGBExample", MRRGBExample.class);
     //manager.register("ColorSensorDriver", ColorSensorDriver.class);
-    manager.register("AUTOBeaconPressTest", AUTOBeaconPressTest.class);
+    //manager.register("AUTOBeaconPressTest", AUTOBeaconPressTest.class);
    // manager.register("newOpMode", newOpMode.class);
    // manager.register("autoRight", autoRight.class);
    // manager.register("autoLeft", autoLeft.class);

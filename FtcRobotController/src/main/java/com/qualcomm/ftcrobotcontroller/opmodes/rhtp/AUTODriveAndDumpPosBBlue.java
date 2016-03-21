@@ -6,16 +6,16 @@ public class AUTODriveAndDumpPosBBlue extends AutoOpMode {
     public void runOpMode() throws InterruptedException {
         boolean hitthatbeacon=true;
         StartAutoOp();
-        MoveForward(2605);
+        MoveForward(2295);
 
 
-        TurnRight(42);
+        TurnRight(43);
 
 
-        MoveForward(8900, -0.7);
+        MoveForward(8900, -0.65);
         Thread.sleep(50);
-        MoveBackward(ONEWHEELROTATION-100);
-        TurnRight(41);
+        MoveBackward(ONEWHEELROTATION-200);
+        TurnRight(42);
 
         MoveForward((ONEWHEELROTATION)+800);
         if (MoveForwardTilDistance(0.03,ONEWHEELROTATION+600)) {

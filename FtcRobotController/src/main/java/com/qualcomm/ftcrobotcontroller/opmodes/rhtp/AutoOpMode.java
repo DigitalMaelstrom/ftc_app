@@ -96,7 +96,7 @@ public abstract class AutoOpMode extends LinearOpMode{
 
     protected void MoveBackward(int moveamount, double speed) {
         //log movebackward
-        Log.d("MoveBackward", "Starting To Move Backward");
+        Log.d("RHTP MoveBackward", "Starting To Move Backward");
         encoderatstart=-motorLeft.getCurrentPosition();
         motorLeft.setPower(-speed);
         motorRight.setPower(-speed);
@@ -113,17 +113,17 @@ public abstract class AutoOpMode extends LinearOpMode{
         motorRight.setPower(defaultSlowSpeed);
         FoundDistance = DistanceSensor.getLightDetected();
         //log move forward
-        Log.d("Start Distance", ((Double)FoundDistance).toString());
+        Log.d("RHTP Start Distance", ((Double)FoundDistance).toString());
         //drive until you are desired distance from wall or you reach maximum allowed distance
         encoderatstart=-motorLeft.getCurrentPosition();
         while((FoundDistance< Distance)&&-motorLeft.getCurrentPosition()>= -moveamount+encoderatstart){
             FoundDistance= DistanceSensor.getLightDetected();
             Thread.sleep(10);
-            Log.d("Distance", ((Double)FoundDistance).toString());
+            Log.d("RHTP Distance", ((Double)FoundDistance).toString());
         }
         motorLeft.setPower(0);
         motorRight.setPower(0);
-        Log.d("End Distance", ((Double)FoundDistance).toString());
+        Log.d("RHTP End Distance", ((Double)FoundDistance).toString());
         //if you are desired distance from wall, return true
         if (FoundDistance>= Distance)
         {
@@ -143,7 +143,7 @@ public abstract class AutoOpMode extends LinearOpMode{
     }
     protected void MoveForward(int moveamount, double speed) {
         //log move forward
-        Log.d("MoveForward", "Starting To Move Forward");
+        Log.d("RHTP MoveForward", "Starting To Move Forward");
         encoderatstart=-motorLeft.getCurrentPosition();
         motorLeft.setPower(speed);
         motorRight.setPower(speed);
@@ -158,8 +158,8 @@ public abstract class AutoOpMode extends LinearOpMode{
        MoveForwardTilWhite(defaultSpeed);
     }
     protected void MoveForwardTilWhite(double speed) throws InterruptedException {
-        motorLeft.setPower(-0.25);
-        motorRight.setPower(-0.25);
+        motorLeft.setPower(-0.3);
+        motorRight.setPower(-0.3);
         //activate color sensors
         Color.RGBToHSV(colorBot.red() * 8, colorBot.green() * 8, colorBot.blue() * 8, hsvValues3);
         telemetry.addData("Clear", colorBot.alpha());
@@ -245,23 +245,23 @@ public abstract class AutoOpMode extends LinearOpMode{
     }
     public void TurnRight(int degrees, double speed)throws InterruptedException {
         // log turn right and restart gyro
-        Log.d("RightTurn", "Entering Right Turn Function");
+        Log.d("RHTP RightTurn", "Entering Right Turn Function");
 
         gyroSensor.resetZAxisIntegrator();
         Thread.sleep(turndelay);
-        Log.d("RightTurn", "Start Position: " + gyroSensor.getHeading());
+        Log.d("RHTP RightTurn", "Start Position: " + gyroSensor.getHeading());
         motorLeft.setPower(speed);
         motorRight.setPower(-speed);
         currentposgps=gyroSensor.getHeading();
         //turn until desired position
         while ((currentposgps <= degrees-1) || (currentposgps >= degrees + 13)) {
-            Log.d("RightTurn", "Current Position: " + currentposgps);
+            Log.d("RHTP RightTurn", "Current Position: " + currentposgps);
             Thread.sleep(15);
             currentposgps=gyroSensor.getHeading();
 
             if (isTimeToStop()) break;
         }
-        Log.d("RightTurn", "End Position: "+gyroSensor.getHeading());
+        Log.d("RHTP RightTurn", "End Position: "+gyroSensor.getHeading());
         motorLeft.setPower(0);
         motorRight.setPower(0);
     }
@@ -270,22 +270,22 @@ public abstract class AutoOpMode extends LinearOpMode{
     }
     public void TurnLeft(int degrees, double speed) throws InterruptedException{
         // log turn left and restart gyro
-        Log.d("LeftTurn", "Entering Left Turn Function");
+        Log.d("RHTP LeftTurn", "Entering Left Turn Function");
 
         gyroSensor.resetZAxisIntegrator();
         Thread.sleep(turndelay);
-        Log.d("LeftTurn", "Start Position: " + gyroSensor.getHeading());
+        Log.d("RHTP LeftTurn", "Start Position: " + gyroSensor.getHeading());
         motorLeft.setPower(-speed);
         motorRight.setPower(speed);
         currentposgps=gyroSensor.getHeading();
         //turn until desired position
         while  ((currentposgps <= 360-degrees-13) || (currentposgps >= 360-degrees+1)) {
-            Log.d("LeftTurn", "Current Position: " + gyroSensor.getHeading());
+            Log.d("RHTP LeftTurn", "Current Position: " + gyroSensor.getHeading());
             Thread.sleep(15);
             currentposgps=gyroSensor.getHeading();
             if (isTimeToStop()) {break;}
         }
-        Log.d("LeftTurn", "End Position: " + gyroSensor.getHeading());
+        Log.d("RHTP LeftTurn", "End Position: " + gyroSensor.getHeading());
         motorLeft.setPower(0);
         motorRight.setPower(0);
     }
@@ -327,7 +327,13 @@ public abstract class AutoOpMode extends LinearOpMode{
             Thread.sleep(1300);
             servotop.setPosition(0.0);
             MoveBackward(ONEWHEELROTATION / 3);
-            TurnRight(85);
+            if (red) {
+                TurnRight(85);
+            }
+            else
+            {
+                TurnRight(86);
+            }
             servoBeacon.setPosition(0.6);
             MoveBackward(ONEWHEELROTATION / 2);
             MoveForwardTilWhite();
