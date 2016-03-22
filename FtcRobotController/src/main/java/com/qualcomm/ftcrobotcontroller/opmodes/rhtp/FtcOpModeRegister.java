@@ -33,6 +33,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes.rhtp;
 
 import com.qualcomm.ftcrobotcontroller.opmodes.MRRGBExample;
 import com.qualcomm.ftcrobotcontroller.opmodes.TESTAutoFollowLine;
+import com.qualcomm.ftcrobotcontroller.opmodes.minibot.MiniBotTeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
@@ -95,6 +96,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("AUTODriveAndDumpPosBRed",AUTODriveAndDumpPosBRed.class);
     manager.register("WAIT AUTODriveAndDumpPosBBlue",AUTO_5_SEC_WAITDriveAndDumpPosBBlue.class);
     manager.register("AUTODriveAndDumpPosBBlue",AUTODriveAndDumpPosBBlue.class);
+    manager.register("MiniBotTeleOp", MiniBotTeleOp.class);
     //manager.register("AUTODriveAndDumpPosBRedDistanceTest",AUTODriveAndDumpPosBRedDistanceTest.class);
 
 
