@@ -43,20 +43,13 @@ import com.qualcomm.robotcore.util.Range;
  */
 public class MiniBotTeleOp extends OpMode {
 
-	/*
-	 * Note: the configuration of the servos is such that
-	 * as the arm servo approaches 0, the arm position moves up (away from the floor).
-	 * Also, as the claw servo approaches 0, the claw opens up (drops the game element).
-	 */
-	// TETRIX VALUES.
-	final static double ARM_MIN_RANGE  = 0.20;
-	final static double ARM_MAX_RANGE  = 0.90;
 
 	DcMotor motorRight;
 	DcMotor motorLeft;
-
-	int servopos;
-
+	int timerslowmode =0;
+	//Servo servo1;
+	//double servopos;
+	boolean slow=false;
 	/**
 	 * Constructor
 	 */
@@ -76,7 +69,7 @@ public class MiniBotTeleOp extends OpMode {
 		 * that the names of the devices must match the names used when you
 		 * configured your robot and created the configuration file.
 		 */
-		double servopos=0.0;
+		//double servopos=0.0;
 		/*
 		 * For the demo Tetrix K9 bot we assume the following,
 		 *   There are two motors "motor_1" and "motor_2"
@@ -87,6 +80,7 @@ public class MiniBotTeleOp extends OpMode {
 		 *    "servo_1" controls the arm joint of the manipulator.
 		 *    "servo_6" controls the claw joint of the manipulator.
 		 */
+		//servo1 = hardwareMap.servo.get("servo");
 		motorRight = hardwareMap.dcMotor.get("motor_1");
 		motorLeft = hardwareMap.dcMotor.get("motor_2");
 		motorLeft.setDirection(DcMotor.Direction.REVERSE);
@@ -108,12 +102,27 @@ public class MiniBotTeleOp extends OpMode {
 		 * wrist/claw via the a,b, x, y buttons
 		 */
 
-
+		if (timerslowmode >=30) {
+			if (gamepad1.a) {
+				if (slow == true) {
+					slow = false;
+				} else {
+					slow = true;
+				}
+				timerslowmode =0;
+			}
+		}
+		timerslowmode++;
 		// tank drive
 		// note that if y equal -1 then joystick is pushed all of the way forward.
 		float left = -gamepad1.left_stick_y;
 		float right = -gamepad1.right_stick_y;
 		// clip the right/left values so that the values never exceed +/- 1
+		if (slow)
+		{
+			right=right/2;
+			left=left/2;
+		}
 		right = Range.clip(right, -1, 1);
 		left = Range.clip(left, -1, 1);
 
@@ -133,6 +142,16 @@ public class MiniBotTeleOp extends OpMode {
 		 * are currently write only.
 		 */
 
+
+		/*if (gamepad1.right_bumper) {
+			servopos += 0.01;
+		}
+		if (gamepad1.left_bumper) {
+			servopos -= 0.01;
+		}
+		servopos = Range.clip(servopos, 0.50, .60);
+
+		servo1.setPosition(servopos);*/
 		telemetry.addData("Text", "*** Robot Data***");
 		telemetry.addData("left drive pwr",  "left  pwr: " + String.format("%.2f", left));
 		telemetry.addData("right drive pwr", "right pwr: " + String.format("%.2f", right));
