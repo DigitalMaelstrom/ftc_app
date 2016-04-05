@@ -31,10 +31,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes.rhtp;
 
-import com.qualcomm.ftcrobotcontroller.opmodes.MRRGBExample;
-import com.qualcomm.ftcrobotcontroller.opmodes.TESTAutoFollowLine;
-import com.qualcomm.ftcrobotcontroller.opmodes.minibot.MiniBotArmTeleOp;
-import com.qualcomm.ftcrobotcontroller.opmodes.minibot.MiniBotTeleOp;
+import com.qualcomm.ftcrobotcontroller.opmodes.minibot.MiniBotLightWeight;
+import com.qualcomm.ftcrobotcontroller.opmodes.minibot.MiniBotMIAE;
+import com.qualcomm.ftcrobotcontroller.opmodes.minibot.MiniBotQuarkle;
+import com.qualcomm.ftcrobotcontroller.opmodes.minibot.MiniBotSlug;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
@@ -69,11 +69,11 @@ public class FtcOpModeRegister implements OpModeRegister {
     // manager.register ("TestWheelsOP", TestWheelsOP.class);
     //manager.register ("RhtpTankDrive2Controls4Op", RhtpTankDrive2Controls4OP.class);
     //manager.register ("TestWheelsOP", TestWheelsOP.class);
-    manager.register ("TELEMainTeleopControlChimayo", TELEMainTeleopControlChimayo.class);
-    manager.register ("TELEMainTeleopControlHidalgo", TELEMainTeleopControlHidalgo.class);
+    //manager.register ("TELEMainTeleopControlChimayo", TELEMainTeleopControlChimayo.class);
+    //manager.register ("TELEMainTeleopControlHidalgo", TELEMainTeleopControlHidalgo.class);
     //manager.register ("TESTMoveTillWhite", TESTMoveTillWhite.class);
-    //manager.register ("TESTServoControl", TESTServoControl.class);
-    manager.register("TESTDistanceSensor", TESTDistanceSensor.class);
+    manager.register ("TESTServoControl", TESTServoControl.class);
+    //manager.register("TESTDistanceSensor", TESTDistanceSensor.class);
     //manager.register("TESTAutoStop", TESTAutoStop.class);
    // manager.register("TESTAutoFollowLine", TESTAutoFollowLine.class);
     //manager.register ("AutoMoveForwardGyroOP", AutoMoveForwardGyroOP.class);
@@ -93,12 +93,14 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("SolaBotGyroTest",SolaBotGyroTest.class);
     //manager.register("AUTODriveAndDumpPosARed",AUTODriveAndDumpPosARed.class);
     //manager.register("AUTODriveAndDumpPosBRed",AUTODriveAndDumpPosBRed.class);
-    manager.register("WAIT AUTODriveAndDumpPosBRed",AUTO_5_SEC_WAITDriveAndDumpPosBRed.class);
-    manager.register("AUTODriveAndDumpPosBRed",AUTODriveAndDumpPosBRed.class);
-    manager.register("WAIT AUTODriveAndDumpPosBBlue",AUTO_5_SEC_WAITDriveAndDumpPosBBlue.class);
-    manager.register("AUTODriveAndDumpPosBBlue",AUTODriveAndDumpPosBBlue.class);
-    manager.register("MiniBotTeleOp", MiniBotTeleOp.class);
-    manager.register("MiniBotArmTeleOp", MiniBotArmTeleOp.class);
+   // manager.register("WAIT AUTODriveAndDumpPosBRed",AUTO_5_SEC_WAITDriveAndDumpPosBRed.class);
+    //manager.register("AUTODriveAndDumpPosBRed",AUTODriveAndDumpPosBRed.class);
+    //manager.register("WAIT AUTODriveAndDumpPosBBlue",AUTO_5_SEC_WAITDriveAndDumpPosBBlue.class);
+    //manager.register("AUTODriveAndDumpPosBBlue",AUTODriveAndDumpPosBBlue.class);
+    manager.register("MiniBotLightWeight", MiniBotLightWeight.class);
+    manager.register("MiniBotMIAE", MiniBotMIAE.class);
+    manager.register("MiniBotQuarkle", MiniBotQuarkle.class);
+    manager.register("MiniBotSlug", MiniBotSlug.class);
     //manager.register("AUTODriveAndDumpPosBRedDistanceTest",AUTODriveAndDumpPosBRedDistanceTest.class);
 
 

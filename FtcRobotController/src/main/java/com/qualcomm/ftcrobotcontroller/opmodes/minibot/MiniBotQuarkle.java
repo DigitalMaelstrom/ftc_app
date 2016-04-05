@@ -41,24 +41,21 @@ import com.qualcomm.robotcore.util.Range;
  * <p>
  * Enables control of the robot via the gamepad
  */
-public class MiniBotArmTeleOp extends OpMode {
+public class MiniBotQuarkle extends OpMode {
 
 
 	DcMotor motorRight;
 	DcMotor motorLeft;
-	Servo arm;
-
-	final double servoUpdateInterval = 0.25;
-	double servoUpdateTime = 0.0;
-	double armValue = 0.0;
 	int timerslowmode =0;
-	//Servo servo1;
-	//double servopos;
+	Servo servo1;
+	Servo servo2;
+	double servopos=1;
+	double servopos2=1;
 	boolean slow=false;
 	/**
 	 * Constructor
 	 */
-	public MiniBotArmTeleOp() {
+	public MiniBotQuarkle() {
 
 	}
 
@@ -85,12 +82,11 @@ public class MiniBotArmTeleOp extends OpMode {
 		 *    "servo_1" controls the arm joint of the manipulator.
 		 *    "servo_6" controls the claw joint of the manipulator.
 		 */
-		//servo1 = hardwareMap.servo.get("servo");
+		servo1 = hardwareMap.servo.get("servo_1");
+		servo2 = hardwareMap.servo.get("servo_2");
 		motorRight = hardwareMap.dcMotor.get("motor_1");
 		motorLeft = hardwareMap.dcMotor.get("motor_2");
 		motorLeft.setDirection(DcMotor.Direction.REVERSE);
-
-		arm = hardwareMap.servo.get("servo_1");
 
 	}
 
@@ -120,19 +116,10 @@ public class MiniBotArmTeleOp extends OpMode {
 			}
 		}
 		timerslowmode++;
-
-		if(this.getRuntime() >= servoUpdateTime) {
-			if (gamepad1.x) {
-				armValue += 0.1;
-			} else if (gamepad1.y) {
-				armValue -= 0.1;
-			}
-		}
 		// tank drive
 		// note that if y equal -1 then joystick is pushed all of the way forward.
 		float left = -gamepad1.left_stick_y;
 		float right = -gamepad1.right_stick_y;
-
 		// clip the right/left values so that the values never exceed +/- 1
 		if (slow)
 		{
@@ -141,7 +128,6 @@ public class MiniBotArmTeleOp extends OpMode {
 		}
 		right = Range.clip(right, -1, 1);
 		left = Range.clip(left, -1, 1);
-		armValue = Range.clip(armValue, 0, 1);
 
 		// scale the joystick value to make it easier to control
 		// the robot more precisely at slower speeds.
@@ -152,12 +138,6 @@ public class MiniBotArmTeleOp extends OpMode {
 		motorRight.setPower(right);
 		motorLeft.setPower(left);
 
-
-		if(this.getRuntime() >= servoUpdateTime) {
-			arm.setPosition(armValue);
-			servoUpdateTime = this.getRuntime() + servoUpdateInterval;
-		}
-
 		/*
 		 * Send telemetry data back to driver station. Note that if we are using
 		 * a legacy NXT-compatible motor controller, then the getPower() method
@@ -166,20 +146,26 @@ public class MiniBotArmTeleOp extends OpMode {
 		 */
 
 
-		/*if (gamepad1.right_bumper) {
+		if (gamepad1.right_bumper) {
 			servopos += 0.01;
 		}
 		if (gamepad1.left_bumper) {
-			servopos -= 0.01;
-		}
-		servopos = Range.clip(servopos, 0.50, .60);
+		servopos -= 0.01;
+	}
+		servopos = Range.clip(servopos, 0, 1);
 
-		servo1.setPosition(servopos);*/
+		servo1.setPosition(servopos);
+		if (gamepad1.left_trigger>=0.3) {
+			servopos2-=0.01;
+		}
+		if (gamepad1.right_trigger>=0.3) {
+			servopos2 += 0.01;
+		}
+		servopos2=Range.clip(servopos2,0.3,1);
+		servo2.setPosition(servopos2);
 		telemetry.addData("Text", "*** Robot Data***");
 		telemetry.addData("left drive pwr",  "left  pwr: " + String.format("%.2f", left));
 		telemetry.addData("right drive pwr", "right pwr: " + String.format("%.2f", right));
-		telemetry.addData("arm", "arm: " + String.format("%.2f", armValue));
-		telemetry.addData("updateTime", "servoUpdateTime: " + String.format("%.2f", servoUpdateTime));
 	}
 
 	/*

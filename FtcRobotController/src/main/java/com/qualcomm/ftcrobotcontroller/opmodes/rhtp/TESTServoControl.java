@@ -44,7 +44,7 @@ public class TESTServoControl extends OpMode {
 			if (gamepad1.left_bumper) {
 				servopos -= 0.01;
 			}
-		servopos = Range.clip(servopos, 0.50, .60);
+		servopos = Range.clip(servopos, 0.00, .10);
 
 			servo.setPosition(servopos);
 

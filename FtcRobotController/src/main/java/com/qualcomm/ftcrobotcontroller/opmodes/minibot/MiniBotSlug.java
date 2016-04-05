@@ -33,7 +33,6 @@ package com.qualcomm.ftcrobotcontroller.opmodes.minibot;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 /**
@@ -41,9 +40,9 @@ import com.qualcomm.robotcore.util.Range;
  * <p>
  * Enables control of the robot via the gamepad
  */
-public class MiniBotTeleOp extends OpMode {
+public class MiniBotSlug extends OpMode {
 
-
+	DcMotor motorArm;
 	DcMotor motorRight;
 	DcMotor motorLeft;
 	int timerslowmode =0;
@@ -53,7 +52,7 @@ public class MiniBotTeleOp extends OpMode {
 	/**
 	 * Constructor
 	 */
-	public MiniBotTeleOp() {
+	public MiniBotSlug() {
 
 	}
 
@@ -84,6 +83,7 @@ public class MiniBotTeleOp extends OpMode {
 		motorRight = hardwareMap.dcMotor.get("motor_1");
 		motorLeft = hardwareMap.dcMotor.get("motor_2");
 		motorLeft.setDirection(DcMotor.Direction.REVERSE);
+		motorArm=hardwareMap.dcMotor.get("motor_3");
 
 	}
 
@@ -135,23 +135,17 @@ public class MiniBotTeleOp extends OpMode {
 		motorRight.setPower(right);
 		motorLeft.setPower(left);
 
-		/*
-		 * Send telemetry data back to driver station. Note that if we are using
-		 * a legacy NXT-compatible motor controller, then the getPower() method
-		 * will return a null value. The legacy NXT-compatible motor controllers
-		 * are currently write only.
-		 */
-
-
-		/*if (gamepad1.right_bumper) {
-			servopos += 0.01;
+		if (gamepad1.y) {
+			motorArm.setPower(0.1);
 		}
-		if (gamepad1.left_bumper) {
-			servopos -= 0.01;
+		else
+		{
+			motorArm.setPower(0);
 		}
-		servopos = Range.clip(servopos, 0.50, .60);
+		if (gamepad1.b) {
+			motorArm.setPower(-0.1);
+		}
 
-		servo1.setPosition(servopos);*/
 		telemetry.addData("Text", "*** Robot Data***");
 		telemetry.addData("left drive pwr",  "left  pwr: " + String.format("%.2f", left));
 		telemetry.addData("right drive pwr", "right pwr: " + String.format("%.2f", right));
