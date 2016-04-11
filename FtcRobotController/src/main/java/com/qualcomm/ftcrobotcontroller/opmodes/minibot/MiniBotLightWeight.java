@@ -143,14 +143,14 @@ public class MiniBotLightWeight extends OpMode {
 		 */
 
 		if (gamepad1.y) {
-			motorArm.setPower(0.4);
+			motorArm.setPower(0.6);
 		}
 		else
 		{
 			motorArm.setPower(0);
 		}
 		if (gamepad1.b) {
-			motorArm.setPower(-0.4);
+			motorArm.setPower(-0.6);
 		}
 
 		if (gamepad1.left_trigger>=0.3) {
