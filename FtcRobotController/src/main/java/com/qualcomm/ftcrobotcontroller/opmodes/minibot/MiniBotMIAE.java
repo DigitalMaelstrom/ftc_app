@@ -143,14 +143,14 @@ public class MiniBotMIAE extends OpMode {
 		 */
 
 		if (gamepad1.y) {
-			motorArm.setPower(0.2);
+			motorArm.setPower(0.4);
 		}
 		else
 		{
 			motorArm.setPower(0);
 		}
 		if (gamepad1.b) {
-			motorArm.setPower(-0.2);
+			motorArm.setPower(-0.4);
 		}
 
 		if (gamepad1.left_trigger>=0.3) {
