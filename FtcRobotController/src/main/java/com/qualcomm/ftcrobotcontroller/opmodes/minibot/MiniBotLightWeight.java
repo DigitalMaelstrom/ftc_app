@@ -48,7 +48,7 @@ public class MiniBotLightWeight extends OpMode {
 	DcMotor motorLeft;
 	int timerslowmode =0;
 	Servo servo1;
-	double servopos;
+	double servopos=0;
 	boolean slow=false;
 	/**
 	 * Constructor

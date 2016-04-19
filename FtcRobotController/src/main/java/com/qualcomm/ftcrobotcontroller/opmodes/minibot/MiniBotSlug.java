@@ -136,14 +136,17 @@ public class MiniBotSlug extends OpMode {
 		motorLeft.setPower(left);
 
 		if (gamepad1.y) {
-			motorArm.setPower(0.1);
+			motorArm.setPower(0.15);
+		} else if (gamepad1.b) {
+			motorArm.setPower(-0.15);
+		} else if (gamepad1.x) {
+			motorArm.setPower(1.0);
+		} else if (gamepad1.a) {
+			motorArm.setPower(-1.0);
 		}
 		else
 		{
 			motorArm.setPower(0);
-		}
-		if (gamepad1.b) {
-			motorArm.setPower(-0.1);
 		}
 
 		telemetry.addData("Text", "*** Robot Data***");

@@ -43,7 +43,7 @@ import com.qualcomm.robotcore.util.Range;
  */
 public class MiniBotQuarkle extends OpMode {
 
-
+	DcMotor motorArm;
 	DcMotor motorRight;
 	DcMotor motorLeft;
 	int timerslowmode =0;
@@ -87,7 +87,7 @@ public class MiniBotQuarkle extends OpMode {
 		motorRight = hardwareMap.dcMotor.get("motor_1");
 		motorLeft = hardwareMap.dcMotor.get("motor_2");
 		motorLeft.setDirection(DcMotor.Direction.REVERSE);
-
+		motorArm=hardwareMap.dcMotor.get("motor_3");
 	}
 
 	/*
@@ -145,6 +145,16 @@ public class MiniBotQuarkle extends OpMode {
 		 * are currently write only.
 		 */
 
+		if (gamepad1.y) {
+			motorArm.setPower(0.3);
+		}
+		else
+		{
+			motorArm.setPower(0);
+		}
+		if (gamepad1.b) {
+			motorArm.setPower(-0.3);
+		}
 
 		if (gamepad1.right_bumper) {
 			servopos += 0.01;
